@@ -21,7 +21,7 @@ public class SaluteJava {
             // Cria a conexão com o banco de dados
             connection = DriverManager.getConnection("jdbc:sqlite:base.db");
             Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);  // Espera só por 30 segundos para conectar
+            statement.setQueryTimeout(30); // Espera só por 30 segundos para conectar
 
             // Roda os comandos para o SQLite
             statement.executeUpdate("DROP TABLE IF EXISTS terminalroot");
