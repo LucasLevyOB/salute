@@ -15,13 +15,11 @@ public class Recurso {
     private String tombamento;
     private TipoRecurso tipo;
     private EstadoRecurso estado;
-    private int qtde;
 
-    public Recurso(String tombamento, TipoRecurso tipo, EstadoRecurso estado, int qtde) {
+    public Recurso(String tombamento, TipoRecurso tipo, EstadoRecurso estado) {
         this.tombamento = tombamento;
         this.tipo = tipo;
         this.estado = estado;
-        this.qtde = qtde;
     }
 
     public String getTombamento() {
@@ -35,8 +33,5 @@ public class Recurso {
     public EstadoRecurso getEstado() {
         return estado;
     }
-    
-    public int getQtde() {
-        return qtde;
-    }
+
 }
