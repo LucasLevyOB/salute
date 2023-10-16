@@ -60,7 +60,6 @@ public class SaluteJava {
     }
 
     public static boolean iteraSobreSalas(Horario horario, Map<Integer, Sala> salas, boolean teorica, Turma turma) {
-        boolean alocou = false;
         ArrayList<int[]> salaHorarioCompativel = new ArrayList<>();
 
         for (Integer keySala : salas.keySet()) {
@@ -80,25 +79,47 @@ public class SaluteJava {
             // }
         }
 
-        if (salaHorarioCompativel.size() > 0) {
-            int[] pontos = salaHorarioCompativel.get(0);
-            int idHorario = pontos[0];
-            int pontosRecursos = pontos[1];
-            int idSala = pontos[2];
-            for (int i = 1; i < salaHorarioCompativel.size(); i++) {
-                int[] pontosAtual = salaHorarioCompativel.get(i);
-                if (pontosAtual[1] > pontosRecursos) {
-                    pontos = pontosAtual;
-                    idHorario = pontos[0];
-                    pontosRecursos = pontos[1];
-                }
-            }
-            // Sala sala = salas.get(idHorario);
-            salas.get(idSala).getTurmas().put(idHorario, turma);
-            alocou = true;
+        if (salaHorarioCompativel.size() == 0) {
+            return false;
         }
 
-        return alocou;
+        Collections.sort(salaHorarioCompativel, (a, b) -> {
+            int pontosA = a[1];
+            int pontosB = b[1];
+            return pontosB - pontosA;
+        });
+
+        // System.out.println("Horarios e pontos");
+        // for (int i = 0; i < salaHorarioCompativel.size(); i++) {
+        // int[] pontos = salaHorarioCompativel.get(i);
+        // System.out.println("Horario: " + pontos[0] + " Pontos: " + pontos[1]);
+        // }
+        // System.out.println("Fim Horarios e pontos");
+
+        int[] pontos = salaHorarioCompativel.get(0);
+        int idHorario = pontos[0];
+        int idSala = pontos[2];
+        salas.get(idSala).getTurmas().put(idHorario, turma);
+
+        // if (salaHorarioCompativel.size() > 0) {
+        // int[] pontos = salaHorarioCompativel.get(0);
+        // int idHorario = pontos[0];
+        // int pontosRecursos = pontos[1];
+        // int idSala = pontos[2];
+        // for (int i = 1; i < salaHorarioCompativel.size(); i++) {
+        // int[] pontosAtual = salaHorarioCompativel.get(i);
+        // if (pontosAtual[1] > pontosRecursos) {
+        // pontos = pontosAtual;
+        // idHorario = pontos[0];
+        // pontosRecursos = pontos[1];
+        // }
+        // }
+        // // Sala sala = salas.get(idHorario);
+        // salas.get(idSala).getTurmas().put(idHorario, turma);
+        // alocou = true;
+        // }
+
+        return true;
     }
 
     public static void iteraSobreHorariosTurma(Turma turma, Map<Integer, Sala> salas) {
