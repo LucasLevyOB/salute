@@ -1,0 +1,39 @@
+.root {
+  -fx-background-color: #FFFFFF;
+}
+
+.header {
+  /* -fx-background-image: url("./img/Rectangle.png");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: cover;
+  -fx-background-position: top center; */
+  /* -fx-background-color: #FFFFFF; */
+  -fx-background-color: rgba(9,9,121,1);
+}
+
+.font-title {
+  -fx-font-size: 50px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #FFFFFF;
+}
+.btn {
+  -fx-font-size: 14px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 8px;
+  -fx-padding: 16px 24px;
+}
+.btn.primary {
+  -fx-background-color: #212121;
+  -fx-text-fill: #fff;
+}
+.btn.large {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 10px;
+  -fx-padding: 32px 48px;
+}
+.btn.secondary {
+  -fx-text-fill: #1E1E1E;
+  -fx-background-color: #FFFFFF;
+}
+ 

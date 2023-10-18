@@ -17,14 +17,15 @@ import javafx.stage.Stage;
  */
 public class SaluteJava extends Application {
 
-    public static void main(String[] args)throws Exception {
+    public static void main(String[] args) throws Exception {
         launch();
     }
 
     @Override
-    public void start(Stage primaryStage)throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         Parent login = FXMLLoader.load(getClass().getResource("view/AlocacaoAutomatica.fxml"));
         Scene scene = new Scene(login);
+        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Alocação Automática");
         primaryStage.setResizable(false);
