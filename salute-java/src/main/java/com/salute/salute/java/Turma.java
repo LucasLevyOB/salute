@@ -11,29 +11,35 @@ import com.salute.salute.java.recurso.Necessidade;
  *
  * @author lucas-levy
  */
-public class Turma {
+public class Turma implements Comparable<Turma> {
 
     private int id;
     private int qtdeAlunos;
-    private int cargaTotal;
     private int cargaTeorica;
     private int cargaPratica;
     private int ano;
+    private String nome;
+    private String professor;
     private Semestre semestre;
+    private String curso;
+    private int semestreCurso;
     private Horario[] horarios;
     private Necessidade[] necessidades;
 
-    public Turma(int id, int qtdeAlunos, int cargaTotal, int cargaTeorica, int cargaPratica, int ano, Semestre semestre,
-            Horario[] horarios, Necessidade[] necessidades) {
+    public Turma(int id, String nome, String professor, int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano,
+            Semestre semestre, Horario[] horarios, Necessidade[] necessidades, String curso, int semestreCurso) {
         this.id = id;
+        this.nome = nome;
+        this.professor = professor;
         this.qtdeAlunos = qtdeAlunos;
-        this.cargaTotal = cargaTotal;
         this.cargaTeorica = cargaTeorica;
         this.cargaPratica = cargaPratica;
         this.ano = ano;
         this.semestre = semestre;
         this.horarios = horarios;
         this.necessidades = necessidades;
+        this.curso = curso;
+        this.semestreCurso = semestreCurso;
     }
 
     public int getId() {
@@ -42,10 +48,6 @@ public class Turma {
 
     public int getQtdeAlunos() {
         return qtdeAlunos;
-    }
-
-    public int getCargaTotal() {
-        return cargaTotal;
     }
 
     public int getCargaTeorica() {
@@ -72,4 +74,37 @@ public class Turma {
         return necessidades;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public int getSemestreCurso() {
+        return semestreCurso;
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return "Turma{" + "id=" + id + ", nome=" + nome + ", professor=" + professor + '}';
+    }
+
+    // ordenar por curso, semestre, professor
+    @Override
+    public int compareTo(Turma o) {
+        if (this.curso.compareTo(o.curso) == 0) {
+            if (this.semestreCurso == o.semestreCurso) {
+                return this.professor.compareTo(o.professor);
+            }
+            return this.semestreCurso - o.semestreCurso;
+        }
+        return this.curso.compareTo(o.curso);
+    }
 }

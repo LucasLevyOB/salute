@@ -14,7 +14,7 @@ import com.salute.salute.java.enums.Turno;
  *
  * @author lucas-levy
  */
-public class Horario {
+public class Horario implements Comparable<Horario> {
 
     private int id;
     private Turno turno;
@@ -30,6 +30,21 @@ public class Horario {
         this.diaSemana = diaSemana;
         this.data = data;
         this.recorrente = recorrente;
+    }
+
+    public Horario(int id, Turno turno, HorarioTurno horario, DiaSemana diaSemana, boolean recorrente) {
+        this.id = id;
+        this.turno = turno;
+        this.horario = horario;
+        this.diaSemana = diaSemana;
+        this.recorrente = recorrente;
+    }
+
+    public Horario(int id, Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
+        this.id = id;
+        this.turno = turno;
+        this.horario = horario;
+        this.diaSemana = diaSemana;
     }
 
     public int getId() {
@@ -56,4 +71,29 @@ public class Horario {
         return recorrente;
     }
 
+    @Override
+    public String toString() {
+        return "Horario [diaSemana=" + diaSemana + ", horario=" + horario + ", turno=" + turno + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Horario)) {
+            return false;
+        }
+        Horario horario = (Horario) obj;
+        return this.diaSemana == horario.getDiaSemana() && this.horario == horario.getHorario()
+                && this.turno == horario.getTurno();
+    }
+
+    @Override
+    public int compareTo(Horario o) {
+        if (this.diaSemana == o.getDiaSemana()) {
+            if (this.horario == o.getHorario()) {
+                return this.turno.compareTo(o.getTurno());
+            }
+            return this.horario.compareTo(o.getHorario());
+        }
+        return this.diaSemana.compareTo(o.getDiaSemana());
+    }
 }
