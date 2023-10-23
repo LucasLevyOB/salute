@@ -3,11 +3,6 @@
 }
 
 .header {
-  /* -fx-background-image: url("./img/Rectangle.png");
-  -fx-background-repeat: no-repeat;
-  -fx-background-size: cover;
-  -fx-background-position: top center; */
-  /* -fx-background-color: #FFFFFF; */
   -fx-background-color: rgba(9,9,121,1);
 }
 

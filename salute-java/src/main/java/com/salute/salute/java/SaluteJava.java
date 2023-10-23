@@ -7,8 +7,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -23,12 +21,11 @@ public class SaluteJava extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent login = FXMLLoader.load(getClass().getResource("view/AlocacaoAutomatica.fxml"));
-        Scene scene = new Scene(login);
+        Parent startView = FXMLLoader.load(getClass().getResource("view/main.fxml"));
+        Scene scene = new Scene(startView);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Alocação Automática");
-        primaryStage.setResizable(false);
+        primaryStage.setTitle("SALUTE");
         primaryStage.show();
     }
 }

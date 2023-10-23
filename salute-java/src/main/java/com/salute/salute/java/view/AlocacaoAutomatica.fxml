@@ -42,32 +42,39 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.salute.salute.java.controller.AlocacaoAutomatica">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
+      VBox.vgrow="ALWAYS">
       <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
-            <Text fill="WHITE" layoutX="138.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALOCAÇÃO AUTOMÁTICA">
-               <font>
-                  <Font name="Arial Bold" size="30.0" />
-               </font>
-            </Text>
-            <TableView layoutX="44.0" layoutY="178.0" prefHeight="199.0" prefWidth="571.0">
-              <columns>
-                <TableColumn prefWidth="225.0" text="TEXT" />
-                <TableColumn minWidth="0.0" prefWidth="0.0" text="TEXT" />
-                  <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-                  <TableColumn prefWidth="225.0" text="TEXT" />
-                  <TableColumn prefWidth="120.0" text="AÇÕES" />
-              </columns>
-            </TableView>
-            <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false">
-               <!-- <graphic> -->
-                  <!-- <Icon content="ARROW_BACK" /> -->
-               <!-- </graphic> -->
-            </Button>
-            <Button layoutX="331.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="272.0" text="ALOCAR MANUAL" />
-            <Button layoutX="44.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="272.0" text="ALOCAR AUTOMÁTICO" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK"
+          strokeType="INSIDE" width="640.0" />
+        <Text fill="WHITE" layoutX="138.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="ALOCAÇÃO AUTOMÁTICA" onAction="#alocarTurmas">
+          <font>
+            <Font name="Arial Bold" size="30.0" />
+          </font>
+        </Text>
+        <TableView layoutX="44.0" layoutY="178.0" prefHeight="199.0" prefWidth="571.0">
+          <columns>
+            <TableColumn prefWidth="225.0" text="TEXT" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="TEXT" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
+            <TableColumn prefWidth="225.0" text="TEXT" />
+            <TableColumn prefWidth="120.0" text="AÇÕES" />
+          </columns>
+        </TableView>
+        <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false">
+          <!-- <graphic> -->
+          <!-- <Icon content="ARROW_BACK" /> -->
+          <!-- </graphic> -->
+        </Button>
+        <Button layoutX="331.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
+          prefWidth="272.0" text="ALOCAR MANUAL" />
+        <Button layoutX="44.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
+          prefWidth="272.0" text="ALOCAR AUTOMÁTICO" />
       </children>
     </AnchorPane>
   </children>

@@ -13,7 +13,7 @@ import java.sql.Statement;
  *
  * @author lucas-levy
  */
-public class Connection {
+public class ConnectionDB {
 
     public static void main(String[] args) {
         Connection connection = null;
@@ -50,4 +50,3 @@ public class Connection {
         }
     }
 }
-
