@@ -52,17 +52,17 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK"
           strokeType="INSIDE" width="640.0" />
         <Text fill="WHITE" layoutX="138.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          text="ALOCAÇÃO AUTOMÁTICA" onAction="#alocarTurmas">
+          text="ALOCAÇÃO AUTOMÁTICA">
           <font>
             <Font name="Arial Bold" size="30.0" />
           </font>
         </Text>
-        <TableView layoutX="44.0" layoutY="178.0" prefHeight="199.0" prefWidth="571.0">
+        <TableView fx:id="tabela" layoutX="44.0" layoutY="178.0" prefHeight="199.0"
+          prefWidth="571.0">
           <columns>
-            <TableColumn prefWidth="225.0" text="TEXT" />
-            <TableColumn minWidth="0.0" prefWidth="0.0" text="TEXT" />
-            <TableColumn minWidth="0.0" prefWidth="0.0" text="C2" />
-            <TableColumn prefWidth="225.0" text="TEXT" />
+            <TableColumn prefWidth="225.0" fx:id="colunaSala" text="Sala" />
+            <TableColumn minWidth="0.0" prefWidth="225.0" fx:id="colunaHorario" text="Horario" />
+            <TableColumn minWidth="0.0" prefWidth="225.0" fx:id="colunaEstado" text="Turma" />
             <TableColumn prefWidth="120.0" text="AÇÕES" />
           </columns>
         </TableView>
@@ -74,7 +74,7 @@
         <Button layoutX="331.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
           prefWidth="272.0" text="ALOCAR MANUAL" />
         <Button layoutX="44.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
-          prefWidth="272.0" text="ALOCAR AUTOMÁTICO" />
+          prefWidth="272.0" text="ALOCAR AUTOMÁTICO" onAction="#alocarTurmas" />
       </children>
     </AnchorPane>
   </children>

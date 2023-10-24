@@ -90,6 +90,10 @@ public class Turma implements Comparable<Turma> {
         return semestreCurso;
     }
 
+    public String formatarParaTabela() {
+        return nome + " - " + professor;
+    }
+
     // toString
     @Override
     public String toString() {

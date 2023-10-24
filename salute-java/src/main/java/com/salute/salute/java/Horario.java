@@ -71,6 +71,10 @@ public class Horario implements Comparable<Horario> {
         return recorrente;
     }
 
+    public String formatarParaTabela() {
+        return diaSemana.toString() + " - " + horario.toString() + " - " + turno.toString();
+    }
+
     @Override
     public String toString() {
         return "Horario [diaSemana=" + diaSemana + ", horario=" + horario + ", turno=" + turno + "]";

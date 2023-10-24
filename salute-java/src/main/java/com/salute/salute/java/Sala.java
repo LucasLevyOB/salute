@@ -69,6 +69,10 @@ public class Sala implements Comparable<Sala> {
         return horarios;
     }
 
+    public Turma getTurmaPorKey(int key) {
+        return turmas.get(key);
+    }
+
     public Map<Integer, Turma> getTurmas() {
         return turmas;
     }
@@ -89,6 +93,10 @@ public class Sala implements Comparable<Sala> {
             }
         }
         return qtde;
+    }
+
+    public String formatarParaTabela() {
+        return this.tipo.toString() + ": " + this.numero + " - " + this.andar + " - " + this.bloco;
     }
 
     @Override
