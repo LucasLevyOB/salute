@@ -1,5 +1,9 @@
 package com.salute.salute.java.schemas;
 
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.selectFrom;
+
+import com.datastax.oss.driver.api.querybuilder.select.Select;
+
 /*
 enum salute.estado_recurso {
   funcionando
@@ -21,5 +25,11 @@ public class Recurso {
         " rec_tipo INTEGER REFERENCES tipo_recurso(tre_id)," +
         " rec_estado VARCHAR(255) CHECK(rec_estado IN ('funcionando', 'quebrado'))," +
         " rec_qtde INTEGER);";
+  }
+
+  public static Select listAll() {
+    Select select = selectFrom("recurso").all();
+
+    return select;
   }
 }
