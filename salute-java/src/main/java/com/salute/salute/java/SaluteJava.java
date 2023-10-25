@@ -3,6 +3,8 @@
  */
 package com.salute.salute.java;
 
+import com.salute.salute.java.database.Database;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +23,7 @@ public class SaluteJava extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Database.createSchemas();
         Parent startView = FXMLLoader.load(getClass().getResource("view/main.fxml"));
         Scene scene = new Scene(startView);
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());

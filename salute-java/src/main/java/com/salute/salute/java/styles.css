@@ -11,24 +11,27 @@
   -fx-font-weight: bold;
   -fx-text-fill: #FFFFFF;
 }
+
 .btn {
   -fx-font-size: 14px;
   -fx-font-weight: bold;
   -fx-background-radius: 8px;
   -fx-padding: 16px 24px;
 }
+
 .btn.primary {
   -fx-background-color: #212121;
   -fx-text-fill: #fff;
 }
+
 .btn.large {
   -fx-font-size: 20px;
   -fx-font-weight: bold;
   -fx-background-radius: 10px;
   -fx-padding: 32px 48px;
 }
+
 .btn.secondary {
   -fx-text-fill: #1E1E1E;
   -fx-background-color: #FFFFFF;
 }
- 

@@ -45,8 +45,7 @@
 <VBox prefHeight="400.0" prefWidth="640.0" spacing="96.0" xmlns="http://javafx.com/javafx/21"
   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.Main">
   <children>
-    <GridPane prefHeight="161.0" prefWidth="640.0"
-      style="-fx-background-image: &quot;./img/Rectangle.png&quot;;" styleClass="header">
+    <GridPane prefHeight="161.0" prefWidth="640.0" styleClass="header">
       <columnConstraints>
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -61,7 +60,7 @@
         <Label styleClass="font-title" text="SALUTE" GridPane.columnIndex="1" />
         <ImageView fitHeight="103.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
           <image>
-            <Image url="@../img/brasao2_vertical_cinza_300dpi.png" />
+            <Image url="@../img/logo-ufc-vetical 3 - branca.png" />
           </image>
         </ImageView>
       </children>
