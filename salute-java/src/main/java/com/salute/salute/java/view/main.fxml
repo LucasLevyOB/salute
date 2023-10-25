@@ -87,7 +87,7 @@
         <Button layoutX="242.0" layoutY="13.0" mnemonicParsing="false" styleClass="btn, primary"
           text="CADASTRAR TURMAS" GridPane.columnIndex="2" />
         <Button mnemonicParsing="false" styleClass="btn, primary" text="ALOCAÇAO MANUAL"
-          GridPane.rowIndex="1" />
+          GridPane.rowIndex="1" onAction="#switchScene" userData="AlocacaoManual" />
         <Button layoutX="41.0" layoutY="43.0" mnemonicParsing="false" styleClass="btn, primary"
           onAction="#switchScene" userData="AlocacaoAutomatica" text="ALOCAÇAO AUTOMATICA"
           GridPane.columnIndex="1" GridPane.rowIndex="1" />
