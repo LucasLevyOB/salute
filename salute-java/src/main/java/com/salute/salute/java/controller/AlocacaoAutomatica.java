@@ -22,7 +22,7 @@ import com.salute.salute.java.Sala;
 import com.salute.salute.java.Alocacao;
 import com.salute.salute.java.Turma;
 
-public class AlocacaoAutomatica implements Initializable {
+public class AlocacaoAutomatica extends Main implements Initializable {
   private TurmaStore turmaStore = TurmaStore.getInstance();
   private SalaStore salaStore = SalaStore.getInstance();
   private ArrayList<Alocacao> alocacoes = new ArrayList<>();

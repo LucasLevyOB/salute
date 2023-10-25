@@ -42,7 +42,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="com.salute.salute.java.controller.AlocacaoManual">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -53,13 +54,19 @@
                </font>
             </Text>
             <Button layoutX="244.0" layoutY="361.0" mnemonicParsing="false" text="ALOCAR MANUALMENTE" />
-            <TableView layoutX="28.0" layoutY="232.0" prefHeight="116.0" prefWidth="584.0">
+            <TableView fx:id="tabela" layoutX="28.0" layoutY="232.0" prefHeight="116.0" prefWidth="584.0">
               <columns>
-                <TableColumn prefWidth="175.0" text="Sala" />
-                <TableColumn prefWidth="211.0" text="Horário" />
-                  <TableColumn prefWidth="197.0" text="Turma" />
+                <TableColumn prefWidth="175.0" fx:id="colunaSala" text="Sala" />
+                <TableColumn prefWidth="211.0" fx:id="colunaHorario" text="Horário" />
+                <TableColumn prefWidth="197.0" fx:id="colunaEstado" text="Turma" />
+                <TableColumn prefWidth="120.0" text="AÇÕES" />
               </columns>
             </TableView>
+            <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchScene" userData="main">
+              <!-- <graphic> -->
+              <!-- <Icon content="ARROW_BACK" /> -->
+              <!-- </graphic> -->
+            </Button>
             <ChoiceBox layoutX="82.0" layoutY="135.0" prefWidth="150.0" />
             <Text layoutX="42.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SALA:" />
             <Text layoutX="244.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HORÁRIO:" />
