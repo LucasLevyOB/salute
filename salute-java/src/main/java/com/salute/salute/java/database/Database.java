@@ -5,7 +5,6 @@ package com.salute.salute.java.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -29,8 +28,9 @@ public class Database {
             statement.executeUpdate("DROP TABLE IF EXISTS tipo_recurso");
             // statement.executeUpdate("DROP TABLE IF EXISTS recurso");
             // Cria as tabelas do banco de dados
-            statement.executeUpdate(TipoRecurso.getSql());
-            statement.executeUpdate(Recurso.getSql());
+            // statement.executeUpdate(TipoRecurso.getSql());
+            TipoRecurso.createTable();
+            Recurso.createTable();
             statement.executeUpdate(Horario.getSql());
             statement.executeUpdate(Sala.getSql());
             statement.executeUpdate(AlocacaoRecursoSala.getSql());
@@ -42,9 +42,25 @@ public class Database {
 
             // statement.executeUpdate("INSERT INTO tipo_recurso VALUES(1, 'Projetor')");
             int result = TipoRecurso.insert("Projetor E");
-            System.out.println(result);
-            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs = TipoRecurso.listAll();
+
+            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs = TipoRecurso.getAll();
             for (com.salute.salute.java.recurso.TipoRecurso r : rs) {
+                System.out.println(r.getId());
+                System.out.println(r.getTipo());
+            }
+
+            int update = TipoRecurso.updateValue(new com.salute.salute.java.recurso.TipoRecurso(1, "Projetor G"));
+
+            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs2 = TipoRecurso.getAll();
+            for (com.salute.salute.java.recurso.TipoRecurso r : rs2) {
+                System.out.println(r.getId());
+                System.out.println(r.getTipo());
+            }
+
+            int delete = TipoRecurso.delete(1);
+            System.out.println(delete);
+            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs3 = TipoRecurso.getAll();
+            for (com.salute.salute.java.recurso.TipoRecurso r : rs3) {
                 System.out.println(r.getId());
                 System.out.println(r.getTipo());
             }
