@@ -26,7 +26,8 @@ public class Database {
             statement.setQueryTimeout(30); // Espera só por 30 segundos para conectar
 
             // statement.executeUpdate("DROP TABLE IF EXISTS turma");
-            // statement.executeUpdate("DROP TABLE IF EXISTS recurso");
+            statement.executeUpdate("DROP TABLE IF EXISTS recurso;");
+            statement.executeUpdate("DROP TABLE IF EXISTS tipo_recurso;");
             // Cria as tabelas do banco de dados
             // statement.executeUpdate(TipoRecurso.getSql());
             TipoRecurso.createTable();
@@ -40,39 +41,23 @@ public class Database {
             statement.executeUpdate(HorarioTurma.getSql());
             statement.executeUpdate(AlocacaoSalaTurma.getSql());
 
-            // statement.executeUpdate("INSERT INTO tipo_recurso VALUES(1, 'Projetor')");
-            int result = TipoRecurso.insert("Projetor E");
+            // Adicionar os tipos de recurso(Ar Condicionado e Projetor)
+            com.salute.salute.java.recurso.TipoRecurso tipoRecurso1 = new com.salute.salute.java.recurso.TipoRecurso(1, "Ar Condicionado");
+            com.salute.salute.java.recurso.TipoRecurso tipoRecurso2 = new com.salute.salute.java.recurso.TipoRecurso(2, "Projetor");
+            TipoRecurso.insert(tipoRecurso1);
+            TipoRecurso.insert(tipoRecurso2);
 
-            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs = TipoRecurso.getAll();
-            for (com.salute.salute.java.recurso.TipoRecurso r : rs) {
-                System.out.println(r.getId());
-                System.out.println(r.getTipo());
-            }
+            // Adicionar os recursos
+            com.salute.salute.java.recurso.Recurso recurso1 = new com.salute.salute.java.recurso.Recurso("123", tipoRecurso1, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
+            com.salute.salute.java.recurso.Recurso recurso2 = new com.salute.salute.java.recurso.Recurso("456", tipoRecurso2, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
+            int insert1 = Recurso.insert(recurso1);
+            int insert2 = Recurso.insert(recurso2);
+            System.out.println(insert1);
+            System.out.println(insert2);
 
-            int update = TipoRecurso.updateValue(new com.salute.salute.java.recurso.TipoRecurso(1, "Projetor G"));
-
-            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs2 = TipoRecurso.getAll();
-            for (com.salute.salute.java.recurso.TipoRecurso r : rs2) {
-                System.out.println(r.getId());
-                System.out.println(r.getTipo());
-            }
-
-            int delete = TipoRecurso.delete(1);
-            System.out.println(delete);
-            ArrayList<com.salute.salute.java.recurso.TipoRecurso> rs3 = TipoRecurso.getAll();
-            for (com.salute.salute.java.recurso.TipoRecurso r : rs3) {
-                System.out.println(r.getId());
-                System.out.println(r.getTipo());
-            }
-            // listar todos os tipos de recursos
-            // ResultSet rs = statement.executeQuery("SELECT * FROM tipo_recurso");
-            // System.out.println("Tipo de Recursos:");
-            // System.out.println(rs.getMetaData().getColumnName(1));
-            // while (rs.next()) {
-            // // Ler os dados inseridos
-            // System.out.println("ID : " + rs.getInt("tre_id"));
-            // System.out.println("Tipo : " + rs.getString("tre_tipo"));
-            // }
+            Recurso.getAll().forEach((recurso) -> {
+                System.out.println(recurso.getTombamento());
+            });
         } catch (SQLException e) {
             // Se a mensagem de erro for: "out of memory",
             // Provavelmente erro ao criar(permissão) ou caminho do banco de dados

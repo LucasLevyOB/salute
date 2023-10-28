@@ -40,8 +40,8 @@ public class TipoRecurso {
     return tiposRecurso;
   }
 
-  public static int insert(String tipo) {
-    RegularInsert query = insertInto(tableName).value("tre_tipo", literal(tipo));
+  public static int insert(com.salute.salute.java.recurso.TipoRecurso tipoRecurso) {
+    RegularInsert query = insertInto(tableName).value("tre_tipo", literal(tipoRecurso.getTipo()));
 
     return ConnectionDB.update(query.toString());
   }

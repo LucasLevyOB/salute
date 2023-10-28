@@ -26,7 +26,7 @@ public class Sala {
             " sal_capacidade INTEGER," +
             " sal_numero INTEGER," +
             " sal_bloco INTEGER," + 
-            " sal_andar INTEGER,));";
+            " sal_andar INTEGER);";
         return ConnectionDB.update(sql);
     }
 
