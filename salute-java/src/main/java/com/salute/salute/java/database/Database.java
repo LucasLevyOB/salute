@@ -32,8 +32,8 @@ public class Database {
             TipoRecurso.createTable();
             Recurso.createTable();
             Turma.createTable();
-            statement.executeUpdate(Horario.getSql());
-            statement.executeUpdate(Sala.getSql());
+            Horario.createTable();
+            Sala.createTable();
             statement.executeUpdate(AlocacaoRecursoSala.getSql());
             statement.executeUpdate(HorarioSala.getSql());
             statement.executeUpdate(NecessidadeTurma.getSql());
