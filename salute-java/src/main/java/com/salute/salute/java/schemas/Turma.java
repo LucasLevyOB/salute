@@ -38,16 +38,25 @@ public class Turma {
         " tur_carga_pratica INTEGER," +
         " tur_ano INTEGER," +
         " tur_professor VARCHAR(255)," +
+        " tur_nome VARCHAR(255)," +
+        " tur_curso VARCHAR(255)," +
+        " tur_semestre_curso VARCHAR(255)," +
         " tur_semestre VARCHAR(255) CHECK(tur_semestre IN ('primeiro', 'segundo')));";
     return ConnectionDB.update(sql);
+
   }
 
-  public static int insert(int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano, String semestre) {
+  public static int insert(int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano, String semestre, 
+  int semestre_curso, String tur_nome, String tur_professor) {
+
     RegularInsert query = insertInto("turma")
         .value("tur_qtde_alunos", literal(qtdeAlunos))
         .value("tur_carga_teorica", literal(cargaTeorica))
         .value("tur_carga_pratica", literal(cargaPratica))
         .value("tur_ano", literal(ano))
+        .value("tur_semestre_curso", literal(semestre_curso))
+        .value("tur_nome", literal(tur_nome))
+        .value("tur_professor", literal(tur_professor))
         .value("tur_semestre", literal(semestre));
 
     return ConnectionDB.update(query.toString());
