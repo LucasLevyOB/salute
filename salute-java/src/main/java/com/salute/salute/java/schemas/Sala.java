@@ -66,7 +66,7 @@ public class Sala {
                 rs.getString("sal_tipo"), 
                 rs.getInt("sal_capacidade"), 
                 rs.getInt("sal_numero"), 
-                rs.getInt("sal_andar"))),
+                rs.getInt("sal_andar")))
             }
         };
         ConnectionDB.query(query.toString(), function);
