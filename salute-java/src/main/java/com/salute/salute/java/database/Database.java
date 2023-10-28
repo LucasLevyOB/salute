@@ -25,7 +25,7 @@ public class Database {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30); // Espera só por 30 segundos para conectar
 
-            statement.executeUpdate("DROP TABLE IF EXISTS tipo_recurso");
+            // statement.executeUpdate("DROP TABLE IF EXISTS turma");
             // statement.executeUpdate("DROP TABLE IF EXISTS recurso");
             // Cria as tabelas do banco de dados
             // statement.executeUpdate(TipoRecurso.getSql());

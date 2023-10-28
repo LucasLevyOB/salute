@@ -37,6 +37,7 @@ public class Turma {
         " tur_carga_teorica INTEGER," +
         " tur_carga_pratica INTEGER," +
         " tur_ano INTEGER," +
+        " tur_professor VARCHAR(255)," +
         " tur_semestre VARCHAR(255) CHECK(tur_semestre IN ('primeiro', 'segundo')));";
     return ConnectionDB.update(sql);
   }
