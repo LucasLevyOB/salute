@@ -1,5 +1,6 @@
 package com.salute.salute.java.singleton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,38 +38,49 @@ public class TurmaStore {
     tipoRecurso[1] = new TipoRecurso(2, "Computador");
     tipoRecurso[2] = new TipoRecurso(3, "Ar Condicionado");
 
-    Horario[] horariosTurma1 = new Horario[2];
-    horariosTurma1[0] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true);
-    horariosTurma1[1] = new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true);
+    ArrayList<Horario> horariosTurma1 = new ArrayList<>();
+    horariosTurma1.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true));
+    horariosTurma1.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true));
 
-    Necessidade[] necessidadesTurma1 = new Necessidade[3];
-    necessidadesTurma1[0] = new Necessidade(tipoRecurso[0], 1);
-    necessidadesTurma1[1] = new Necessidade(tipoRecurso[2], 2);
-    necessidadesTurma1[2] = new Necessidade(tipoRecurso[1], 9);
+    ArrayList<Necessidade> necessidadesTurma1 = new ArrayList<>();
+    necessidadesTurma1.add(new Necessidade(tipoRecurso[0], 1));
+    necessidadesTurma1.add(new Necessidade(tipoRecurso[2], 2));
+    necessidadesTurma1.add(new Necessidade(tipoRecurso[1], 9));
 
+    // Map<int, Turma> turmas = new Turma[3];
+    // criar um Map de turmas
     Map<Integer, Turma> turmas = new HashMap<Integer, Turma>();
 
+    // turmas[0] = new Turma(1, "POO", "Atílio", 9, 32, 32, 2021, Semestre.PRIMEIRO,
+    // horariosTurma1,
+    // necessidadesTurma1);
     turmas.put(1, new Turma(1, "POO", "Atílio", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma1,
         necessidadesTurma1, "Engenharia de Software", 2));
 
-    Horario[] horariosTurma2 = new Horario[2];
-    horariosTurma2[0] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true);
+    ArrayList<Horario> horariosTurma2 = new ArrayList<>();
+    horariosTurma2.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true));
 
-    Necessidade[] necessidadesTurma2 = new Necessidade[2];
-    necessidadesTurma2[0] = new Necessidade(tipoRecurso[0], 1);
-    necessidadesTurma2[1] = new Necessidade(tipoRecurso[2], 2);
+    ArrayList<Necessidade> necessidadesTurma2 = new ArrayList<>();
+    necessidadesTurma2.add(new Necessidade(tipoRecurso[0], 1));
+    necessidadesTurma2.add(new Necessidade(tipoRecurso[2], 2));
 
+    // turmas[1] = new Turma(2, "Projeto Integrado", "Camilo", 40, 64, 0, 2021,
+    // Semestre.PRIMEIRO, horariosTurma2,
+    // necessidadesTurma2);
     turmas.put(2, new Turma(2, "Projeto Integrado", "Camilo", 40, 32, 0, 2021, Semestre.PRIMEIRO, horariosTurma2,
         necessidadesTurma2, "Ciência da Computação", 4));
 
-    Horario[] horariosTurma3 = new Horario[2];
-    horariosTurma3[0] = new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true);
-    horariosTurma3[1] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.TERCA, true);
+    ArrayList<Horario> horariosTurma3 = new ArrayList<>();
+    horariosTurma3.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true));
+    horariosTurma3.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.TERCA, true));
 
-    Necessidade[] necessidadesTurma3 = new Necessidade[2];
-    necessidadesTurma3[0] = new Necessidade(tipoRecurso[0], 1);
-    necessidadesTurma3[1] = new Necessidade(tipoRecurso[2], 2);
+    ArrayList<Necessidade> necessidadesTurma3 = new ArrayList<>();
+    necessidadesTurma3.add(new Necessidade(tipoRecurso[0], 1));
+    necessidadesTurma3.add(new Necessidade(tipoRecurso[2], 2));
 
+    // turmas[2] = new Turma(3, "Estrutura de Dados", "Wladimir", 40, 64, 0, 2021,
+    // Semestre.PRIMEIRO, horariosTurma3,
+    // necessidadesTurma3);
     turmas.put(3, new Turma(3, "Estrutura de Dados", "Wladimir", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma3,
         necessidadesTurma3, "Engenharia de Software", 4));
 

@@ -4,6 +4,8 @@
  */
 package com.salute.salute.java;
 
+import java.util.ArrayList;
+
 import com.salute.salute.java.enums.Semestre;
 import com.salute.salute.java.recurso.Necessidade;
 
@@ -23,11 +25,12 @@ public class Turma implements Comparable<Turma> {
     private Semestre semestre;
     private String curso;
     private int semestreCurso;
-    private Horario[] horarios;
-    private Necessidade[] necessidades;
+    private ArrayList<Horario> horarios;
+    private ArrayList<Necessidade> necessidades;
 
     public Turma(int id, String nome, String professor, int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano,
-            Semestre semestre, Horario[] horarios, Necessidade[] necessidades, String curso, int semestreCurso) {
+            Semestre semestre, ArrayList<Horario> horarios, ArrayList<Necessidade> necessidades, String curso,
+            int semestreCurso) {
         this.id = id;
         this.nome = nome;
         this.professor = professor;
@@ -66,11 +69,11 @@ public class Turma implements Comparable<Turma> {
         return semestre;
     }
 
-    public Horario[] getHorarios() {
+    public ArrayList<Horario> getHorarios() {
         return horarios;
     }
 
-    public Necessidade[] getNecessidades() {
+    public ArrayList<Necessidade> getNecessidades() {
         return necessidades;
     }
 

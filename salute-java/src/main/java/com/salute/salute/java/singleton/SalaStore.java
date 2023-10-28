@@ -1,5 +1,6 @@
 package com.salute.salute.java.singleton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,51 +34,53 @@ public class SalaStore {
   }
 
   private static Map<Integer, Sala> povoaSalas() {
+    ArrayList<Horario> horariosSala1 = new ArrayList<>();
+    horariosSala1.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA));
+    horariosSala1.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA));
+    horariosSala1.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.TERCA));
     TipoRecurso[] tipoRecurso = new TipoRecurso[3];
     tipoRecurso[0] = new TipoRecurso(1, "Projetor");
     tipoRecurso[1] = new TipoRecurso(2, "Computador");
     tipoRecurso[2] = new TipoRecurso(3, "Ar Condicionado");
+    ArrayList<Recurso> recursosSala1 = new ArrayList<>();
+    recursosSala1.add(new Recurso("123456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("234567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("434567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("534567", tipoRecurso[1], EstadoRecurso.QUEBRADO));
+    recursosSala1.add(new Recurso("634567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("734567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("834567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("934567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("1034567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
+    recursosSala1.add(new Recurso("1134567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO));
 
-    Horario[] horariosSala1 = new Horario[3];
-    horariosSala1[0] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA);
-    horariosSala1[1] = new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA);
-    horariosSala1[2] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.TERCA);
-
-    Recurso[] recursosSala1 = new Recurso[10];
-    recursosSala1[0] = new Recurso("123456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[1] = new Recurso("234567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[2] = new Recurso("434567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[3] = new Recurso("534567", tipoRecurso[1], EstadoRecurso.QUEBRADO);
-    recursosSala1[4] = new Recurso("634567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[5] = new Recurso("734567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[6] = new Recurso("834567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[7] = new Recurso("934567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[8] = new Recurso("1034567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-    recursosSala1[9] = new Recurso("1134567", tipoRecurso[1], EstadoRecurso.FUNCIONANDO);
-
+    // Sala[] salas = new Sala[3];
+    // criar um Map de salas
     Map<Integer, Sala> salas = new HashMap<>();
 
+    // salas[0] = new Sala(1, TipoSala.LABORATORIO, 8, 1, 2, 1, horariosSala1,
+    // recursosSala1);
     salas.put(1, new Sala(1, TipoSala.LABORATORIO, 9, 1, 2, 1, horariosSala1, recursosSala1));
 
-    Horario[] horariosSala2 = new Horario[2];
-    horariosSala2[0] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA);
-    horariosSala2[1] = new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA);
-    Recurso[] recursosSala2 = new Recurso[3];
-    recursosSala2[0] = new Recurso("323456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO);
-    recursosSala2[1] = new Recurso("434567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO);
-    recursosSala2[2] = new Recurso("534567", tipoRecurso[2], EstadoRecurso.QUEBRADO);
+    ArrayList<Horario> horariosSala2 = new ArrayList<>();
+    horariosSala2.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA));
+    horariosSala2.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA));
+    ArrayList<Recurso> recursosSala2 = new ArrayList<>();
+    recursosSala2.add(new Recurso("323456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO));
+    recursosSala2.add(new Recurso("434567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO));
+    recursosSala2.add(new Recurso("534567", tipoRecurso[2], EstadoRecurso.QUEBRADO));
 
     // salas[1] = new Sala(2, TipoSala.SALA_DE_AULA, 45, 1, 1, 1, horariosSala2,
     // recursosSala2);
     salas.put(2, new Sala(2, TipoSala.SALA_DE_AULA, 45, 1, 1, 1, horariosSala2, recursosSala2));
 
-    Horario[] horariosSala3 = new Horario[2];
-    horariosSala3[0] = new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA);
-    horariosSala3[1] = new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA);
-    Recurso[] recursosSala3 = new Recurso[3];
-    recursosSala3[0] = new Recurso("623456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO);
-    recursosSala3[1] = new Recurso("734567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO);
-    recursosSala3[2] = new Recurso("834567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO);
+    ArrayList<Horario> horariosSala3 = new ArrayList<>();
+    horariosSala3.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA));
+    horariosSala3.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA));
+    ArrayList<Recurso> recursosSala3 = new ArrayList<>();
+    recursosSala3.add(new Recurso("623456", tipoRecurso[0], EstadoRecurso.FUNCIONANDO));
+    recursosSala3.add(new Recurso("734567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO));
+    recursosSala3.add(new Recurso("834567", tipoRecurso[2], EstadoRecurso.FUNCIONANDO));
 
     // salas[2] = new Sala(3, TipoSala.SALA_DE_AULA, 45, 1, 1, 1, horariosSala3,
     // recursosSala3);

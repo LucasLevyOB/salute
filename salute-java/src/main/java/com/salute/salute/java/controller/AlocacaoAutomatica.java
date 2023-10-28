@@ -67,14 +67,14 @@ public class AlocacaoAutomatica extends Main implements Initializable {
     Map<Integer, Sala> salas = this.salaStore.getSalas();
     for (Integer keySala : salas.keySet()) {
       Sala sala = salas.get(keySala);
-      Horario[] horarios = sala.getHorarios();
-      for (int iHorario = 0; iHorario < horarios.length; iHorario++) {
+      ArrayList<Horario> horarios = sala.getHorarios();
+      for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
         Turma turma = sala.getTurmaPorKey(iHorario);
         System.out.println(turma);
         if (turma == null) {
-          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios[iHorario].formatarParaTabela(), "Livre"));
+          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(), "Livre"));
         } else {
-          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios[iHorario].formatarParaTabela(),
+          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(),
               turma.formatarParaTabela()));
         }
       }

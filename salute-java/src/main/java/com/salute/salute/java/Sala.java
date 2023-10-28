@@ -4,6 +4,7 @@
  */
 package com.salute.salute.java;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,12 +25,12 @@ public class Sala implements Comparable<Sala> {
     private int numero;
     private int andar;
     private int bloco;
-    private Horario[] horarios;
+    private ArrayList<Horario> horarios;
     private Map<Integer, Turma> turmas;
-    private Recurso[] recursos;
+    private ArrayList<Recurso> recursos;
 
-    public Sala(int id, TipoSala tipo, int capacidade, int numero, int andar, int bloco, Horario[] horarios,
-            Recurso[] recursos) {
+    public Sala(int id, TipoSala tipo, int capacidade, int numero, int andar, int bloco, ArrayList<Horario> horarios,
+            ArrayList<Recurso> recursos) {
         this.id = id;
         this.tipo = tipo;
         this.capacidade = capacidade;
@@ -65,7 +66,7 @@ public class Sala implements Comparable<Sala> {
         return bloco;
     }
 
-    public Horario[] getHorarios() {
+    public ArrayList<Horario> getHorarios() {
         return horarios;
     }
 
@@ -77,7 +78,7 @@ public class Sala implements Comparable<Sala> {
         return turmas;
     }
 
-    public Recurso[] getRecursos() {
+    public ArrayList<Recurso> getRecursos() {
         return recursos;
     }
 
@@ -107,11 +108,11 @@ public class Sala implements Comparable<Sala> {
         // }
         String saida = this.tipo.toString() + ": " + this.numero + " - " + this.andar + "º andar - Bloco "
                 + this.bloco + " {\n";
-        for (int i = 0; i < this.horarios.length; i++) {
+        for (int i = 0; i < this.horarios.size(); i++) {
             if (this.turmas.get(i) != null) {
-                saida += "\t" + this.horarios[i].toString() + ": " + this.turmas.get(i).getNome() + "\n";
+                saida += "\t" + this.horarios.get(i).toString() + ": " + this.turmas.get(i).getNome() + "\n";
             } else {
-                saida += "\t" + this.horarios[i].toString() + ": " + "Livre" + "\n";
+                saida += "\t" + this.horarios.get(i).toString() + ": " + "Livre" + "\n";
             }
         }
         saida += "}";

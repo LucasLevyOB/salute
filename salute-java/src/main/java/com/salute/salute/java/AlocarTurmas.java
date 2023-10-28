@@ -13,10 +13,10 @@ import com.salute.salute.java.recurso.Necessidade;
  * @author lucas-levy
  */
 public class AlocarTurmas {
-  private static int calculaPontosRecursos(Necessidade[] necessidades, Sala sala) {
+  private static int calculaPontosRecursos(ArrayList<Necessidade> necessidades, Sala sala) {
     int pontos = 0;
-    for (int iNecessidade = 0; iNecessidade < necessidades.length; iNecessidade++) {
-      Necessidade necessidade = necessidades[iNecessidade];
+    for (int iNecessidade = 0; iNecessidade < necessidades.size(); iNecessidade++) {
+      Necessidade necessidade = necessidades.get(iNecessidade);
       int funcionando = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(), EstadoRecurso.FUNCIONANDO);
       int quantidadeAtendidaFuncionando = Math.min(funcionando, necessidade.getQtde());
       pontos += quantidadeAtendidaFuncionando * 2;
@@ -30,10 +30,10 @@ public class AlocarTurmas {
   private static void iteraSobreHorariosSala(ArrayList<int[]> salaHorario, Sala sala, int keySala,
       Horario horarioTurma,
       Turma turma) {
-    Horario[] horariosSala = sala.getHorarios();
+    ArrayList<Horario> horariosSala = sala.getHorarios();
     int[] pontos = { 0, 0, 0 };
-    for (int iHorario = 0; iHorario < horariosSala.length; iHorario++) {
-      Horario horario = horariosSala[iHorario];
+    for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
+      Horario horario = horariosSala.get(iHorario);
       boolean isOcupado = sala.getTurmas().containsKey(iHorario);
       if (!horario.equals(horarioTurma) || isOcupado) {
         continue;
@@ -112,12 +112,12 @@ public class AlocarTurmas {
   }
 
   private static void iteraSobreHorariosTurma(Turma turma, Map<Integer, Sala> salas) {
-    Horario[] horariosTurma = turma.getHorarios();
+    ArrayList<Horario> horariosTurma = turma.getHorarios();
     // Arrays.sort(horariosTurma);
     // ordena os horarios da turma
     // buscar as salas com horarios disponiveis, primeiro horario da turma
     int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
-    int horasAula = horasTotais / turma.getHorarios().length;
+    int horasAula = horasTotais / turma.getHorarios().size();
     // primeiras aulas sempre serao teoricas
     int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
     int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
@@ -132,8 +132,8 @@ public class AlocarTurmas {
     // boolean alocou = iteraSobreSalas(horario, salas, isTeorica, turma);
 
     // }
-    for (int iHorario = 0; iHorario < horariosTurma.length; iHorario++) {
-      Horario horario = horariosTurma[iHorario];
+    for (int iHorario = 0; iHorario < horariosTurma.size(); iHorario++) {
+      Horario horario = horariosTurma.get(iHorario);
       boolean isTeorica = qtdeAulasTeoricas > 0;
       boolean alocou = iteraSobreSalas(horario, salas, isTeorica, turma);
       if (!alocou) {

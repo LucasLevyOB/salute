@@ -31,11 +31,11 @@ public class Database {
             // statement.executeUpdate(TipoRecurso.getSql());
             TipoRecurso.createTable();
             Recurso.createTable();
+            Turma.createTable();
             statement.executeUpdate(Horario.getSql());
             statement.executeUpdate(Sala.getSql());
             statement.executeUpdate(AlocacaoRecursoSala.getSql());
             statement.executeUpdate(HorarioSala.getSql());
-            statement.executeUpdate(Turma.getSql());
             statement.executeUpdate(NecessidadeTurma.getSql());
             statement.executeUpdate(HorarioTurma.getSql());
             statement.executeUpdate(AlocacaoSalaTurma.getSql());
