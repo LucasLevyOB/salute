@@ -36,44 +36,77 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.salute.salute.java.controller.AlocacaoManual">
+<VBox prefHeight="400.0" prefWidth="640.0" spacing="24.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.AlocacaoManual">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <GridPane styleClass="header">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
-            <Text fill="WHITE" layoutX="164.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ALOCAÇÃO MANUAL">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ALOCAÇÃO MANUAL" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="244.0" layoutY="361.0" mnemonicParsing="false" text="ALOCAR MANUALMENTE" />
-            <TableView fx:id="tabela" layoutX="28.0" layoutY="232.0" prefHeight="116.0" prefWidth="584.0">
-              <columns>
-                <TableColumn prefWidth="175.0" fx:id="colunaSala" text="Sala" />
-                <TableColumn prefWidth="211.0" fx:id="colunaHorario" text="Horário" />
-                <TableColumn prefWidth="197.0" fx:id="colunaEstado" text="Turma" />
-                <TableColumn prefWidth="120.0" text="AÇÕES" />
-              </columns>
-            </TableView>
-            <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchScene" userData="main">
+            <Button mnemonicParsing="false" onAction="#switchScene" userData="main" GridPane.rowIndex="1">
               <!-- <graphic> -->
               <!-- <Icon content="ARROW_BACK" /> -->
               <!-- </graphic> -->
             </Button>
-            <ChoiceBox layoutX="82.0" layoutY="135.0" prefWidth="150.0" />
-            <Text layoutX="42.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SALA:" />
-            <Text layoutX="244.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HORÁRIO:" />
-            <ChoiceBox layoutX="307.0" layoutY="135.0" prefHeight="25.0" prefWidth="297.0" />
-            <Text layoutX="30.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TURMA:" />
-            <ChoiceBox layoutX="82.0" layoutY="180.0" prefHeight="25.0" prefWidth="522.0" />
          </children>
-    </AnchorPane>
+      </GridPane>
+      <GridPane hgap="16.0" vgap="16.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <HBox spacing="24.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SALA:" />
+                  <ChoiceBox minWidth="225.0" />
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORÁRIO:" />
+                        <ChoiceBox minWidth="225.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox maxWidth="1.7976931348623157E308" GridPane.rowIndex="1">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TURMA:" />
+                  <ChoiceBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="588.0" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+      <TableView fx:id="tabela" prefHeight="116.0" prefWidth="584.0">
+        <columns>
+          <TableColumn fx:id="colunaAcoes" minWidth="128.0" prefWidth="-1.0" text="AÇÕES" />
+          <TableColumn fx:id="colunaSala" minWidth="225.0" prefWidth="-1.0" text="Sala" />
+          <TableColumn fx:id="colunaHorario" minWidth="225.0" prefWidth="-1.0" text="Horário" />
+          <TableColumn fx:id="colunaEstado" minWidth="225.0" prefWidth="-1.0" text="Turma" />
+        </columns>
+      </TableView>
+      <Button mnemonicParsing="false" text="ALOCAR MANUALMENTE" />
   </children>
 </VBox>

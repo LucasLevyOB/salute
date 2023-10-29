@@ -22,6 +22,7 @@ public class Horario implements Comparable<Horario> {
     private DiaSemana diaSemana;
     private Date data;
     private boolean recorrente;
+    private boolean alocado;
 
     public Horario(int id, Turno turno, HorarioTurno horario, DiaSemana diaSemana, Date data, boolean recorrente) {
         this.id = id;
@@ -73,6 +74,14 @@ public class Horario implements Comparable<Horario> {
 
     public String formatarParaTabela() {
         return diaSemana.toString() + " - " + horario.toString() + " - " + turno.toString();
+    }
+
+    public boolean isAlocado() {
+        return alocado;
+    }
+
+    public void setAlocado(boolean alocado) {
+        this.alocado = alocado;
     }
 
     @Override

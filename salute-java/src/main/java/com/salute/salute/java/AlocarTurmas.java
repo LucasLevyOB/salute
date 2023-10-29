@@ -88,7 +88,9 @@ public class AlocarTurmas {
     int[] pontos = salaHorarioCompativel.get(0);
     int idHorario = pontos[0];
     int idSala = pontos[2];
-    salas.get(idSala).getTurmas().put(idHorario, turma);
+    // salas.get(idSala).getTurmas().put(idHorario, turma);
+    salas.get(idSala).alocarTurma(turma, idHorario);
+    // turma.setHorarioAlocado(horario);
 
     // if (salaHorarioCompativel.size() > 0) {
     // int[] pontos = salaHorarioCompativel.get(0);

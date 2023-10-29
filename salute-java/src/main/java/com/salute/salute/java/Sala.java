@@ -100,6 +100,27 @@ public class Sala implements Comparable<Sala> {
         return this.tipo.toString() + ": " + this.numero + " - " + this.andar + " - " + this.bloco;
     }
 
+    public Boolean desalocarTurma(int index) {
+        if (this.turmas.get(index) != null) {
+            Turma turma = this.turmas.get(index);
+            turma.setHorarioDesalocado(this.horarios.get(index));
+            this.turmas.remove(index);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean alocarTurma(Turma turma, int index) {
+        if (this.turmas.get(index) == null) {
+            this.turmas.put(index, turma);
+            turma.setHorarioAlocado(this.horarios.get(index));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
         // formatar para o seguinte exemplo de saida

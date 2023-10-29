@@ -93,6 +93,40 @@ public class Turma implements Comparable<Turma> {
         return semestreCurso;
     }
 
+    public Boolean hasHorario(Horario horario) {
+        for (Horario h : horarios) {
+            if (h.equals(horario)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setHorarioAlocado(Horario horario) {
+        for (Horario h : horarios) {
+            if (h.equals(horario)) {
+                h.setAlocado(true);
+            }
+        }
+    }
+
+    public void setHorarioDesalocado(Horario horario) {
+        for (Horario h : horarios) {
+            if (h.equals(horario)) {
+                h.setAlocado(false);
+            }
+        }
+    }
+
+    public Boolean horarioIsAlocado(Horario horario) {
+        for (Horario h : horarios) {
+            if (h.equals(horario)) {
+                return h.isAlocado();
+            }
+        }
+        return false;
+    }
+
     public String formatarParaTabela() {
         return nome + " - " + professor;
     }
