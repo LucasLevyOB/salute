@@ -41,8 +41,8 @@ public class AlocacaoAutomatica extends Main implements Initializable {
 
   @FXML
   public void alocarTurmas() {
+    AlocarTurmas.limparAlocacao(this.salaStore.getSalas());
     AlocarTurmas.aloca(this.turmaStore.getTurmas(), this.salaStore.getSalas());
-    System.out.println("Alocando");
     this.atualizarLista();
 
     // Map<Integer, Sala> salas = this.salaStore.getSalas();
@@ -72,10 +72,10 @@ public class AlocacaoAutomatica extends Main implements Initializable {
         Turma turma = sala.getTurmaPorKey(iHorario);
         System.out.println(turma);
         if (turma == null) {
-          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(), "Livre"));
+          alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(), "Livre"));
         } else {
-          alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(),
-              turma.formatarParaTabela()));
+          alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(),
+              turma.toString()));
         }
       }
     }

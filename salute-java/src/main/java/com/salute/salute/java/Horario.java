@@ -86,7 +86,7 @@ public class Horario implements Comparable<Horario> {
 
     @Override
     public String toString() {
-        return "Horario [diaSemana=" + diaSemana + ", horario=" + horario + ", turno=" + turno + "]";
+        return diaSemana + " - " + horario.toString().replace("_", " ") + " - " + turno;
     }
 
     @Override

@@ -4,6 +4,7 @@
  */
 package com.salute.salute.java;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 import com.salute.salute.java.enums.Semestre;
@@ -131,10 +132,17 @@ public class Turma implements Comparable<Turma> {
         return nome + " - " + professor;
     }
 
+    private String getSemestreFormatado() {
+        // criar ano
+        Year year = Year.now();
+        int ano = year.getValue();
+        return ano + "." + (semestre == Semestre.PRIMEIRO ? 1 : 2);
+    }
+
     // toString
     @Override
     public String toString() {
-        return "Turma{" + "id=" + id + ", nome=" + nome + ", professor=" + professor + '}';
+        return nome + " - " + getSemestreFormatado() + " - " + professor;
     }
 
     // ordenar por curso, semestre, professor

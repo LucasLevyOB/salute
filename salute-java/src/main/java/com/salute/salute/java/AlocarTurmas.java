@@ -35,7 +35,7 @@ public class AlocarTurmas {
     for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
       Horario horario = horariosSala.get(iHorario);
       boolean isOcupado = sala.getTurmas().containsKey(iHorario);
-      if (!horario.equals(horarioTurma) || isOcupado) {
+      if (!horario.equals(horarioTurma) || isOcupado || !turma.hasHorario(horario) || turma.horarioIsAlocado(horario)) {
         continue;
       }
       // sala.getTurmas().put(iHorario, turma);
@@ -154,6 +154,13 @@ public class AlocarTurmas {
     for (Integer keyTurma : turmas.keySet()) {
       Turma turma = turmas.get(keyTurma);
       iteraSobreHorariosTurma(turma, salas);
+    }
+  }
+
+  public static void limparAlocacao(Map<Integer, Sala> salas) {
+    for (Integer keySala : salas.keySet()) {
+      Sala sala = salas.get(keySala);
+      sala.limparAlocacao();
     }
   }
 }

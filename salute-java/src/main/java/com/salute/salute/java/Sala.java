@@ -121,23 +121,20 @@ public class Sala implements Comparable<Sala> {
         }
     }
 
+    public void limparAlocacao() {
+        for (int i = 0; i < this.horarios.size(); i++) {
+            if (this.turmas.get(i) != null) {
+                this.turmas.get(i).setHorarioDesalocado(this.horarios.get(i));
+            }
+        }
+        this.turmas.clear();
+    }
+
     @Override
     public String toString() {
         // formatar para o seguinte exemplo de saida
-        // [Tipo] 1 - 1º andar - Bloco A {
-        // Horario: turma
-        // }
-        String saida = this.tipo.toString() + ": " + this.numero + " - " + this.andar + "º andar - Bloco "
-                + this.bloco + " {\n";
-        for (int i = 0; i < this.horarios.size(); i++) {
-            if (this.turmas.get(i) != null) {
-                saida += "\t" + this.horarios.get(i).toString() + ": " + this.turmas.get(i).getNome() + "\n";
-            } else {
-                saida += "\t" + this.horarios.get(i).toString() + ": " + "Livre" + "\n";
-            }
-        }
-        saida += "}";
-        return saida;
+        // [Tipo] 1 - 1º andar - Bloco 1
+        return this.tipo.toString() + ": " + this.numero + " - " + this.andar + "º andar - Bloco " + this.bloco;
     }
 
     @Override

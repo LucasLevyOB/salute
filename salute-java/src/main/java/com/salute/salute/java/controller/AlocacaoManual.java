@@ -70,17 +70,15 @@ public class AlocacaoManual extends Main implements Initializable {
             ArrayList<Horario> horarios = sala.getHorarios();
             for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
                 Turma turma = sala.getTurmaPorKey(iHorario);
-                System.out.println(turma);
                 if (turma == null) {
-                    alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(),
+                    alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(),
                             "Livre", sala, iHorario));
                 } else {
-                    alocacoes.add(new Alocacao(sala.formatarParaTabela(), horarios.get(iHorario).formatarParaTabela(),
-                            turma.formatarParaTabela(), sala, iHorario));
+                    alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(),
+                            turma.toString(), sala, iHorario));
                 }
             }
         }
-        System.out.println("null");
     }
 
     private void atualizarLista() {
