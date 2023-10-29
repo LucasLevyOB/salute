@@ -30,7 +30,8 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" text="X" GridPane.columnIndex="1" onAction="#onCancelar" />
+            <Button mnemonicParsing="false" styleClass="btn, secondary" text="X"
+               GridPane.columnIndex="1" onAction="#onCancelar" />
          </children>
          <padding>
             <Insets bottom="8.0" left="8.0" right="8.0" top="16.0" />
@@ -72,7 +73,8 @@
       </GridPane>
       <HBox alignment="TOP_CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Alocar" onAction="#alocar" />
+            <Button mnemonicParsing="false" styleClass="btn, primary" text="Alocar"
+               onAction="#alocar" />
          </children>
          <VBox.margin>
             <Insets bottom="24.0" left="8.0" right="8.0" top="8.0" />

@@ -159,7 +159,14 @@ public class AlocacaoManual extends Main implements Initializable {
                             setGraphic(null);
                         } else {
                             // criar involocro para os botoes
+                            btn.getStyleClass().add("btn");
+                            btn.getStyleClass().add("danger");
+                            btn.getStyleClass().add("small");
+                            btn2.getStyleClass().add("btn");
+                            btn2.getStyleClass().add("primary");
+                            btn2.getStyleClass().add("small");
                             HBox hbBtn = new HBox(btn, btn2);
+                            hbBtn.setSpacing(8);
                             setGraphic(hbBtn);
                         }
                     }

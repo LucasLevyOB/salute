@@ -66,14 +66,18 @@
             <TableColumn prefWidth="120.0" text="AÇÕES" />
           </columns>
         </TableView>
-        <Button layoutX="27.0" layoutY="28.0" mnemonicParsing="false" onAction="#switchScene" userData="main">
+        <Button layoutX="27.0" styleClass="btn, secondary" layoutY="28.0" mnemonicParsing="false"
+          onAction="#switchScene"
+          userData="main">
           <!-- <graphic> -->
           <!-- <Icon content="ARROW_BACK" /> -->
           <!-- </graphic> -->
         </Button>
-        <Button layoutX="331.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
-          prefWidth="272.0" text="ALOCAR MANUAL" onAction="#switchScene" userData="AlocacaoManual"/>
-        <Button layoutX="44.0" layoutY="134.0" mnemonicParsing="false" prefHeight="30.0"
+        <Button layoutX="331.0" layoutY="134.0" styleClass="btn, secondary" mnemonicParsing="false"
+          prefHeight="30.0"
+          prefWidth="272.0" text="ALOCAR MANUAL" onAction="#switchScene" userData="AlocacaoManual" />
+        <Button layoutX="44.0" layoutY="134.0" styleClass="btn, primary" mnemonicParsing="false"
+          prefHeight="30.0"
           prefWidth="272.0" text="ALOCAR AUTOMÁTICO" onAction="#alocarTurmas" />
       </children>
     </AnchorPane>

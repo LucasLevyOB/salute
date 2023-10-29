@@ -5,6 +5,7 @@ package com.salute.salute.java;
 
 import com.salute.salute.java.database.Database;
 
+import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +27,7 @@ public class SaluteJava extends Application {
         Database.createSchemas();
         Parent startView = FXMLLoader.load(getClass().getResource("view/main.fxml"));
         Scene scene = new Scene(startView);
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("SALUTE");
