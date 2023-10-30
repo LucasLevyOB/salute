@@ -35,21 +35,25 @@ public class Database {
             Turma.createTable();
             Horario.createTable();
             Sala.createTable();
-            statement.executeUpdate(AlocacaoRecursoSala.getSql());
-            statement.executeUpdate(HorarioSala.getSql());
-            statement.executeUpdate(NecessidadeTurma.getSql());
-            statement.executeUpdate(HorarioTurma.getSql());
-            statement.executeUpdate(AlocacaoSalaTurma.getSql());
+            AlocacaoRecursoSala.createTable();
+            HorarioSala.createTable();
+            NecessidadeTurma.createTable();
+            HorarioTurma.createTable();
+            AlocacaoSalaTurma.createTable();
 
             // Adicionar os tipos de recurso(Ar Condicionado e Projetor)
-            com.salute.salute.java.recurso.TipoRecurso tipoRecurso1 = new com.salute.salute.java.recurso.TipoRecurso(1, "Ar Condicionado");
-            com.salute.salute.java.recurso.TipoRecurso tipoRecurso2 = new com.salute.salute.java.recurso.TipoRecurso(2, "Projetor");
+            com.salute.salute.java.recurso.TipoRecurso tipoRecurso1 = new com.salute.salute.java.recurso.TipoRecurso(1,
+                    "Ar Condicionado");
+            com.salute.salute.java.recurso.TipoRecurso tipoRecurso2 = new com.salute.salute.java.recurso.TipoRecurso(2,
+                    "Projetor");
             TipoRecurso.insert(tipoRecurso1);
             TipoRecurso.insert(tipoRecurso2);
 
             // Adicionar os recursos
-            com.salute.salute.java.recurso.Recurso recurso1 = new com.salute.salute.java.recurso.Recurso("123", tipoRecurso1, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
-            com.salute.salute.java.recurso.Recurso recurso2 = new com.salute.salute.java.recurso.Recurso("456", tipoRecurso2, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
+            com.salute.salute.java.recurso.Recurso recurso1 = new com.salute.salute.java.recurso.Recurso("123",
+                    tipoRecurso1, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
+            com.salute.salute.java.recurso.Recurso recurso2 = new com.salute.salute.java.recurso.Recurso("456",
+                    tipoRecurso2, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
             int insert1 = Recurso.insert(recurso1);
             int insert2 = Recurso.insert(recurso2);
             System.out.println(insert1);
