@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.salute.salute.java.DadosMockados;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.enums.DiaSemana;
@@ -33,19 +34,17 @@ public class TurmaStore {
   }
 
   private static Map<Integer, Turma> povoaTurmas() {
-    TipoRecurso[] tipoRecurso = new TipoRecurso[3];
-    tipoRecurso[0] = new TipoRecurso(1, "Projetor");
-    tipoRecurso[1] = new TipoRecurso(2, "Computador");
-    tipoRecurso[2] = new TipoRecurso(3, "Ar Condicionado");
+    ArrayList<TipoRecurso> tipoRecurso = DadosMockados.getTiposRecurso();
+    ArrayList<Horario> horarios = DadosMockados.getHorarios();
 
     ArrayList<Horario> horariosTurma1 = new ArrayList<>();
-    horariosTurma1.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true));
-    horariosTurma1.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true));
+    horariosTurma1.add(horarios.get(0));
+    horariosTurma1.add(horarios.get(6));
 
     ArrayList<Necessidade> necessidadesTurma1 = new ArrayList<>();
-    necessidadesTurma1.add(new Necessidade(tipoRecurso[0], 1));
-    necessidadesTurma1.add(new Necessidade(tipoRecurso[2], 2));
-    necessidadesTurma1.add(new Necessidade(tipoRecurso[1], 9));
+    necessidadesTurma1.add(new Necessidade(tipoRecurso.get(0), 1));
+    necessidadesTurma1.add(new Necessidade(tipoRecurso.get(2), 2));
+    necessidadesTurma1.add(new Necessidade(tipoRecurso.get(1), 9));
 
     // Map<int, Turma> turmas = new Turma[3];
     // criar um Map de turmas
@@ -61,8 +60,8 @@ public class TurmaStore {
     horariosTurma2.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true));
 
     ArrayList<Necessidade> necessidadesTurma2 = new ArrayList<>();
-    necessidadesTurma2.add(new Necessidade(tipoRecurso[0], 1));
-    necessidadesTurma2.add(new Necessidade(tipoRecurso[2], 2));
+    necessidadesTurma2.add(new Necessidade(tipoRecurso.get(0), 1));
+    necessidadesTurma2.add(new Necessidade(tipoRecurso.get(2), 2));
 
     // turmas[1] = new Turma(2, "Projeto Integrado", "Camilo", 40, 64, 0, 2021,
     // Semestre.PRIMEIRO, horariosTurma2,
@@ -75,8 +74,8 @@ public class TurmaStore {
     horariosTurma3.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.TERCA, true));
 
     ArrayList<Necessidade> necessidadesTurma3 = new ArrayList<>();
-    necessidadesTurma3.add(new Necessidade(tipoRecurso[0], 1));
-    necessidadesTurma3.add(new Necessidade(tipoRecurso[2], 2));
+    necessidadesTurma3.add(new Necessidade(tipoRecurso.get(0), 1));
+    necessidadesTurma3.add(new Necessidade(tipoRecurso.get(2), 2));
 
     // turmas[2] = new Turma(3, "Estrutura de Dados", "Wladimir", 40, 64, 0, 2021,
     // Semestre.PRIMEIRO, horariosTurma3,

@@ -5,23 +5,18 @@ import java.util.ArrayList;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
-import com.salute.salute.java.singleton.SalaStore;
-import com.salute.salute.java.singleton.TurmaStore;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import javafx.stage.Stage;
 
 interface Cancelar {
   void cancelar();
 }
 
 public class PopupAlocacaoManual implements Initializable {
-  private SalaStore salaStore = SalaStore.getInstance();
-  private TurmaStore turmaStore = TurmaStore.getInstance();
   private Cancelar cancelar;
 
   @FXML
@@ -62,6 +57,9 @@ public class PopupAlocacaoManual implements Initializable {
 
   @FXML
   void alocar() {
+    if (this.selectTurma.getSelectionModel().isEmpty()) {
+      return;
+    }
     Turma turma = this.selectTurma.getSelectionModel().getSelectedItem();
     Sala sala = this.selectSala.getSelectionModel().getSelectedItem();
     Horario horario = this.selectHorario.getSelectionModel().getSelectedItem();
