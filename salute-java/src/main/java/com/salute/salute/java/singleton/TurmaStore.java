@@ -38,7 +38,6 @@ public class TurmaStore {
     ArrayList<Horario> horarios = DadosMockados.getHorarios();
     Map<Integer, Turma> turmas = new HashMap<Integer, Turma>();
 
-
     // Turma 1
     ArrayList<Horario> horariosTurma1 = new ArrayList<>();
     horariosTurma1.add(horarios.get(1));
@@ -53,19 +52,19 @@ public class TurmaStore {
     necessidadesTurma1.add(new Necessidade(tipoRecurso.get(5), 30));
 
     turmas.put(1, new Turma(1, "POO", "Atílio", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma1,
-      necessidadesTurma1, "Engenharia de Software", 2));
+        necessidadesTurma1, "Engenharia de Software", 2));
 
     // Turma 2
     ArrayList<Horario> horariosTurma2 = new ArrayList<>();
     horariosTurma2.add(horarios.get(0));
-    
+
     ArrayList<Necessidade> necessidadesTurma2 = new ArrayList<>();
     necessidadesTurma2.add(new Necessidade(tipoRecurso.get(0), 1));
     necessidadesTurma2.add(new Necessidade(tipoRecurso.get(1), 2));
     necessidadesTurma2.add(new Necessidade(tipoRecurso.get(4), 40));
 
     turmas.put(2, new Turma(2, "Projeto Integrado", "Camilo", 40, 32, 0, 2021, Semestre.PRIMEIRO, horariosTurma2,
-      necessidadesTurma2, "Engenharia de Software", 4));
+        necessidadesTurma2, "Engenharia de Software", 4));
 
     // Turma 3
     ArrayList<Horario> horariosTurma3 = new ArrayList<>();
@@ -81,7 +80,7 @@ public class TurmaStore {
     necessidadesTurma3.add(new Necessidade(tipoRecurso.get(5), 30));
 
     turmas.put(3, new Turma(3, "Estrutura de Dados", "Wladimir", 30, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma3,
-      necessidadesTurma3, "Ciência da Computação", 3));
+        necessidadesTurma3, "Ciência da Computação", 3));
 
     // Turma 4
     ArrayList<Horario> horariosTurma4 = new ArrayList<>();
@@ -95,8 +94,9 @@ public class TurmaStore {
     necessidadesTurma4.add(new Necessidade(tipoRecurso.get(4), 45));
     necessidadesTurma4.add(new Necessidade(tipoRecurso.get(6), 4));
 
-    turmas.put(4, new Turma(4, "Rede de computadores", "Athur Callado", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma4, 
-      necessidadesTurma4, "Ciência da Computação", 3));
+    turmas.put(4,
+        new Turma(4, "Rede de computadores", "Athur Callado", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma4,
+            necessidadesTurma4, "Ciência da Computação", 3));
 
     // Turma 5
     ArrayList<Horario> horariosTurma5 = new ArrayList<>();
@@ -111,8 +111,9 @@ public class TurmaStore {
     necessidadesTurma1.add(new Necessidade(tipoRecurso.get(4), 45));
     necessidadesTurma1.add(new Necessidade(tipoRecurso.get(5), 30));
 
-    turmas.put(5, new Turma(5, "Projeto Detalhado de Software", "Paulyne", 45, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma5, 
-      necessidadesTurma5, "Engenharia de Software", 4));
+    turmas.put(5,
+        new Turma(5, "Projeto Detalhado de Software", "Paulyne", 45, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma5,
+            necessidadesTurma5, "Engenharia de Software", 4));
 
     // Turma 6
     ArrayList<Horario> horariosTurma6 = new ArrayList<>();
@@ -127,11 +128,11 @@ public class TurmaStore {
     necessidadesTurma6.add(new Necessidade(tipoRecurso.get(4), 25));
     necessidadesTurma6.add(new Necessidade(tipoRecurso.get(5), 25));
 
+    turmas.put(6,
+        new Turma(6, "Fundamentos de Programação", "Davi Sena", 25, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma6,
+            necessidadesTurma6, "Sistemas de Informação", 1));
 
-    turmas.put(6, new Turma(6, "Fundamentos de Programação", "Davi Sena", 25, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma6, 
-      necessidadesTurma6, "Sistemas de Informação", 1));
-
-  // Turma 7
+    // Turma 7
     ArrayList<Horario> horariosTurma7 = new ArrayList<>();
     horariosTurma7.add(horarios.get(7));
     horariosTurma7.add(horarios.get(19));
@@ -144,8 +145,9 @@ public class TurmaStore {
     necessidadesTurma7.add(new Necessidade(tipoRecurso.get(4), 30));
     necessidadesTurma7.add(new Necessidade(tipoRecurso.get(5), 30));
 
-    turmas.put(7, new Turma(7, "Estrutura de Dados Avançada", "Wladimir", 30, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma7, 
-      necessidadesTurma7, "Ciência da Computação", 4));
+    turmas.put(7,
+        new Turma(7, "Estrutura de Dados Avançada", "Wladimir", 30, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma7,
+            necessidadesTurma7, "Ciência da Computação", 4));
 
     // Turma 8
     ArrayList<Horario> horariosTurma8 = new ArrayList<>();
@@ -158,8 +160,8 @@ public class TurmaStore {
     necessidadesTurma8.add(new Necessidade(tipoRecurso.get(3), 1));
     necessidadesTurma8.add(new Necessidade(tipoRecurso.get(4), 45));
 
-    turmas.put(8, new Turma(8, "Requisitos de Software", "Camilo ", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma8, 
-      necessidadesTurma8, "Engenharia de Software", 3));
+    turmas.put(8, new Turma(8, "Requisitos de Software", "Camilo ", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma8,
+        necessidadesTurma8, "Engenharia de Software", 3));
 
     // Turma 9
     ArrayList<Horario> horariosTurma9 = new ArrayList<>();
@@ -172,13 +174,14 @@ public class TurmaStore {
     necessidadesTurma9.add(new Necessidade(tipoRecurso.get(3), 1));
     necessidadesTurma8.add(new Necessidade(tipoRecurso.get(4), 45));
 
-    turmas.put(9, new Turma(9, "Segurança da Informação", "Marcos Dantas ", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma9, 
-      necessidadesTurma9, "Redes de Computadores", 5));
+    turmas.put(9,
+        new Turma(9, "Segurança da Informação", "Marcos Dantas ", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma9,
+            necessidadesTurma9, "Redes de Computadores", 5));
 
-    // Turma 9
+    // Turma 10
     ArrayList<Horario> horariosTurma10 = new ArrayList<>();
-    horariosTurma9.add(horarios.get(24));
-    horariosTurma9.add(horarios.get(28));
+    horariosTurma10.add(horarios.get(24));
+    horariosTurma10.add(horarios.get(28));
 
     ArrayList<Necessidade> necessidadesTurma10 = new ArrayList<>();
     necessidadesTurma10.add(new Necessidade(tipoRecurso.get(0), 1));
@@ -186,9 +189,10 @@ public class TurmaStore {
     necessidadesTurma10.add(new Necessidade(tipoRecurso.get(3), 1));
     necessidadesTurma8.add(new Necessidade(tipoRecurso.get(4), 45));
 
-    turmas.put(10, new Turma(10, "Matemática Discreta", "Paulo Henrique", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma10, 
-      necessidadesTurma10, "Sistemas de Informação", 3));
-    
+    turmas.put(10,
+        new Turma(10, "Matemática Discreta", "Paulo Henrique", 45, 64, 0, 2021, Semestre.PRIMEIRO, horariosTurma10,
+            necessidadesTurma10, "Sistemas de Informação", 3));
+
     return turmas;
   }
 }
