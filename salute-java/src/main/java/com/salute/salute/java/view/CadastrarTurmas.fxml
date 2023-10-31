@@ -41,8 +41,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.salute.salute.java.controller.CadastrarTurmas">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.CadastrarTurmas">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -52,26 +51,26 @@ fx:controller="com.salute.salute.java.controller.CadastrarTurmas">
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Voltar" onAction="#switchScene" userData="main"/>
-            <Text layoutX="42.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade de alunos:" />
-            <TextField layoutX="171.0" layoutY="147.0" />
-            <Text layoutX="42.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carga prática:" wrappingWidth="119.455078125" />
-            <TextField layoutX="422.0" layoutY="147.0" prefHeight="25.0" prefWidth="167.0" />
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
+            <Text layoutX="21.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qtd de alunos:" />
+            <TextField layoutX="130.0" layoutY="147.0" />
+            <Text layoutX="21.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carga prática:" wrappingWidth="119.455078125" />
+            <TextField layoutX="439.0" layoutY="147.0" prefHeight="25.0" prefWidth="167.0" />
             <Text layoutX="338.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carga teórica:" wrappingWidth="119.455078125" />
-            <TextField layoutX="171.0" layoutY="190.0" />
+            <TextField layoutX="130.0" layoutY="190.0" />
             <Text layoutX="338.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ano da turma:" wrappingWidth="119.455078125" />
-            <TextField layoutX="422.0" layoutY="188.0" prefHeight="25.0" prefWidth="167.0" />
-            <Text layoutX="42.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre do curso:" wrappingWidth="119.455078125" />
-            <TextField layoutX="171.0" layoutY="317.0" />
+            <TextField layoutX="439.0" layoutY="188.0" prefHeight="25.0" prefWidth="167.0" />
+            <TextField layoutX="130.0" layoutY="316.0" />
             <Text layoutX="331.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da turma:" wrappingWidth="119.455078125" />
-            <TextField layoutX="422.0" layoutY="230.0" prefHeight="25.0" prefWidth="167.0" />
-            <Text layoutX="42.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do professor:" wrappingWidth="119.455078125" />
-            <TextField layoutX="171.0" layoutY="230.0" />
+            <TextField layoutX="439.0" layoutY="230.0" prefHeight="25.0" prefWidth="167.0" />
+            <Text layoutX="21.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do professor:" wrappingWidth="119.455078125" />
+            <TextField layoutX="130.0" layoutY="230.0" />
             <Text layoutX="331.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre da turma:" wrappingWidth="119.455078125" />
             <Button layoutX="279.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Cadastrar" />
-            <ChoiceBox layoutX="439.0" layoutY="317.0" prefWidth="150.0" />
-            <Text layoutX="42.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do curso:" wrappingWidth="119.455078125" />
-            <TextField layoutX="171.0" layoutY="274.0" prefHeight="25.0" prefWidth="419.0" />
+            <ChoiceBox layoutX="455.0" layoutY="317.0" prefWidth="150.0" />
+            <Text layoutX="21.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do curso:" wrappingWidth="119.455078125" />
+            <TextField layoutX="129.0" layoutY="274.0" prefHeight="25.0" prefWidth="477.0" />
+            <Text layoutX="21.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre curso:" wrappingWidth="119.455078125" />
          </children>
     </AnchorPane>
   </children>
