@@ -35,6 +35,21 @@ public class DadosMockados {
     horariosSemana.add(new Horario(17, Turno.NOITE, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.QUARTA, true));
     horariosSemana.add(new Horario(18, Turno.NOITE, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.QUARTA, true));
 
+    // Quinta-feira
+    horariosSemana.add(new Horario(19, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.QUINTA, true));
+    horariosSemana.add(new Horario(20, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.QUINTA, true));
+    horariosSemana.add(new Horario(21, Turno.TARDE, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.QUINTA, true));
+    horariosSemana.add(new Horario(22, Turno.TARDE, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.QUINTA, true));
+    horariosSemana.add(new Horario(23, Turno.NOITE, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.QUINTA, true));
+    horariosSemana.add(new Horario(24, Turno.NOITE, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.QUINTA, true));
+
+    // Sexta-feira
+    horariosSemana.add(new Horario(25, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEXTA, true));
+    horariosSemana.add(new Horario(26, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEXTA, true));
+    horariosSemana.add(new Horario(27, Turno.TARDE, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEXTA, true));
+    horariosSemana.add(new Horario(28, Turno.TARDE, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEXTA, true));
+    horariosSemana.add(new Horario(29, Turno.NOITE, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEXTA, true));
+    horariosSemana.add(new Horario(30, Turno.NOITE, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEXTA, true));
     return horariosSemana;
   }
 
@@ -45,6 +60,9 @@ public class DadosMockados {
     tipoRecurso.add(new TipoRecurso(2, "Computador"));
     tipoRecurso.add(new TipoRecurso(3, "Ar Condicionado"));
     tipoRecurso.add(new TipoRecurso(4, "Quadro Branco"));
+    tipoRecurso.add(new TipoRecurso(5, "Cadeiras"));
+    tipoRecurso.add(new TipoRecurso(6, "Mesa"));
+    tipoRecurso.add(new TipoRecurso(7, "Luz"));
 
     return tipoRecurso;
   }
