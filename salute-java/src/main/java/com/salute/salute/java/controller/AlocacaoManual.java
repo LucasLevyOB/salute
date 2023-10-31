@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import com.salute.salute.java.Alocacao;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
@@ -25,6 +27,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -116,8 +119,8 @@ public class AlocacaoManual extends Main implements Initializable {
             public TableCell<Alocacao, Void> call(final TableColumn<Alocacao, Void> param) {
                 final TableCell<Alocacao, Void> cell = new TableCell<Alocacao, Void>() {
 
-                    private final Button btn = new Button("X");
-                    private final Button btn2 = new Button("+");
+                    private final Button btn = new Button();
+                    private final Button btn2 = new Button();
 
                     {
                         btn.setOnAction((ActionEvent event) -> {
@@ -129,7 +132,6 @@ public class AlocacaoManual extends Main implements Initializable {
                     {
                         btn2.setOnAction((ActionEvent event) -> {
                             Alocacao alocacao = getTableView().getItems().get(getIndex());
-                            System.out.println(alocacao.getHorarioIndex());
                             // Node node = createPopup();
                             FXMLLoader loader = new FXMLLoader(
                                     getClass().getResource("../view/PopupAlocacaoManual.fxml"));
@@ -158,13 +160,20 @@ public class AlocacaoManual extends Main implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            // criar involocro para os botoes
                             btn.getStyleClass().add("btn");
                             btn.getStyleClass().add("danger");
                             btn.getStyleClass().add("small");
                             btn2.getStyleClass().add("btn");
                             btn2.getStyleClass().add("primary");
                             btn2.getStyleClass().add("small");
+                            FontIcon icon = new FontIcon();
+                            icon.setIconLiteral("mdi-close");
+                            btn.setGraphic(icon);
+                            FontIcon icon2 = new FontIcon();
+                            icon2.setIconLiteral("mdi-pencil");
+                            icon2.setIconColor(Paint.valueOf("#fff"));
+                            btn2.setGraphic(icon2);
+
                             HBox hbBtn = new HBox(btn, btn2);
                             hbBtn.setSpacing(8);
                             setGraphic(hbBtn);
@@ -187,6 +196,11 @@ public class AlocacaoManual extends Main implements Initializable {
         popup.setAutoFix(true);
         popup.setHideOnEscape(true);
         popup.getContent().add(node);
+        popup.setOnHiding((e) -> {
+            popup = null;
+        });
+        popup.getScene().getRoot().getStyleClass().add("z-elevation-4");
+        popup.getScene().getRoot().getStyleClass().add("popup");
         popup.show(this.getStage());
     }
 

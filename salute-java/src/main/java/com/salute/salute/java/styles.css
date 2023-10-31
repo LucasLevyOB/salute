@@ -23,17 +23,7 @@
   -fx-font-size: 12px;
   -fx-font-weight: bold;
   -fx-background-radius: 4px;
-  -fx-padding: 8px 8px;
-}
-
-.btn.primary {
-  -fx-background-color: #212121;
-  -fx-text-fill: #fff;
-}
-
-.btn.danger {
-  -fx-background-color: #DE5462;
-  -fx-text-fill: #fff;
+  -fx-padding: 4px 8px;
 }
 
 .btn.large {
@@ -43,7 +33,58 @@
   -fx-padding: 32px 48px;
 }
 
+.btn.icon {
+  -fx-background-color: transparent !important;
+}
+
+.btn.primary {
+  -fx-background-color: #212121;
+  -fx-text-fill: #FFFFFF;
+}
+
+.btn.danger {
+  -fx-background-color: #DE5462;
+  -fx-text-fill: #FFFFFF;
+}
+
 .btn.secondary {
   -fx-text-fill: #1E1E1E;
   -fx-background-color: #FFFFFF;
+}
+
+.btn.outline {
+  -fx-text-fill: #FFFFFF;
+  -fx-background-color: transparent;
+  -fx-border-color: #FFFFFF;
+  -fx-border-width: 1px;
+  -fx-border-radius: 8px;
+}
+
+.btn.outline.primary {
+  -fx-text-fill: #212121;
+  -fx-border-color: #212121;
+}
+
+.btn.outline.danger {
+  -fx-text-fill: #DE5462;
+  -fx-border-color: #DE5462;
+}
+
+.btn.outline.secondary {
+  -fx-text-fill: #1E1E1E;
+  -fx-border-color: #1E1E1E;
+}
+
+
+.z-elevation-3 {
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
+}
+
+.z-elevation-4 {
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 14, 0, 0, 0);
+}
+
+.popup {
+  -fx-background-color: #FFFFFF;
+  -fx-background-radius: 6px;
 }

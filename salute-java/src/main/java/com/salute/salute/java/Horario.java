@@ -73,7 +73,7 @@ public class Horario implements Comparable<Horario> {
     }
 
     public String formatarParaTabela() {
-        return diaSemana.toString() + " - " + horario.toString() + " - " + turno.toString();
+        return diaSemana.toString() + " - " + turno.toString() + " - " + horario.toString();
     }
 
     public boolean isAlocado() {
@@ -86,7 +86,7 @@ public class Horario implements Comparable<Horario> {
 
     @Override
     public String toString() {
-        return diaSemana + " - " + horario.toString().replace("_", " ") + " - " + turno;
+        return diaSemana + " - " + turno + " - " + horario.toString().replace("_", " ");
     }
 
     @Override

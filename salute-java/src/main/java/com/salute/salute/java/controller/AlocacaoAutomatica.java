@@ -41,9 +41,14 @@ public class AlocacaoAutomatica extends Main implements Initializable {
 
   @FXML
   public void alocarTurmas() {
-    AlocarTurmas.limparAlocacao(this.salaStore.getSalas());
-    AlocarTurmas.aloca(this.turmaStore.getTurmas(), this.salaStore.getSalas());
-    this.atualizarLista();
+    try {
+      AlocarTurmas.limparAlocacao(this.salaStore.getSalas());
+      AlocarTurmas.aloca(this.turmaStore.getTurmas(), this.salaStore.getSalas());
+    } catch (Exception e) {
+      System.out.println(e);
+    } finally {
+      this.atualizarLista();
+    }
 
     // Map<Integer, Sala> salas = this.salaStore.getSalas();
 
@@ -70,7 +75,6 @@ public class AlocacaoAutomatica extends Main implements Initializable {
       ArrayList<Horario> horarios = sala.getHorarios();
       for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
         Turma turma = sala.getTurmaPorKey(iHorario);
-        System.out.println(turma);
         if (turma == null) {
           alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(), "Livre"));
         } else {
