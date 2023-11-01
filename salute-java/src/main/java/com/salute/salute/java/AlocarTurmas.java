@@ -119,11 +119,9 @@ public class AlocarTurmas {
     // ordena os horarios da turma
     // buscar as salas com horarios disponiveis, primeiro horario da turma
     int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
-    System.out.println("LN 122: " + turma.toString());
-    System.out.println("LN 122: " + turma.getHorarios().size());
     int horasAula = horasTotais / turma.getHorarios().size();
     // primeiras aulas sempre serao teoricas
-    System.out.println("LN 125: " + horasAula);
+    // TODO: previnir divisoes por 0
     int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
     int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
     // int totalAulas = qtdeAulasTeoricas + qtdeAulasPraticas;

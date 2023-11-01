@@ -56,8 +56,6 @@ public class Database {
                     tipoRecurso2, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
             int insert1 = Recurso.insert(recurso1);
             int insert2 = Recurso.insert(recurso2);
-            System.out.println(insert1);
-            System.out.println(insert2);
 
             Recurso.getAll().forEach((recurso) -> {
                 System.out.println(recurso.getTombamento());

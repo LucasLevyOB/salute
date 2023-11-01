@@ -80,6 +80,18 @@ public class Horario implements Comparable<Horario> {
         return alocado;
     }
 
+    public boolean isTurno(Turno turno) {
+        return this.turno == turno;
+    }
+
+    public boolean isHorario(HorarioTurno horario) {
+        return this.horario == horario;
+    }
+
+    public boolean isDiaSemana(DiaSemana diaSemana) {
+        return this.diaSemana == diaSemana;
+    }
+
     public void setAlocado(boolean alocado) {
         this.alocado = alocado;
     }
@@ -107,6 +119,10 @@ public class Horario implements Comparable<Horario> {
             }
             return this.horario.compareTo(o.getHorario());
         }
+        return this.diaSemana.compareTo(o.getDiaSemana());
+    }
+    
+    public int compareToByDia(Horario o) {
         return this.diaSemana.compareTo(o.getDiaSemana());
     }
 }

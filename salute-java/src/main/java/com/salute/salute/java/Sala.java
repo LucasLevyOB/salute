@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.EstadoRecurso;
+import com.salute.salute.java.enums.HorarioTurno;
 import com.salute.salute.java.enums.TipoSala;
+import com.salute.salute.java.enums.Turno;
 import com.salute.salute.java.recurso.Recurso;
 import com.salute.salute.java.recurso.TipoRecurso;
 
@@ -128,6 +131,15 @@ public class Sala implements Comparable<Sala> {
             }
         }
         this.turmas.clear();
+    }
+
+    public int getHorariosByAtributos(Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
+        for (int i = 0; i < this.horarios.size(); i++) {
+            if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario) && this.horarios.get(i).isDiaSemana(diaSemana)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
