@@ -43,7 +43,7 @@ public class AlocacaoAutomatica extends Main implements Initializable {
   public void alocarTurmas() {
     try {
       AlocarTurmas.limparAlocacao(this.salaStore.getSalas());
-      AlocarTurmas.aloca(this.turmaStore.getTurmas(), this.salaStore.getSalas());
+      AlocarTurmas.alocacaoAutomatica(this.turmaStore.getTurmas(), this.salaStore.getSalas());
     } catch (Exception e) {
       System.out.println(e);
     } finally {

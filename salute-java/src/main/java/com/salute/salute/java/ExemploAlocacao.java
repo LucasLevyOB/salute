@@ -118,7 +118,7 @@ public class ExemploAlocacao {
     turmas.put(3, new Turma(3, "Estrutura de Dados", "Wladimir", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma3,
         necessidadesTurma3, "Engenharia de Software", 4));
 
-    AlocarTurmas.aloca(turmas, salas);
+    AlocarTurmas.alocacaoAutomatica(turmas, salas);
 
     // percorre as salas
     for (Integer key : salas.keySet()) {
