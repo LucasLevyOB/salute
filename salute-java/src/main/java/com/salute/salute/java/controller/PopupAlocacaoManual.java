@@ -2,6 +2,7 @@ package com.salute.salute.java.controller;
 
 import java.util.ArrayList;
 
+import com.salute.salute.java.AlocarTurmas;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
@@ -63,8 +64,9 @@ public class PopupAlocacaoManual implements Initializable {
     Turma turma = this.selectTurma.getSelectionModel().getSelectedItem();
     Sala sala = this.selectSala.getSelectionModel().getSelectedItem();
     Horario horario = this.selectHorario.getSelectionModel().getSelectedItem();
-    int horarioIndex = sala.getHorarios().indexOf(horario);
-    sala.alocarTurma(turma, horarioIndex);
+    AlocarTurmas.alocarTurma(turma, sala, horario);
+    // int horarioIndex = sala.getHorarios().indexOf(horario);
+    // sala.alocarTurma(turma, horarioIndex);
     // turma.setHorarioAlocado(horario);
     // System.out.println("Alocou " + turma.horarioIsAlocado(horario));
     onCancelar();

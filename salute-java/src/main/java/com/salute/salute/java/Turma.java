@@ -6,8 +6,10 @@ package com.salute.salute.java;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.salute.salute.java.enums.Semestre;
+import com.salute.salute.java.enums.TipoHorario;
 import com.salute.salute.java.recurso.Necessidade;
 
 /**
@@ -92,6 +94,19 @@ public class Turma implements Comparable<Turma> {
 
     public int getSemestreCurso() {
         return semestreCurso;
+    }
+
+    public void ordenarHorariosByTipo() {
+        // ordenar os horarios por TipoHorario(enum), colocando primeiro os horarios teoricos
+        Collections.sort(horarios, (h1, h2) -> {
+            if (h1.getTipo() == TipoHorario.TEORICO && h2.getTipo() == TipoHorario.PRATICO) {
+                return -1;
+            } else if (h1.getTipo() == TipoHorario.PRATICO && h2.getTipo() == TipoHorario.TEORICO) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 
     public Boolean hasHorario(Horario horario) {

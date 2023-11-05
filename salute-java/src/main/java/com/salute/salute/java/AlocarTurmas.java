@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.salute.salute.java.enums.EstadoRecurso;
+import com.salute.salute.java.enums.TipoHorario;
 import com.salute.salute.java.enums.TipoSala;
 import com.salute.salute.java.recurso.Necessidade;
 
@@ -15,11 +16,41 @@ import com.salute.salute.java.recurso.Necessidade;
 public class AlocarTurmas {
   private AlocarTurmas() {}
 
-  private static float calculaPontosTipo(TipoSala tipoSala, boolean teorica) {
-    if (tipoSala == TipoSala.LABORATORIO && teorica) {
+  private static void setarTiposHorarios(Turma turma) {
+    ArrayList<Horario> horariosTurma = turma.getHorarios();
+    int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
+    int horasAula = horasTotais / turma.getHorarios().size();
+    
+    // TODO: previnir divisoes por 0
+    int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
+    int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
+
+    for (int iHorario = 0; iHorario < horariosTurma.size(); iHorario++) {
+      Horario horario = horariosTurma.get(iHorario);
+      if (qtdeAulasTeoricas > 0) {
+        horario.setTipo(TipoHorario.TEORICO);
+        qtdeAulasTeoricas--;
+      } else {
+        horario.setTipo(TipoHorario.PRATICO);
+        qtdeAulasPraticas--;
+      }
+    }
+
+    turma.ordenarHorariosByTipo();
+  }
+
+  private static void setarTiposHorariosTurmas(Map<Integer, Turma> turmas) {
+    for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
+      Turma turma = entry.getValue();
+      setarTiposHorarios(turma);
+    }
+  }
+
+  private static float calculaPontosTipo(TipoSala tipoSala, TipoHorario tipoHorario) {
+    if (tipoSala == TipoSala.LABORATORIO && tipoHorario == TipoHorario.PRATICO) {
       return 10;
     }
-    if (tipoSala == TipoSala.SALA_DE_AULA && !teorica) {
+    if (tipoSala == TipoSala.SALA_DE_AULA && tipoHorario == TipoHorario.TEORICO) {
       return 10;
     }
     return 0;
@@ -41,7 +72,7 @@ public class AlocarTurmas {
 
   private static void iteraSobreHorariosSala(ArrayList<float[]> salaHorario, Sala sala, int keySala,
       Horario horarioTurma,
-      Turma turma, boolean teorica) {
+      Turma turma) {
     ArrayList<Horario> horariosSala = sala.getHorarios();
     float[] pontos = { 0, 0, 0 };
     for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
@@ -49,7 +80,7 @@ public class AlocarTurmas {
       boolean isOcupado = sala.getTurmas().containsKey(iHorario);
       if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario)) && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
         float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
-        float pontosTipo = calculaPontosTipo(sala.getTipo(), teorica);
+        float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
         pontos[0] = iHorario;
         pontos[1] = pontosRecursos + pontosTipo;
         pontos[2] = keySala;
@@ -59,7 +90,7 @@ public class AlocarTurmas {
     }
   }
 
-  private static boolean iteraSobreSalas(Horario horario, Map<Integer, Sala> salas, boolean teorica, Turma turma) {
+  private static boolean iteraSobreSalas(Horario horario, Map<Integer, Sala> salas, Turma turma) {
     ArrayList<float[]> salaHorarioCompativel = new ArrayList<>();
 
     for (Map.Entry<Integer, Sala> entry : salas.entrySet()) {
@@ -68,7 +99,7 @@ public class AlocarTurmas {
         continue;
       }
       
-      iteraSobreHorariosSala(salaHorarioCompativel, sala, entry.getKey(), horario, turma, teorica);
+      iteraSobreHorariosSala(salaHorarioCompativel, sala, entry.getKey(), horario, turma);
     }
 
     if (salaHorarioCompativel.isEmpty()) {
@@ -125,12 +156,12 @@ public class AlocarTurmas {
     // Arrays.sort(horariosTurma);
     // ordena os horarios da turma
     // buscar as salas com horarios disponiveis, primeiro horario da turma
-    int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
-    int horasAula = horasTotais / turma.getHorarios().size();
+    // int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
+    // int horasAula = horasTotais / turma.getHorarios().size();
     // primeiras aulas sempre serao teoricas
     // TODO: previnir divisoes por 0
-    int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
-    int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
+    // int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
+    // int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
     // int totalAulas = qtdeAulasTeoricas + qtdeAulasPraticas;
     // int[] aulasAlocadas = new int[horariosTurma.length];
     // int horarioAtual = 0;
@@ -144,24 +175,36 @@ public class AlocarTurmas {
     // }
     for (int iHorario = 0; iHorario < horariosTurma.size(); iHorario++) {
       Horario horario = horariosTurma.get(iHorario);
-      boolean isTeorica = qtdeAulasTeoricas > 0;
-      boolean alocou = iteraSobreSalas(horario, salas, isTeorica, turma);
-      if (!alocou) {
-        continue;
-      }
-      if (isTeorica) {
-        qtdeAulasTeoricas--;
-      } else {
-        qtdeAulasPraticas--;
-      }
+      // boolean isTeorica = qtdeAulasTeoricas > 0;
+      iteraSobreSalas(horario, salas, turma);
+      // if (alocou) {
+      //   // continue;
+      //   break;
+      // }
+      // if (isTeorica) {
+      //   qtdeAulasTeoricas--;
+      // } else {
+      //   qtdeAulasPraticas--;
+      // }
     }
   }
 
   public static void alocacaoAutomatica(Map<Integer, Turma> turmas, Map<Integer, Sala> salas) {
+    setarTiposHorariosTurmas(turmas);
+
     for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
       Turma turma = entry.getValue();
       iteraSobreHorariosTurma(turma, salas);
     }
+  }
+
+  public static void desalocarTurma(Sala sala, int horarioIndex) {
+    sala.desalocarTurma(horarioIndex);
+  }
+
+  public static void alocarTurma(Turma turma, Sala sala, Horario horario) {
+    int horarioIndex = sala.getHorarios().indexOf(horario);
+    sala.alocarTurma(turma, horarioIndex);
   }
 
   public static void limparAlocacao(Map<Integer, Sala> salas) {

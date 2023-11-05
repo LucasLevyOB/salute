@@ -8,6 +8,7 @@ import java.util.Date;
 
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.HorarioTurno;
+import com.salute.salute.java.enums.TipoHorario;
 import com.salute.salute.java.enums.Turno;
 
 /**
@@ -23,6 +24,7 @@ public class Horario implements Comparable<Horario> {
     private Date data;
     private boolean recorrente;
     private boolean alocado;
+    private TipoHorario tipo;
 
     public Horario(int id, Turno turno, HorarioTurno horario, DiaSemana diaSemana, Date data, boolean recorrente) {
         this.id = id;
@@ -94,6 +96,14 @@ public class Horario implements Comparable<Horario> {
 
     public void setAlocado(boolean alocado) {
         this.alocado = alocado;
+    }
+
+    public TipoHorario getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoHorario tipo) {
+        this.tipo = tipo;
     }
 
     @Override

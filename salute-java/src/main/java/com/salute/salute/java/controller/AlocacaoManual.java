@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import com.salute.salute.java.Alocacao;
+import com.salute.salute.java.AlocarTurmas;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
@@ -93,10 +94,7 @@ public class AlocacaoManual extends Main implements Initializable {
         return FXCollections.observableArrayList(alocacoes);
     }
 
-    private void desalocaTurma(Sala sala, int horarioIndex) {
-        sala.desalocarTurma(horarioIndex);
-        atualizarLista();
-    }
+    
 
     private ArrayList<Turma> getTurmas(Horario horario) {
         Map<Integer, Turma> turmas = this.turmaStore.getTurmas();
@@ -106,7 +104,7 @@ public class AlocacaoManual extends Main implements Initializable {
         }
         ArrayList<Turma> turmasHorario = new ArrayList<>();
         for (Turma turma : turmasList) {
-            if (turma.hasHorario(horario) && !turma.horarioIsAlocado(horario)) {
+            if (Boolean.TRUE.equals(turma.hasHorario(horario)) && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
                 turmasHorario.add(turma);
             }
         }
@@ -117,7 +115,7 @@ public class AlocacaoManual extends Main implements Initializable {
         Callback<TableColumn<Alocacao, Void>, TableCell<Alocacao, Void>> cellFactory = new Callback<TableColumn<Alocacao, Void>, TableCell<Alocacao, Void>>() {
             @Override
             public TableCell<Alocacao, Void> call(final TableColumn<Alocacao, Void> param) {
-                final TableCell<Alocacao, Void> cell = new TableCell<Alocacao, Void>() {
+                return new TableCell<Alocacao, Void>() {
 
                     private final Button btn = new Button();
                     private final Button btn2 = new Button();
@@ -125,7 +123,8 @@ public class AlocacaoManual extends Main implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Alocacao alocacao = getTableView().getItems().get(getIndex());
-                            desalocaTurma(alocacao.getSalaObj(), alocacao.getHorarioIndex());
+                            AlocarTurmas.desalocarTurma(alocacao.getSalaObj(), alocacao.getHorarioIndex());
+                            atualizarLista();
                         });
                     }
 
@@ -180,7 +179,6 @@ public class AlocacaoManual extends Main implements Initializable {
                         }
                     }
                 };
-                return cell;
             }
         };
 
