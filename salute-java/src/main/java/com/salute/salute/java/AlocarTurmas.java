@@ -14,35 +14,13 @@ import com.salute.salute.java.recurso.Necessidade;
  * @author lucas-levy
  */
 public class AlocarTurmas {
-  private AlocarTurmas() {}
-
-  private static void setarTiposHorarios(Turma turma) {
-    ArrayList<Horario> horariosTurma = turma.getHorarios();
-    int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
-    int horasAula = horasTotais / turma.getHorarios().size();
-    
-    // TODO: previnir divisoes por 0
-    int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
-    int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
-
-    for (int iHorario = 0; iHorario < horariosTurma.size(); iHorario++) {
-      Horario horario = horariosTurma.get(iHorario);
-      if (qtdeAulasTeoricas > 0) {
-        horario.setTipo(TipoHorario.TEORICO);
-        qtdeAulasTeoricas--;
-      } else {
-        horario.setTipo(TipoHorario.PRATICO);
-        qtdeAulasPraticas--;
-      }
-    }
-
-    turma.ordenarHorariosByTipo();
+  private AlocarTurmas() {
   }
 
   private static void setarTiposHorariosTurmas(Map<Integer, Turma> turmas) {
     for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
       Turma turma = entry.getValue();
-      setarTiposHorarios(turma);
+      turma.calcularTiposHorarios();
     }
   }
 
@@ -78,7 +56,8 @@ public class AlocarTurmas {
     for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
       Horario horario = horariosSala.get(iHorario);
       boolean isOcupado = sala.getTurmas().containsKey(iHorario);
-      if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario)) && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
+      if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario))
+          && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
         float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
         float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
         pontos[0] = iHorario;
@@ -98,7 +77,7 @@ public class AlocarTurmas {
       if (turma.getQtdeAlunos() > sala.getCapacidade()) {
         continue;
       }
-      
+
       iteraSobreHorariosSala(salaHorarioCompativel, sala, entry.getKey(), horario, turma);
     }
 
@@ -178,13 +157,13 @@ public class AlocarTurmas {
       // boolean isTeorica = qtdeAulasTeoricas > 0;
       iteraSobreSalas(horario, salas, turma);
       // if (alocou) {
-      //   // continue;
-      //   break;
+      // // continue;
+      // break;
       // }
       // if (isTeorica) {
-      //   qtdeAulasTeoricas--;
+      // qtdeAulasTeoricas--;
       // } else {
-      //   qtdeAulasPraticas--;
+      // qtdeAulasPraticas--;
       // }
     }
   }

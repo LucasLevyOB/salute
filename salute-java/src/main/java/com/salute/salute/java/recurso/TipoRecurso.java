@@ -4,11 +4,13 @@
  */
 package com.salute.salute.java.recurso;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lucas-levy
  */
-public class TipoRecurso {
+public class TipoRecurso implements Serializable {
 
     private int id;
     private String tipo;

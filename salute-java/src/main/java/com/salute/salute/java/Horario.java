@@ -4,6 +4,7 @@
  */
 package com.salute.salute.java;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.salute.salute.java.enums.DiaSemana;
@@ -15,7 +16,7 @@ import com.salute.salute.java.enums.Turno;
  *
  * @author lucas-levy
  */
-public class Horario implements Comparable<Horario> {
+public class Horario implements Comparable<Horario>, Serializable {
 
     private int id;
     private Turno turno;

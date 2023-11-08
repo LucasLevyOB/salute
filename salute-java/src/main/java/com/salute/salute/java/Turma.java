@@ -4,6 +4,7 @@
  */
 package com.salute.salute.java;
 
+import java.io.Serializable;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import com.salute.salute.java.recurso.Necessidade;
  *
  * @author lucas-levy
  */
-public class Turma implements Comparable<Turma> {
+public class Turma implements Comparable<Turma>, Serializable {
 
     private int id;
     private int qtdeAlunos;
@@ -96,8 +97,16 @@ public class Turma implements Comparable<Turma> {
         return semestreCurso;
     }
 
+    public Horario getHorario(Horario horario) {
+        for (Horario h : this.horarios) {
+            if (h.equals(horario)) {
+                return h;
+            }
+        }
+        return null;
+    }
+
     public void ordenarHorariosByTipo() {
-        // ordenar os horarios por TipoHorario(enum), colocando primeiro os horarios teoricos
         Collections.sort(horarios, (h1, h2) -> {
             if (h1.getTipo() == TipoHorario.TEORICO && h2.getTipo() == TipoHorario.PRATICO) {
                 return -1;
@@ -141,6 +150,28 @@ public class Turma implements Comparable<Turma> {
             }
         }
         return false;
+    }
+
+    public void calcularTiposHorarios() {
+        int horasTotais = cargaPratica + cargaTeorica;
+        int horasAula = horasTotais / horarios.size();
+
+        // TODO: previnir divisoes por 0
+        int qtdeAulasTeoricas = cargaTeorica / horasAula;
+        int qtdeAulasPraticas = cargaPratica / horasAula;
+
+        for (Horario horario : horarios) {
+            if (qtdeAulasTeoricas > 0) {
+                horario.setTipo(TipoHorario.TEORICO);
+                qtdeAulasTeoricas--;
+            } else {
+                horario.setTipo(TipoHorario.PRATICO);
+                qtdeAulasPraticas--;
+            }
+
+        }
+
+        ordenarHorariosByTipo();
     }
 
     public String formatarParaTabela() {

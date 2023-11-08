@@ -4,13 +4,15 @@
  */
 package com.salute.salute.java.recurso;
 
+import java.io.Serializable;
+
 import com.salute.salute.java.enums.EstadoRecurso;
 
 /**
  *
  * @author lucas-levy
  */
-public class Recurso {
+public class Recurso implements Serializable {
 
     private String tombamento;
     private TipoRecurso tipo;

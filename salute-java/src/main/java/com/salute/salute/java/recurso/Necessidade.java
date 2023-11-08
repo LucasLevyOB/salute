@@ -4,11 +4,13 @@
  */
 package com.salute.salute.java.recurso;
 
+import java.io.Serializable;
+
 /**
  *
  * @author lucas-levy
  */
-public class Necessidade {
+public class Necessidade implements Serializable {
 
     private TipoRecurso recurso;
     private int qtde;

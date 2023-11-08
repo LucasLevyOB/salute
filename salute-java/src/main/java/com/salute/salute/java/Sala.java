@@ -7,6 +7,7 @@ package com.salute.salute.java;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.Serializable;
 
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.EstadoRecurso;
@@ -20,7 +21,7 @@ import com.salute.salute.java.recurso.TipoRecurso;
  *
  * @author lucas-levy
  */
-public class Sala implements Comparable<Sala> {
+public class Sala implements Comparable<Sala>, Serializable {
 
     private int id;
     private TipoSala tipo;
@@ -29,6 +30,11 @@ public class Sala implements Comparable<Sala> {
     private int andar;
     private int bloco;
     private ArrayList<Horario> horarios;
+    /**
+     * @property turmas
+     *           Key: index do horario
+     *           Value: turma alocada
+     */
     private Map<Integer, Turma> turmas;
     private ArrayList<Recurso> recursos;
 
@@ -135,7 +141,26 @@ public class Sala implements Comparable<Sala> {
 
     public int getHorariosByAtributos(Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
         for (int i = 0; i < this.horarios.size(); i++) {
-            if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario) && this.horarios.get(i).isDiaSemana(diaSemana)) {
+            if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario)
+                    && this.horarios.get(i).isDiaSemana(diaSemana)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public Horario getHorario(Horario horario) {
+        for (Horario h : this.horarios) {
+            if (h.equals(horario)) {
+                return h;
+            }
+        }
+        return null;
+    }
+
+    public int hasHorario(Horario horario, boolean livre) {
+        for (int i = 0; i < this.horarios.size(); i++) {
+            if (this.horarios.get(i).equals(horario) && (this.turmas.get(i) == null) == livre) {
                 return i;
             }
         }
@@ -146,7 +171,7 @@ public class Sala implements Comparable<Sala> {
     public String toString() {
         // formatar para o seguinte exemplo de saida
         // [Tipo] 1 - 1º andar - Bloco 1
-        return this.tipo.toString() + ": " + this.numero + " - " + this.andar + "º andar - Bloco " + this.bloco;
+        return this.tipo.toString() + " " + this.numero + " - " + this.andar + "º andar - Bloco " + this.bloco;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.salute.salute.java.schemas;
 
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.selectFrom;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 

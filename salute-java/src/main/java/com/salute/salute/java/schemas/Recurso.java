@@ -1,5 +1,6 @@
 package com.salute.salute.java.schemas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
@@ -14,8 +15,6 @@ import com.datastax.oss.driver.api.querybuilder.update.Update;
 
 import com.salute.salute.java.database.ConnectionDB;
 import com.salute.salute.java.database.ResultSetFunction;
-
-import jnr.ffi.annotations.In;
 
 /*
 enum salute.estado_recurso {
