@@ -185,6 +185,10 @@ public class Turma implements Comparable<Turma>, Serializable {
         return ano + "." + (semestre == Semestre.PRIMEIRO ? 1 : 2);
     }
 
+    public int getQtdeHorarios() {
+        return horarios.size();
+    }
+
     // toString
     @Override
     public String toString() {

@@ -18,8 +18,12 @@ import com.salute.salute.java.recurso.Necessidade;
 import com.salute.salute.java.singleton.SalaStore;
 import com.salute.salute.java.singleton.TurmaStore;
 
+// resource planing
+// resource allocation
+
 public class AlocacaoAlgoritmo {
   private ArrayList<Map<Integer, Sala>> populacao;
+  private Map<Integer, Turma> turmas;
   /**
    * @property fitnessIndividuos
    *           Key: index do individuo
@@ -39,6 +43,7 @@ public class AlocacaoAlgoritmo {
   public AlocacaoAlgoritmo() {
     this.populacao = new ArrayList<>();
     this.fitnessIndividuos = new ArrayList<>();
+    this.turmas = TurmaStore.getInstance().getTurmas();
   }
 
   public ArrayList<Map<Integer, Sala>> getPopulacao() {
@@ -102,9 +107,9 @@ public class AlocacaoAlgoritmo {
 
   private void gerarPopulacaoInicial(Map<Integer, Sala> salas, Map<Integer, Turma> turmas) {
     for (int i = 0; i < TAMANHO_POPULACAO; i++) {
+      calcularTiposHorariosTurmas(turmas);
       Map<Integer, Sala> copiaProfundaSalas = SerializationUtils.clone((HashMap<Integer, Sala>) salas);
       Map<Integer, Turma> copiaProfundaTurmas = SerializationUtils.clone((HashMap<Integer, Turma>) turmas);
-      calcularTiposHorariosTurmas(copiaProfundaTurmas);
 
       Map<Integer, Sala> individuo = populaIndividuo(copiaProfundaSalas, copiaProfundaTurmas);
       populacao.add(individuo);
@@ -160,6 +165,28 @@ public class AlocacaoAlgoritmo {
      * mesmo bloco
      */
 
+    // TODO: fazer o calculo de conflitos de horario e penalizar o fitness
+    // TODO: turmas alocadas a mais
+
+    // for (Map.Entry<Integer, Turma> entry : this.turmas.entrySet()) {
+    // Turma turma = entry.getValue();
+    // int qtdeHorarios = turma.getQtdeHorarios();
+    // int qtdeHorariosAlocados = 0;
+    // for (Map.Entry<Integer, Sala> entrySala : individuo.entrySet()) {
+    // Sala sala = entrySala.getValue();
+    // for (Map.Entry<Integer, Turma> entryTurma : sala.getTurmas().entrySet()) {
+    // if (entryTurma.getValue().equals(turma)) {
+    // qtdeHorariosAlocados++;
+    // }
+    // }
+    // }
+
+    // if (qtdeHorariosAlocados < qtdeHorarios) {
+    // fitness -= PONTOS_CONFLITO_HORARIO * (qtdeHorariosAlocados - qtdeHorarios);
+    // }
+
+    // }
+
     return fitness;
   }
 
@@ -169,9 +196,7 @@ public class AlocacaoAlgoritmo {
     }
 
     float fitness = calculaPontosIndividuo(individuo);
-    // TODO: fazer calculo de pontos para alocacao de turmas do mesmo semestre no
-    // mesmo bloco
-    // TODO: fazer o calculo de conflitos de horario e penalizar o fitness
+
     return fitness / totalMaximoPontos;
   }
 
