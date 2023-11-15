@@ -6,16 +6,13 @@ import com.salute.salute.java.AlocarTurmas;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
+import com.salute.salute.java.interfaces.Cancelar;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-
-interface Cancelar {
-  void cancelar();
-}
 
 public class PopupAlocacaoManual implements Initializable {
   private Cancelar cancelar;

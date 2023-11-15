@@ -50,7 +50,7 @@ table salute.horario {
  */
 
 public class Horario {
- 
+
   public static int createTable() {
     String sql = "CREATE TABLE IF NOT EXISTS horario (" +
         " hor_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -61,9 +61,11 @@ public class Horario {
   }
 
   public static int insert(com.salute.salute.java.Horario horario) {
-    RegularInsert insert = insertInto("horario").value("hor_turno", literal(horario.getTurno().toString()))
-        .value("hor_horario", literal(horario.getHorario().toString()))
-        .value("hor_dia_semana", literal(horario.getDiaSemana().toString()));
+    System.out.println(horario.getTurno().toString().toLowerCase());
+    RegularInsert insert = insertInto("horario")
+        .value("hor_turno", literal(horario.getTurno().toString().toLowerCase()))
+        .value("hor_horario", literal(horario.getHorario().toString().toLowerCase()))
+        .value("hor_dia_semana", literal(horario.getDiaSemana().toString().toLowerCase()));
     return ConnectionDB.update(insert.asCql());
   }
 
@@ -73,9 +75,9 @@ public class Horario {
   }
 
   public static int updateValue(com.salute.salute.java.Horario horario) {
-    Update update = update("horario").setColumn("hor_turno", literal(horario.getTurno().toString()))
-        .setColumn("hor_horario", literal(horario.getHorario().toString()))
-        .setColumn("hor_dia_semana", literal(horario.getDiaSemana().toString()))
+    Update update = update("horario").setColumn("hor_turno", literal(horario.getTurno().toString().toLowerCase()))
+        .setColumn("hor_horario", literal(horario.getHorario().toString().toLowerCase()))
+        .setColumn("hor_dia_semana", literal(horario.getDiaSemana().toString().toLowerCase()))
         .whereColumn("hor_id").isEqualTo(literal(horario.getId()));
     return ConnectionDB.update(update.asCql());
   }
@@ -96,13 +98,12 @@ public class Horario {
   }
 
   /**
-   *    private int id;
-        private Turno turno;
-        private HorarioTurno horario;
-        private DiaSemana diaSemana;
-        private Date data;
-        private boolean recorrente;
+   * private int id;
+   * private Turno turno;
+   * private HorarioTurno horario;
+   * private DiaSemana diaSemana;
+   * private Date data;
+   * private boolean recorrente;
    * 
    */
 }
-

@@ -45,6 +45,18 @@ public class Sala implements Comparable<Sala> {
         this.recursos = recursos;
     }
 
+    public Sala() {
+        this.id = -1;
+        this.tipo = null;
+        this.capacidade = -1;
+        this.numero = -1;
+        this.andar = -1;
+        this.bloco = -1;
+        this.horarios = new ArrayList<>();
+        this.turmas = new HashMap<>();
+        this.recursos = new ArrayList<>();
+    }
+
     public int getId() {
         return id;
     }
@@ -85,8 +97,52 @@ public class Sala implements Comparable<Sala> {
         return recursos;
     }
 
-    public void setTurmas(int key, Turma turma) {
+    public void setTurmaById(int key, Turma turma) {
         this.turmas.put(key, turma);
+    }
+
+    public void setRecursos(ArrayList<Recurso> recursos) {
+        this.recursos = recursos;
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    public void setTipo(TipoSala tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public void setAndar(int andar) {
+        this.andar = andar;
+    }
+
+    public void setBloco(int bloco) {
+        this.bloco = bloco;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTurmas(Map<Integer, Turma> turmas) {
+        this.turmas = turmas;
+    }
+
+    public void addHorario(Horario horario) {
+        this.horarios.add(horario);
+    }
+
+    public void addRecurso(Recurso recurso) {
+        this.recursos.add(recurso);
     }
 
     public int qtdeRecursosTipoEstado(TipoRecurso tipo, EstadoRecurso estado) {
@@ -135,7 +191,8 @@ public class Sala implements Comparable<Sala> {
 
     public int getHorariosByAtributos(Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
         for (int i = 0; i < this.horarios.size(); i++) {
-            if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario) && this.horarios.get(i).isDiaSemana(diaSemana)) {
+            if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario)
+                    && this.horarios.get(i).isDiaSemana(diaSemana)) {
                 return i;
             }
         }

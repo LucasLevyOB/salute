@@ -17,59 +17,110 @@ import com.datastax.oss.driver.api.querybuilder.update.Update;
 //import com.datastax.oss.driver.api.querybuilder.update.UpdateStart;
 import com.salute.salute.java.database.ConnectionDB;
 import com.salute.salute.java.database.ResultSetFunction;
+import com.salute.salute.java.enums.DiaSemana;
+import com.salute.salute.java.enums.HorarioTurno;
+import com.salute.salute.java.enums.Turno;
 
 public class Sala {
     public static int createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS sala (" +
-            " sal_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-            " sal_tipo VARCHAR(255) CHECK(sal_tipo IN ('laboratorio', 'sala_de_aula', 'sala_de_estudos', 'sala_de_eventos')),"+
-            " sal_capacidade INTEGER," +
-            " sal_numero INTEGER," +
-            " sal_bloco INTEGER," + 
-            " sal_andar INTEGER);";
+                " sal_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " sal_tipo VARCHAR(255) CHECK(sal_tipo IN ('laboratorio', 'sala_de_aula', 'sala_de_estudos', 'sala_de_eventos')),"
+                +
+                " sal_capacidade INTEGER," +
+                " sal_numero INTEGER," +
+                " sal_bloco INTEGER," +
+                " sal_andar INTEGER);";
         return ConnectionDB.update(sql);
     }
 
-    public static int insert(String tipo, int capacidade, int numero, int andar, int bloco) {
+    public static int insert(com.salute.salute.java.Sala sala) {
         RegularInsert query = insertInto("sala")
-            .value("sal_tipo", literal(tipo))
-            .value("sal_capacidade", literal(capacidade))
-            .value("sal_numero", literal(numero))
-            .value("sal_andar", literal(andar))
-            .value("sal_bloco", literal(bloco));
+                .value("sal_tipo", literal(sala.getTipo().toString().toLowerCase()))
+                .value("sal_capacidade", literal(sala.getCapacidade()))
+                .value("sal_numero", literal(sala.getNumero()))
+                .value("sal_andar", literal(sala.getAndar()))
+                .value("sal_bloco", literal(sala.getBloco()));
         return ConnectionDB.update(query.toString());
-        
+
     }
 
     public static int updateValue(com.salute.salute.java.Sala sala) {
         Update query = update("sala")
-            .setColumn("sal_tipo", literal(sala.getTipo()))
-            .setColumn("sal_numero", literal(sala.getNumero()))
-            .whereColumn("sal_id")
-            .isEqualTo(literal(sala.getId()));
-        
+                .setColumn("sal_tipo", literal(sala.getTipo()))
+                .setColumn("sal_numero", literal(sala.getNumero()))
+                .whereColumn("sal_id")
+                .isEqualTo(literal(sala.getId()));
+
         return ConnectionDB.update(query.toString());
     }
-
 
     public static int delete(int id) {
         Delete query = deleteFrom("sala").whereColumn("sal_id").isEqualTo(literal(id));
         return ConnectionDB.update(query.toString());
     }
 
-    /*public static ArrayList<com.salute.salute.java.Sala> getAll() {
+    public static ArrayList<com.salute.salute.java.Sala> getAll() {
         ArrayList<com.salute.salute.java.Sala> salas = new ArrayList<>();
-        Select query = selectFrom("sala").all();
+        String query = "SELECT * FROM sala AS s LEFT JOIN horario_sala AS hs on s.sal_id = hs.hsa_sala LEFT JOIN horario AS h on hs.hsa_horario = h.hor_id LEFT JOIN alocacao_recurso_sala AS ars on s.sal_id = ars.ars_sala LEFT JOIN recurso AS r on ars.ars_recurso = r.rec_tombamento LEFT JOIN tipo_recurso AS tr on r.rec_tipo = tr.tre_id;";
         ResultSetFunction function = (ResultSet rs) -> {
+            int salaAtual = 0;
+            com.salute.salute.java.Sala sala = new com.salute.salute.java.Sala();
             while (rs.next()) {
-                salas.add(new com.salute.salute.java.Sala(rs.getInt("sal_id"), 
-                rs.getString("sal_tipo"), 
-                rs.getInt("sal_capacidade"), 
-                rs.getInt("sal_numero"), 
-                rs.getInt("sal_andar"))),
+                System.out.println("row: " + rs.getRow());
+                int salaId = rs.getInt("sal_id");
+                System.out.println("salaId: " + salaId);
+                System.out.println("salaAtual: " + salaAtual);
+                if (salaAtual != salaId) {
+                    System.out.println("salaAtual != salaId");
+                    sala = new com.salute.salute.java.Sala();
+                    salaAtual = rs.getInt("sal_id");
+                    sala.setId(rs.getInt("sal_id"));
+                    sala.setCapacidade(rs.getInt("sal_capacidade"));
+                    sala.setNumero(rs.getInt("sal_numero"));
+                    sala.setAndar(rs.getInt("sal_andar"));
+                    sala.setBloco(rs.getInt("sal_bloco"));
+                    sala.setTipo(com.salute.salute.java.enums.TipoSala.valueOf(rs.getString("sal_tipo").toUpperCase()));
+                    salas.add(sala);
+                    System.out.println("sala: " + sala);
+                }
+                // System.out.println("sal_id: " + rs.getInt("sal_id"));
+                // System.out.println("hor_id: " + rs.getInt("hor_id"));
+                if (rs.getInt("hor_id") != 0) {
+                    System.out.println("hor_id != 0");
+                    System.out.println(DiaSemana.valueOf(rs.getString("hor_dia_semana").toUpperCase()));
+                    com.salute.salute.java.Horario horario = new com.salute.salute.java.Horario();
+                    horario.setId(rs.getInt("hor_id"));
+                    horario.setDiaSemana(DiaSemana.valueOf(rs.getString("hor_dia_semana").toUpperCase()));
+                    horario.setHorario(HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase()));
+                    horario.setTurno(Turno.valueOf(rs.getString("hor_turno").toUpperCase()));
+                    // horario.setRecorrente(rs.getBoolean("hor_recorrente"));
+                    sala.addHorario(horario);
+                    System.out.println("Sala: " + sala);
+                    System.out.println("horario: " + horario);
+                }
+
+                if (rs.getString("rec_tombamento") != null) {
+                    System.out.println("rec_tombamento != null");
+                    // com.salute.salute.java.recurso.TipoRecurso tipo = new
+                    // com.salute.salute.java.recurso.TipoRecurso(rs.getInt("tre_id"),
+                    // rs.getString("tre_tipo"));
+                    // com.salute.salute.java.recurso.Recurso recurso = new
+                    // com.salute.salute.java.recurso.Recurso(rs.getString("rec_tombamento"), tipo,
+                    // com.salute.salute.java.enums.EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase()));
+                    com.salute.salute.java.recurso.TipoRecurso tipoRecurso = new com.salute.salute.java.recurso.TipoRecurso();
+                    tipoRecurso.setId(rs.getInt("tre_id"));
+                    tipoRecurso.setTipo(rs.getString("tre_tipo"));
+                    com.salute.salute.java.recurso.Recurso recurso = new com.salute.salute.java.recurso.Recurso();
+                    recurso.setTombamento(rs.getString("rec_tombamento"));
+                    recurso.setTipo(tipoRecurso);
+                    sala.addRecurso(recurso);
+                    System.out.println("Sala: " + sala);
+                    System.out.println("recurso: " + recurso);
+                }
             }
         };
-        ConnectionDB.query(query.toString(), function);
+        ConnectionDB.query(query, function);
         return salas;
-    }*/
+    }
 }

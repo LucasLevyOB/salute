@@ -28,20 +28,19 @@ import com.salute.salute.java.database.ConnectionDB;
 //import com.salute.salute.java.enums.Semestre;
 //import com.salute.salute.java.recurso.Necessidade;
 
-
 public class AlocacaoRecursoSala {
   public static int createTable() {
     String sql = "CREATE TABLE IF NOT EXISTS alocacao_recurso_sala (" +
         " ars_id INTEGER PRIMARY KEY AUTOINCREMENT," +
         " ars_sala INTEGER REFERENCES sala(sal_id)," +
-        " ars_horario INTEGER REFERENCES horario(hor_id ))";
+        " ars_recurso INTEGER REFERENCES recurso(rec_tombamento));";
     return ConnectionDB.update(sql);
   }
 
-  public static int insert(int sala, int horario) {
+  public static int insert(int sala, String recurso) {
     RegularInsert query = insertInto("alocacao_recurso_sala")
         .value("ars_sala", literal(sala))
-        .value("ars_horario", literal(horario));
+        .value("ars_recurso", literal(recurso));
     return ConnectionDB.update(query.toString());
-  } 
+  }
 }

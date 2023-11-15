@@ -21,6 +21,7 @@ import com.salute.salute.java.Turma;
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.HorarioTurno;
 import com.salute.salute.java.enums.Turno;
+import com.salute.salute.java.interfaces.Cancelar;
 import com.salute.salute.java.relatorio.RelatorioPDF;
 import com.salute.salute.java.singleton.SalaStore;
 
@@ -32,10 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-
-interface Cancelar {
-  void cancelar();
-}
 
 public class PopupGerarRelatorios implements Initializable {
 
@@ -60,7 +57,7 @@ public class PopupGerarRelatorios implements Initializable {
       selectFolder();
     });
   }
-  
+
   private void selectFolder() {
     try {
       // Node node = (Node) destinoArquivoLabel;

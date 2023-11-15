@@ -32,34 +32,78 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.CadastrarRecursos">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <GridPane prefHeight="120.0" styleClass="header">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
-            <Text fill="WHITE" layoutX="136.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR RECURSOS">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR RECURSOS" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
-            <ChoiceBox layoutX="396.0" layoutY="227.0" prefHeight="25.0" prefWidth="198.0" />
-            <Text layoutX="38.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de recurso:" />
-            <Text layoutX="342.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" />
-            <ChoiceBox layoutX="145.0" layoutY="227.0" prefWidth="150.0" />
-            <Text layoutX="38.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tombamento:" />
-            <TextField layoutX="144.0" layoutY="156.0" prefHeight="25.0" prefWidth="451.0" />
-            <Button layoutX="257.0" layoutY="343.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="CADASTRAR" />
+            <Button mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
          </children>
-    </AnchorPane>
+         <padding>
+            <Insets bottom="16.0" left="8.0" right="8.0" top="16.0" />
+         </padding>
+      </GridPane>
+      <VBox alignment="TOP_CENTER" spacing="16.0">
+         <children>
+            <GridPane hgap="8.0" vgap="18.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" percentWidth="0.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tombamento:" />
+                        <TextField prefHeight="25.0" prefWidth="180.0" fx:id="tombamentoRecurso" />
+                     </children>
+                  </HBox>
+                  <HBox GridPane.columnIndex="1">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" />
+                        <ChoiceBox prefHeight="25.0" prefWidth="198.0" fx:id="estadoRecurso" />
+                     </children>
+                  </HBox>
+                  <HBox GridPane.rowIndex="1">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de recurso:" />
+                        <ChoiceBox prefWidth="180.0" fx:id="tipoRecurso" />
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="16.0" />
+               </VBox.margin>
+            </GridPane>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="CADASTRAR" fx:id="btnCadastrarRecurso" />
+         </children>
+      </VBox>
   </children>
 </VBox>

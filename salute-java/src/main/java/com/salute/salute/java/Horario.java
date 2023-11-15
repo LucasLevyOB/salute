@@ -50,6 +50,15 @@ public class Horario implements Comparable<Horario> {
         this.diaSemana = diaSemana;
     }
 
+    public Horario() {
+        this.id = -1;
+        this.turno = null;
+        this.horario = null;
+        this.diaSemana = null;
+        this.data = null;
+        this.recorrente = false;
+    }
+
     public int getId() {
         return id;
     }
@@ -106,6 +115,30 @@ public class Horario implements Comparable<Horario> {
         this.tipo = tipo;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTurno(Turno turno) {
+        this.turno = turno;
+    }
+
+    public void setHorario(HorarioTurno horario) {
+        this.horario = horario;
+    }
+
+    public void setDiaSemana(DiaSemana diaSemana) {
+        this.diaSemana = diaSemana;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public void setRecorrente(boolean recorrente) {
+        this.recorrente = recorrente;
+    }
+
     @Override
     public String toString() {
         return diaSemana + " - " + turno + " - " + horario.toString().replace("_", " ");
@@ -131,7 +164,7 @@ public class Horario implements Comparable<Horario> {
         }
         return this.diaSemana.compareTo(o.getDiaSemana());
     }
-    
+
     public int compareToByDia(Horario o) {
         return this.diaSemana.compareTo(o.getDiaSemana());
     }

@@ -22,6 +22,12 @@ public class Recurso {
         this.estado = estado;
     }
 
+    public Recurso() {
+        this.tombamento = null;
+        this.tipo = null;
+        this.estado = null;
+    }
+
     public String getTombamento() {
         return tombamento;
     }
@@ -34,4 +40,15 @@ public class Recurso {
         return estado;
     }
 
+    public void setTombamento(String tombamento) {
+        this.tombamento = tombamento;
+    }
+
+    public void setTipo(TipoRecurso tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setEstado(EstadoRecurso estado) {
+        this.estado = estado;
+    }
 }

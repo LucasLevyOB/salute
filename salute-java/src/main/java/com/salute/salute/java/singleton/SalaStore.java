@@ -19,7 +19,8 @@ public class SalaStore {
   private Map<Integer, Sala> salas;
 
   private SalaStore() {
-    this.salas = povoaSalas();
+    this.salas = new HashMap<>();
+    this.atualizarFromAPI();
   }
 
   public static SalaStore getInstance() {
@@ -31,6 +32,12 @@ public class SalaStore {
 
   public Map<Integer, Sala> getSalas() {
     return this.salas;
+  }
+
+  public void atualizarFromAPI() {
+    com.salute.salute.java.schemas.Sala.getAll().forEach((sala) -> {
+      this.salas.put(sala.getId(), sala);
+    });
   }
 
   private static Map<Integer, Sala> povoaSalas() {

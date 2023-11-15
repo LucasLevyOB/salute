@@ -94,8 +94,6 @@ public class AlocacaoManual extends Main implements Initializable {
         return FXCollections.observableArrayList(alocacoes);
     }
 
-    
-
     private ArrayList<Turma> getTurmas(Horario horario) {
         Map<Integer, Turma> turmas = this.turmaStore.getTurmas();
         ArrayList<Turma> turmasList = new ArrayList<>();
@@ -104,7 +102,8 @@ public class AlocacaoManual extends Main implements Initializable {
         }
         ArrayList<Turma> turmasHorario = new ArrayList<>();
         for (Turma turma : turmasList) {
-            if (Boolean.TRUE.equals(turma.hasHorario(horario)) && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
+            if (Boolean.TRUE.equals(turma.hasHorario(horario))
+                    && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
                 turmasHorario.add(turma);
             }
         }
