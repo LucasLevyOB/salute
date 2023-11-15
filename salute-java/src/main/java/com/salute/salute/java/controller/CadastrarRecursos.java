@@ -83,7 +83,6 @@ public class CadastrarRecursos extends Main implements Initializable, Formulario
 
       String tombamento = this.tombamentoRecurso.getText();
       TipoRecurso tipo = this.tipoRecurso.getValue();
-      System.out.println(tipo.getId());
       EstadoRecurso estado = EstadoRecurso.valueOf(this.estadoRecurso.getValue());
 
       Recurso recurso = new Recurso(tombamento, tipo, estado);
