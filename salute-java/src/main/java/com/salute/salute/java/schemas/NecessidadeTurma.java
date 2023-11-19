@@ -27,24 +27,24 @@ import com.salute.salute.java.database.ConnectionDB;
 //import com.salute.salute.java.database.ResultSetFunction;
 //import com.salute.salute.java.enums.Semestre;
 //import com.salute.salute.java.recurso.Necessidade;
-
+import com.salute.salute.java.recurso.Necessidade;
 
 public class NecessidadeTurma {
- 
+
     public static int createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS necessidade_turma (" +
-            " ntu_turma INTEGER REFERENCES turma(tur_id)," +
-            " ntu_necessidade INTEGER REFERENCES tipo_recurso(tre_id)," +
-            " ntu_qtde INTEGER," +
-            " PRIMARY KEY (ntu_turma, ntu_necessidade));";
+                " ntu_turma INTEGER REFERENCES turma(tur_id)," +
+                " ntu_necessidade INTEGER REFERENCES tipo_recurso(tre_id)," +
+                " ntu_qtde INTEGER," +
+                " PRIMARY KEY (ntu_turma, ntu_necessidade));";
         return ConnectionDB.update(sql);
     }
 
     public static int insert(int turma, int necessidade, int qtde) {
         RegularInsert query = insertInto("necessidade_turma")
-            .value("ntu_turma", literal(turma))
-            .value("ntu_necessidade", literal(necessidade))
-            .value("ntu_qtde", literal(qtde));
-        return ConnectionDB.update(query.toString());
+                .value("ntu_turma", literal(turma))
+                .value("ntu_necessidade", literal(necessidade))
+                .value("ntu_qtde", literal(qtde));
+        return ConnectionDB.insert(query.toString());
     }
 }

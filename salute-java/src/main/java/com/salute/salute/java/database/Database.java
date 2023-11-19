@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.salute.salute.java.enums.DiaSemana;
+import com.salute.salute.java.enums.HorarioTurno;
+import com.salute.salute.java.enums.Turno;
 import com.salute.salute.java.schemas.*;
 
 /**
@@ -32,6 +35,10 @@ public class Database {
             statement.executeUpdate("DROP TABLE IF EXISTS alocacao_recurso_sala;");
             statement.executeUpdate("DROP TABLE IF EXISTS horario;");
             statement.executeUpdate("DROP TABLE IF EXISTS horario_sala;");
+            statement.executeUpdate("DROP TABLE IF EXISTS necessidade_turma;");
+            statement.executeUpdate("DROP TABLE IF EXISTS horario_turma;");
+            statement.executeUpdate("DROP TABLE IF EXISTS alocacao_sala_turma;");
+            statement.executeUpdate("DROP TABLE IF EXISTS turma;");
             // Cria as tabelas do banco de dados
             // statement.executeUpdate(TipoRecurso.getSql());
             TipoRecurso.createTable();

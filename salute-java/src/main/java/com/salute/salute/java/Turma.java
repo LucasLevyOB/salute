@@ -4,6 +4,7 @@
  */
 package com.salute.salute.java;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,17 +24,17 @@ public class Turma implements Comparable<Turma> {
     private int cargaTeorica;
     private int cargaPratica;
     private int ano;
-    private String nome;
     private String professor;
     private Semestre semestre;
     private String curso;
-    private int semestreCurso;
+    private String nome;
+    private Semestre semestreCurso;
     private ArrayList<Horario> horarios;
     private ArrayList<Necessidade> necessidades;
 
     public Turma(int id, String nome, String professor, int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano,
             Semestre semestre, ArrayList<Horario> horarios, ArrayList<Necessidade> necessidades, String curso,
-            int semestreCurso) {
+            Semestre semestreCurso) {
         this.id = id;
         this.nome = nome;
         this.professor = professor;
@@ -46,6 +47,20 @@ public class Turma implements Comparable<Turma> {
         this.necessidades = necessidades;
         this.curso = curso;
         this.semestreCurso = semestreCurso;
+    }
+
+    public Turma() {
+        this.id = -1;
+        this.professor = "";
+        this.qtdeAlunos = 0;
+        this.cargaTeorica = 0;
+        this.cargaPratica = 0;
+        this.ano = 0;
+        this.semestre = Semestre.PRIMEIRO;
+        this.horarios = new ArrayList<>();
+        this.necessidades = new ArrayList<>();
+        this.curso = "";
+        this.semestreCurso = Semestre.PRIMEIRO;
     }
 
     public int getId() {
@@ -92,12 +107,69 @@ public class Turma implements Comparable<Turma> {
         return curso;
     }
 
-    public int getSemestreCurso() {
+    public Semestre getSemestreCurso() {
         return semestreCurso;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setQtdeAlunos(int qtdeAlunos) {
+        this.qtdeAlunos = qtdeAlunos;
+    }
+
+    public void setCargaTeorica(int cargaTeorica) {
+        this.cargaTeorica = cargaTeorica;
+    }
+
+    public void setCargaPratica(int cargaPratica) {
+        this.cargaPratica = cargaPratica;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    public void setNecessidades(ArrayList<Necessidade> necessidades) {
+        this.necessidades = necessidades;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    public void setSemestreCurso(Semestre semestreCurso) {
+        this.semestreCurso = semestreCurso;
+    }
+
+    public void addHorario(Horario horario) {
+        this.horarios.add(horario);
+    }
+
+    public void addNecessidade(Necessidade necessidade) {
+        this.necessidades.add(necessidade);
+    }
+
     public void ordenarHorariosByTipo() {
-        // ordenar os horarios por TipoHorario(enum), colocando primeiro os horarios teoricos
+        // ordenar os horarios por TipoHorario(enum), colocando primeiro os horarios
+        // teoricos
         Collections.sort(horarios, (h1, h2) -> {
             if (h1.getTipo() == TipoHorario.TEORICO && h2.getTipo() == TipoHorario.PRATICO) {
                 return -1;
@@ -143,21 +215,17 @@ public class Turma implements Comparable<Turma> {
         return false;
     }
 
-    public String formatarParaTabela() {
-        return nome + " - " + professor;
-    }
-
-    private String getSemestreFormatado() {
-        // criar ano
-        Year year = Year.now();
-        int ano = year.getValue();
-        return ano + "." + (semestre == Semestre.PRIMEIRO ? 1 : 2);
+    private String getPeriodoFormatado() {
+        LocalDate today = LocalDate.now();
+        int ano = today.getYear();
+        int mes = today.getMonthValue();
+        return ano + "." + (mes <= 6 ? 1 : 2);
     }
 
     // toString
     @Override
     public String toString() {
-        return nome + " - " + getSemestreFormatado() + " - " + professor;
+        return nome + " - " + professor + " - " + getPeriodoFormatado();
     }
 
     // ordenar por curso, semestre, professor
@@ -167,7 +235,7 @@ public class Turma implements Comparable<Turma> {
             if (this.semestreCurso == o.semestreCurso) {
                 return this.professor.compareTo(o.professor);
             }
-            return this.semestreCurso - o.semestreCurso;
+            return this.semestreCurso.compareTo(o.semestreCurso);
         }
         return this.curso.compareTo(o.curso);
     }

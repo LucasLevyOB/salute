@@ -50,6 +50,14 @@ public class Horario implements Comparable<Horario> {
         this.diaSemana = diaSemana;
     }
 
+    public Horario(int id, Turno turno, HorarioTurno horario, DiaSemana diaSemana, TipoHorario tipo) {
+        this.id = id;
+        this.turno = turno;
+        this.horario = horario;
+        this.diaSemana = diaSemana;
+        this.tipo = tipo;
+    }
+
     public Horario() {
         this.id = -1;
         this.turno = null;

@@ -32,46 +32,251 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.CadastrarTurmas">
+<VBox prefHeight="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.CadastrarTurmas">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <GridPane prefHeight="120.0" styleClass="header">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
-            <Text fill="WHITE" layoutX="157.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR TURMAS">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR TURMAS" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
-            <Text layoutX="21.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Qtd de alunos:" />
-            <TextField layoutX="130.0" layoutY="147.0" />
-            <Text layoutX="21.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carga prática:" wrappingWidth="119.455078125" />
-            <TextField layoutX="439.0" layoutY="147.0" prefHeight="25.0" prefWidth="167.0" />
-            <Text layoutX="338.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Carga teórica:" wrappingWidth="119.455078125" />
-            <TextField layoutX="130.0" layoutY="190.0" />
-            <Text layoutX="338.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ano da turma:" wrappingWidth="119.455078125" />
-            <TextField layoutX="439.0" layoutY="188.0" prefHeight="25.0" prefWidth="167.0" />
-            <TextField layoutX="130.0" layoutY="316.0" />
-            <Text layoutX="331.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome da turma:" wrappingWidth="119.455078125" />
-            <TextField layoutX="439.0" layoutY="230.0" prefHeight="25.0" prefWidth="167.0" />
-            <Text layoutX="21.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do professor:" wrappingWidth="119.455078125" />
-            <TextField layoutX="130.0" layoutY="230.0" />
-            <Text layoutX="331.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre da turma:" wrappingWidth="119.455078125" />
-            <Button layoutX="279.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Cadastrar" />
-            <ChoiceBox layoutX="455.0" layoutY="317.0" prefWidth="150.0" />
-            <Text layoutX="21.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do curso:" wrappingWidth="119.455078125" />
-            <TextField layoutX="129.0" layoutY="274.0" prefHeight="25.0" prefWidth="477.0" />
-            <Text layoutX="21.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre curso:" wrappingWidth="119.455078125" />
+            <Button mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
          </children>
-    </AnchorPane>
+      </GridPane>
+      <ScrollPane fitToHeight="true" fitToWidth="true">
+         <content>
+            <VBox alignment="CENTER" spacing="16.0">
+               <children>
+                  <VBox alignment="CENTER" spacing="16.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Informaçoes da Turma">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
+                        <HBox spacing="12.0">
+                           <children>
+                              <VBox spacing="16.0">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Disciplina" wrappingWidth="119.455078125" />
+                                          <TextField fx:id="disciplinaTurma" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Curso:" wrappingWidth="119.455078125" />
+                                          <ChoiceBox fx:id="nomeCurso" prefHeight="24.0" prefWidth="167.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre curso:" wrappingWidth="119.455078125" />
+                                          <ChoiceBox fx:id="semestreCurso" prefHeight="24.0" prefWidth="169.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="16.0">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do professor:" wrappingWidth="119.455078125" />
+                                          <ChoiceBox fx:id="nomeProfessor" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre da turma:" wrappingWidth="119.455078125" />
+                                          <ChoiceBox fx:id="semestreTurma" prefHeight="24.0" prefWidth="171.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carga prática:" wrappingWidth="119.455078125" />
+                                          <TextField fx:id="cargaPratica" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox spacing="12.0">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carga teórica:" wrappingWidth="119.455078125" />
+                                    <TextField fx:id="cargaTeorica" prefHeight="25.0" prefWidth="167.0" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qtd de alunos:" />
+                                    <TextField fx:id="qtdeAlunos" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="16.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Horarios da Turma">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
+                        <VBox spacing="16.0">
+                           <children>
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dia da Semana" />
+                                          <ChoiceBox fx:id="horarioDiaSemana" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Turno" />
+                                          <ChoiceBox fx:id="horarioTurno" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Horario" />
+                                          <ChoiceBox fx:id="horarioHorario" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo" />
+                                          <ChoiceBox fx:id="horarioTipo" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnAdicionaHorario" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Adicionar Horario" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="wrapperHorariosTurma" spacing="12.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label disable="true" text="Os horários adicionados aparecem aqui" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="219.0" spacing="16.0">
+                     <children>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Necessidades da Turma">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </VBox>
+                        <VBox spacing="16.0">
+                           <children>
+                              <HBox spacing="12.0">
+                                 <children>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recurso" />
+                                          <ChoiceBox fx:id="tipoRecurso" prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
+                                          <TextField fx:id="qtdeRecurso" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Button fx:id="btnAdicionaNecessidade" mnemonicParsing="false" prefHeight="24.0" prefWidth="206.0" text="Adicionar Necessidade" />
+                           </children>
+                           <padding>
+                              <Insets bottom="8.0" top="8.0" />
+                           </padding>
+                        </VBox>
+                        <VBox fx:id="wrapperNecessidadesTurma" spacing="12.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label disable="true" text="As necessidades adicionadas aparecem aqui" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="8.0" />
+         </padding>
+      </ScrollPane>
+      <VBox alignment="CENTER">
+         <children>
+            <Button fx:id="btnCadastrarTurma" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Cadastrar" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" top="8.0" />
+         </padding>
+      </VBox>
   </children>
 </VBox>

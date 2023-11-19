@@ -45,8 +45,10 @@ public class Recurso {
 
     ResultSetFunction function = (rs) -> {
       while (rs.next()) {
-        com.salute.salute.java.recurso.TipoRecurso tipo = new com.salute.salute.java.recurso.TipoRecurso(rs.getInt("tre_id"), rs.getString("tre_tipo"));
-        recursos.add(new com.salute.salute.java.recurso.Recurso(rs.getString("rec_tombamento"), tipo, com.salute.salute.java.enums.EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase())));
+        com.salute.salute.java.recurso.TipoRecurso tipo = new com.salute.salute.java.recurso.TipoRecurso(
+            rs.getInt("tre_id"), rs.getString("tre_tipo"));
+        recursos.add(new com.salute.salute.java.recurso.Recurso(rs.getString("rec_tombamento"), tipo,
+            com.salute.salute.java.enums.EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase())));
       }
     };
 
@@ -61,7 +63,7 @@ public class Recurso {
     RegularInsert query = insertInto("recurso").value("rec_tombamento", literal(recurso.getTombamento()))
         .value("rec_tipo", literal(recurso.getTipo().getId()))
         .value("rec_estado", literal(recurso.getEstado().toString().toLowerCase()));
-    
+
     return ConnectionDB.update(query.toString());
   }
 

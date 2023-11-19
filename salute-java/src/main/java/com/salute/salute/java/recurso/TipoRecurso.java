@@ -9,7 +9,6 @@ package com.salute.salute.java.recurso;
  * @author lucas-levy
  */
 public class TipoRecurso {
-
     private int id;
     private String tipo;
 

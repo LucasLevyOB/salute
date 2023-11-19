@@ -11,4 +11,12 @@ package com.salute.salute.java.enums;
 public enum Semestre {
     PRIMEIRO,
     SEGUNDO,
+    TERCEIRO,
+    QUARTO,
+    QUINTO,
+    SEXTO,
+    SETIMO,
+    OITAVO,
+    NONO,
+    DECIMO
 }

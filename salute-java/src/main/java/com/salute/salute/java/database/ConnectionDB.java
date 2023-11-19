@@ -3,6 +3,7 @@ package com.salute.salute.java.database;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,31 @@ import java.sql.Statement;
 public class ConnectionDB {
   private static Connection connection = null;
   private static Statement statement = null;
+
+  /**
+   * Executa um insert no banco de dados
+   * 
+   * @param sql string com a query a ser executada
+   * @return id do objeto inserido
+   */
+  public static int insert(String sql) {
+    try {
+      open();
+      int result = statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+      if (result != 1) {
+        return -1;
+      }
+      ResultSet rs = statement.executeQuery("SELECT last_insert_rowid() AS id");
+      int id = rs.getInt("id");
+      System.out.println("Passou aqui 4 - " + id);
+      return id;
+    } catch (SQLException e) {
+      System.err.println(e.getMessage());
+      return -1;
+    } finally {
+      close();
+    }
+  }
 
   /**
    * Executa um update no banco de dados(use para insert, update e delete)

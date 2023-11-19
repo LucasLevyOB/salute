@@ -4,6 +4,7 @@ import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.selectFrom;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.deleteFrom;
@@ -66,7 +67,7 @@ public class Horario {
         .value("hor_turno", literal(horario.getTurno().toString().toLowerCase()))
         .value("hor_horario", literal(horario.getHorario().toString().toLowerCase()))
         .value("hor_dia_semana", literal(horario.getDiaSemana().toString().toLowerCase()));
-    return ConnectionDB.update(insert.asCql());
+    return ConnectionDB.insert(insert.asCql());
   }
 
   public static int delete(int id) {
@@ -82,18 +83,34 @@ public class Horario {
     return ConnectionDB.update(update.asCql());
   }
 
-  public static ArrayList<com.salute.salute.java.Horario> selectAll() {
-    Select select = selectFrom("horario").all();
-    ArrayList<com.salute.salute.java.Horario> horarios = new ArrayList<>();
+  public static List<String> selectColumn(String column) {
+    String sql = "SELECT " + column + " FROM horario group by " + column + ";";
+    ArrayList<String> values = new ArrayList<>();
+
     ResultSetFunction function = (ResultSet rs) -> {
       while (rs.next()) {
-        Turno turno = com.salute.salute.java.enums.Turno.valueOf(rs.getString("hor_turno"));
-        HorarioTurno horarioTurno = com.salute.salute.java.enums.HorarioTurno.valueOf(rs.getString("hor_horario"));
-        DiaSemana diaSemana = com.salute.salute.java.enums.DiaSemana.valueOf(rs.getString("hor_dia_semana"));
+        values.add(rs.getString(column));
+      }
+    };
+    ConnectionDB.query(sql, function);
+
+    return values;
+  }
+
+  public static List<com.salute.salute.java.Horario> selectAll() {
+    String query = "SELECT * FROM horario;";
+
+    ArrayList<com.salute.salute.java.Horario> horarios = new ArrayList<>();
+
+    ResultSetFunction function = (ResultSet rs) -> {
+      while (rs.next()) {
+        Turno turno = Turno.valueOf(rs.getString("hor_turno").toUpperCase());
+        HorarioTurno horarioTurno = HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase());
+        DiaSemana diaSemana = DiaSemana.valueOf(rs.getString("hor_dia_semana").toUpperCase());
         horarios.add(new com.salute.salute.java.Horario(rs.getInt("hor_id"), turno, horarioTurno, diaSemana));
       }
     };
-    ConnectionDB.query(select.toString(), function);
+    ConnectionDB.query(query, function);
     return horarios;
   }
 

@@ -89,7 +89,7 @@ public class ExemploAlocacao {
     // horariosTurma1,
     // necessidadesTurma1);
     turmas.put(1, new Turma(1, "POO", "Atílio", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma1,
-        necessidadesTurma1, "Engenharia de Software", 2));
+        necessidadesTurma1, "Engenharia de Software", Semestre.SEGUNDO));
 
     ArrayList<Horario> horariosTurma2 = new ArrayList<>();
     horariosTurma2.add(new Horario(1, Turno.MANHA, HorarioTurno.PRIMEIRO_HORARIO, DiaSemana.SEGUNDA, true));
@@ -102,7 +102,7 @@ public class ExemploAlocacao {
     // Semestre.PRIMEIRO, horariosTurma2,
     // necessidadesTurma2);
     turmas.put(2, new Turma(2, "Projeto Integrado", "Camilo", 40, 32, 0, 2021, Semestre.PRIMEIRO, horariosTurma2,
-        necessidadesTurma2, "Ciência da Computação", 4));
+        necessidadesTurma2, "Ciência da Computação", Semestre.QUARTO));
 
     ArrayList<Horario> horariosTurma3 = new ArrayList<>();
     horariosTurma3.add(new Horario(1, Turno.MANHA, HorarioTurno.SEGUNDO_HORARIO, DiaSemana.SEGUNDA, true));
@@ -116,7 +116,7 @@ public class ExemploAlocacao {
     // Semestre.PRIMEIRO, horariosTurma3,
     // necessidadesTurma3);
     turmas.put(3, new Turma(3, "Estrutura de Dados", "Wladimir", 9, 32, 32, 2021, Semestre.PRIMEIRO, horariosTurma3,
-        necessidadesTurma3, "Engenharia de Software", 4));
+        necessidadesTurma3, "Engenharia de Software", Semestre.QUARTO));
 
     AlocarTurmas.alocacaoAutomatica(turmas, salas);
 
