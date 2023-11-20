@@ -49,4 +49,10 @@ public class AlocacaoSalaTurma {
         .value("ast_recorrente", literal(recorrente));
     return ConnectionDB.update(query.toString());
   }
+
+  public static int delete(int sala, int turma, int horario) {
+    String sql = "DELETE FROM alocacao_sala_turma WHERE ast_sala = " + sala + " AND ast_turma = " + turma
+        + " AND ast_horario = " + horario + ";";
+    return ConnectionDB.update(sql);
+  }
 }

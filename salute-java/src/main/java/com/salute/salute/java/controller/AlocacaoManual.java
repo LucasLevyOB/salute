@@ -122,7 +122,11 @@ public class AlocacaoManual extends Main implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Alocacao alocacao = getTableView().getItems().get(getIndex());
-                            AlocarTurmas.desalocarTurma(alocacao.getSalaObj(), alocacao.getHorarioIndex());
+                            boolean result = AlocarTurmas.desalocarTurma(alocacao.getSalaObj(),
+                                    alocacao.getHorarioIndex());
+                            if (!result) {
+                                Notification.showNotification("Alocação Manual", "Não foi possível desalocar a turma.");
+                            }
                             atualizarLista();
                         });
                     }

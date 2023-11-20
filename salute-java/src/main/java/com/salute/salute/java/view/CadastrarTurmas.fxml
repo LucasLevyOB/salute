@@ -81,23 +81,23 @@
                               </Text>
                            </children>
                         </VBox>
-                        <HBox spacing="12.0">
+                        <HBox alignment="CENTER" spacing="12.0">
                            <children>
-                              <VBox spacing="16.0">
+                              <VBox alignment="CENTER" spacing="16.0">
                                  <children>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Disciplina" wrappingWidth="119.455078125" />
                                           <TextField fx:id="disciplinaTurma" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Curso:" wrappingWidth="119.455078125" />
                                           <ChoiceBox fx:id="nomeCurso" prefHeight="24.0" prefWidth="167.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre curso:" wrappingWidth="119.455078125" />
                                           <ChoiceBox fx:id="semestreCurso" prefHeight="24.0" prefWidth="169.0" />
@@ -105,21 +105,21 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <VBox spacing="16.0">
+                              <VBox alignment="CENTER" spacing="16.0">
                                  <children>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do professor:" wrappingWidth="119.455078125" />
-                                          <ChoiceBox fx:id="nomeProfessor" />
+                                          <ChoiceBox fx:id="nomeProfessor" prefHeight="24.0" prefWidth="156.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Semestre da turma:" wrappingWidth="119.455078125" />
                                           <ChoiceBox fx:id="semestreTurma" prefHeight="24.0" prefWidth="171.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carga prática:" wrappingWidth="119.455078125" />
                                           <TextField fx:id="cargaPratica" />
@@ -129,15 +129,15 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox spacing="12.0">
+                        <HBox alignment="CENTER" spacing="12.0">
                            <children>
-                              <HBox>
+                              <HBox alignment="BASELINE_CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Carga teórica:" wrappingWidth="119.455078125" />
                                     <TextField fx:id="cargaTeorica" prefHeight="25.0" prefWidth="167.0" />
                                  </children>
                               </HBox>
-                              <HBox>
+                              <HBox alignment="BASELINE_CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Qtd de alunos:" />
                                     <TextField fx:id="qtdeAlunos" />
@@ -158,17 +158,17 @@
                               </Text>
                            </children>
                         </VBox>
-                        <VBox spacing="16.0">
+                        <VBox alignment="CENTER" spacing="16.0">
                            <children>
-                              <HBox spacing="12.0">
+                              <HBox alignment="CENTER" spacing="12.0">
                                  <children>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dia da Semana" />
                                           <ChoiceBox fx:id="horarioDiaSemana" prefWidth="150.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Turno" />
                                           <ChoiceBox fx:id="horarioTurno" prefWidth="150.0" />
@@ -176,15 +176,15 @@
                                     </HBox>
                                  </children>
                               </HBox>
-                              <HBox spacing="12.0">
+                              <HBox alignment="CENTER" spacing="12.0">
                                  <children>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Horario" />
                                           <ChoiceBox fx:id="horarioHorario" prefWidth="150.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo" />
                                           <ChoiceBox fx:id="horarioTipo" prefWidth="150.0" />
@@ -204,7 +204,7 @@
                         </VBox>
                         <VBox fx:id="wrapperHorariosTurma" spacing="12.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <HBox alignment="CENTER" spacing="8.0">
                                  <children>
                                     <Label disable="true" text="Os horários adicionados aparecem aqui" />
                                  </children>
@@ -226,15 +226,15 @@
                         </VBox>
                         <VBox spacing="16.0">
                            <children>
-                              <HBox spacing="12.0">
+                              <HBox alignment="CENTER" spacing="12.0">
                                  <children>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recurso" />
                                           <ChoiceBox fx:id="tipoRecurso" prefWidth="150.0" />
                                        </children>
                                     </HBox>
-                                    <HBox>
+                                    <HBox alignment="CENTER">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
                                           <TextField fx:id="qtdeRecurso" />
@@ -252,9 +252,9 @@
                               <Insets bottom="8.0" top="8.0" />
                            </padding>
                         </VBox>
-                        <VBox fx:id="wrapperNecessidadesTurma" spacing="12.0">
+                        <VBox fx:id="wrapperNecessidadesTurma" alignment="CENTER" spacing="12.0">
                            <children>
-                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <HBox alignment="CENTER" spacing="8.0">
                                  <children>
                                     <Label disable="true" text="As necessidades adicionadas aparecem aqui" />
                                  </children>

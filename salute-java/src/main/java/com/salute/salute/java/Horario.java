@@ -149,7 +149,11 @@ public class Horario implements Comparable<Horario> {
 
     @Override
     public String toString() {
-        return diaSemana + " - " + turno + " - " + horario.toString().replace("_", " ");
+        String string = diaSemana + " - " + turno + " - " + horario.toString().replace("_", " ");
+        if (tipo != null) {
+            string += " - " + tipo.toString();
+        }
+        return string;
     }
 
     @Override
@@ -175,5 +179,10 @@ public class Horario implements Comparable<Horario> {
 
     public int compareToByDia(Horario o) {
         return this.diaSemana.compareTo(o.getDiaSemana());
+    }
+
+    public static Horario clone(Horario horario) {
+        return new Horario(horario.getId(), horario.getTurno(), horario.getHorario(), horario.getDiaSemana(),
+                horario.getData(), horario.isRecorrente());
     }
 }

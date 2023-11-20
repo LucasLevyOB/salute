@@ -61,7 +61,12 @@ public class PopupAlocacaoManual implements Initializable {
     Turma turma = this.selectTurma.getSelectionModel().getSelectedItem();
     Sala sala = this.selectSala.getSelectionModel().getSelectedItem();
     Horario horario = this.selectHorario.getSelectionModel().getSelectedItem();
-    AlocarTurmas.alocarTurma(turma, sala, horario);
+    boolean result = AlocarTurmas.alocarTurma(turma, sala, horario);
+
+    if (!result) {
+      Notification.showNotification("Alocação Manual", "Não foi possível alocar a turma.");
+      return;
+    }
     // int horarioIndex = sala.getHorarios().indexOf(horario);
     // sala.alocarTurma(turma, horarioIndex);
     // turma.setHorarioAlocado(horario);

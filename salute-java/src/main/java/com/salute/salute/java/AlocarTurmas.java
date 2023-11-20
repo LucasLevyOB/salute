@@ -1,26 +1,31 @@
 package com.salute.salute.java;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Map;
 
 import com.salute.salute.java.enums.EstadoRecurso;
 import com.salute.salute.java.enums.TipoHorario;
 import com.salute.salute.java.enums.TipoSala;
 import com.salute.salute.java.recurso.Necessidade;
+import com.salute.salute.java.schemas.AlocacaoSalaTurma;
 
 /**
  *
  * @author lucas-levy
  */
 public class AlocarTurmas {
-  private AlocarTurmas() {}
+  private AlocarTurmas() {
+  }
 
   private static void setarTiposHorarios(Turma turma) {
     ArrayList<Horario> horariosTurma = turma.getHorarios();
     int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
     int horasAula = horasTotais / turma.getHorarios().size();
-    
+
     // TODO: previnir divisoes por 0
     int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
     int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
@@ -78,7 +83,8 @@ public class AlocarTurmas {
     for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
       Horario horario = horariosSala.get(iHorario);
       boolean isOcupado = sala.getTurmas().containsKey(iHorario);
-      if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario)) && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
+      if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario))
+          && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
         float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
         float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
         pontos[0] = iHorario;
@@ -98,7 +104,7 @@ public class AlocarTurmas {
       if (turma.getQtdeAlunos() > sala.getCapacidade()) {
         continue;
       }
-      
+
       iteraSobreHorariosSala(salaHorarioCompativel, sala, entry.getKey(), horario, turma);
     }
 
@@ -178,13 +184,13 @@ public class AlocarTurmas {
       // boolean isTeorica = qtdeAulasTeoricas > 0;
       iteraSobreSalas(horario, salas, turma);
       // if (alocou) {
-      //   // continue;
-      //   break;
+      // // continue;
+      // break;
       // }
       // if (isTeorica) {
-      //   qtdeAulasTeoricas--;
+      // qtdeAulasTeoricas--;
       // } else {
-      //   qtdeAulasPraticas--;
+      // qtdeAulasPraticas--;
       // }
     }
   }
@@ -198,13 +204,45 @@ public class AlocarTurmas {
     }
   }
 
-  public static void desalocarTurma(Sala sala, int horarioIndex) {
-    sala.desalocarTurma(horarioIndex);
+  public static boolean desalocarTurmaBanco(int idSala, int idTurma, int idHorario) {
+    int result = AlocacaoSalaTurma.delete(idSala, idTurma, idHorario);
+
+    return result == 1;
   }
 
-  public static void alocarTurma(Turma turma, Sala sala, Horario horario) {
+  public static boolean desalocarTurma(Sala sala, int horarioIndex) {
+    boolean desalocou = desalocarTurmaBanco(sala.getId(), sala.getTurmas().get(horarioIndex).getId(),
+        sala.getHorarios().get(horarioIndex).getId());
+
+    if (!desalocou) {
+      return false;
+    }
+
+    sala.desalocarTurma(horarioIndex);
+
+    return true;
+  }
+
+  private static boolean alocarTurmaBanco(int idSala, int idTurma, int idHorario, boolean recorrente) {
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    Date date = new Date();
+
+    int result = AlocacaoSalaTurma.insert(idSala, idTurma, idHorario, dateFormat.format(date), recorrente);
+
+    return result == 1;
+  }
+
+  public static boolean alocarTurma(Turma turma, Sala sala, Horario horario) {
+    boolean alocou = alocarTurmaBanco(sala.getId(), turma.getId(), horario.getId(), horario.isRecorrente());
+
+    if (!alocou) {
+      return false;
+    }
+
     int horarioIndex = sala.getHorarios().indexOf(horario);
     sala.alocarTurma(turma, horarioIndex);
+
+    return true;
   }
 
   public static void limparAlocacao(Map<Integer, Sala> salas) {

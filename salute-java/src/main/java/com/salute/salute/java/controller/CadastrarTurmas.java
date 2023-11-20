@@ -2,6 +2,8 @@ package com.salute.salute.java.controller;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.enums.DiaSemana;
@@ -208,6 +210,7 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
       for (Horario horario : listaHorarios) {
         int idHorario = HorarioTurma.insert(idTurma, horario.getId(), horario.getTipo());
         if (idHorario == -1) {
+          System.out.println("Erro ao cadastrar horario: " + horario.toString());
           erro = true;
           return;
         }
@@ -301,8 +304,16 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
   }
 
   private HorarioTurno getHorarioTurno() {
-    String selected = horarioTurno.getValue();
-    int indexSelected = horarioTurno.getItems().indexOf(selected);
+    String selected = horarioHorario.getValue();
+    System.out.println(selected);
+    int indexSelected = -1;
+    for (int i = 0; i < horas.length; i++) {
+      if (horas[i].equals(selected)) {
+        indexSelected = i;
+        break;
+      }
+    }
+    System.out.println(indexSelected);
 
     if (indexSelected % 2 == 0) {
       return HorarioTurno.PRIMEIRO_HORARIO;
@@ -334,6 +345,12 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
       hBox.getChildren().addAll(label, btnRemoverHorario);
       wrapperHorariosTurma.getChildren().add(hBox);
     }
+
+    if (listaHorarios.isEmpty()) {
+      Label label = new Label();
+      label.setText("Nenhum horário adicionado");
+      wrapperHorariosTurma.getChildren().add(label);
+    }
   }
 
   private void adicionarHorario() {
@@ -349,19 +366,35 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
     HorarioTurno horarioTurnoValue = getHorarioTurno();
     TipoHorario tipoHorario = TipoHorario.valueOf(horarioTipo.getValue().toUpperCase());
 
-    Horario horario = horariosDoBanco.stream()
+    Horario searchedHorario = horariosDoBanco.stream()
         .filter(h -> {
           return h.getDiaSemana().equals(diaSemana) && h.getTurno().equals(turno)
               && h.getHorario().equals(horarioTurnoValue);
         })
         .findFirst().orElse(null);
 
-    if (horario == null) {
+    Horario horarioInList = listaHorarios.stream()
+        .filter(h -> {
+          System.out.println(horarioTurnoValue);
+          System.out.println(h.getHorario());
+          return h.getDiaSemana().equals(diaSemana) && h.getTurno().equals(turno)
+              && h.getHorario().equals(horarioTurnoValue);
+        })
+        .findFirst().orElse(null);
+
+    if (horarioInList != null) {
+      AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
+          "Esse horário já foi adicionado!");
+      return;
+    }
+
+    if (searchedHorario == null) {
       AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
           "Esse horário não existe!");
       return;
     }
 
+    Horario horario = Horario.clone(searchedHorario);
     horario.setTipo(tipoHorario);
 
     listaHorarios.add(horario);
@@ -413,6 +446,12 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
       label.setText(necessidade.getRecurso().getTipo() + " - " + necessidade.getQtde());
       hBox.getChildren().addAll(label, btnRemoverNecessidade);
       wrapperNecessidadesTurma.getChildren().add(hBox);
+    }
+
+    if (listaNecessidades.isEmpty()) {
+      Label label = new Label();
+      label.setText("Nenhuma necessidade adicionada");
+      wrapperNecessidadesTurma.getChildren().add(label);
     }
   }
 
