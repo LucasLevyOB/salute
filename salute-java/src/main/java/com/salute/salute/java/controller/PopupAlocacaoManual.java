@@ -36,8 +36,9 @@ public class PopupAlocacaoManual implements Initializable {
     this.selectSala.getSelectionModel().selectFirst();
   }
 
-  public void setSelectHorario(Sala sala, int horarioIndex) {
-    this.selectHorario.getItems().add(sala.getHorarios().get(horarioIndex));
+  // public void setSelectHorario(Sala sala, int horarioIndex) {
+  public void setSelectHorario(Horario horario) {
+    this.selectHorario.getItems().add(horario);
     this.selectHorario.getSelectionModel().selectFirst();
   }
 
@@ -67,6 +68,7 @@ public class PopupAlocacaoManual implements Initializable {
       Notification.showNotification("Alocação Manual", "Não foi possível alocar a turma.");
       return;
     }
+    Notification.showNotification("Alocação Manual", "Turma alocada com sucesso.");
     // int horarioIndex = sala.getHorarios().indexOf(horario);
     // sala.alocarTurma(turma, horarioIndex);
     // turma.setHorarioAlocado(horario);

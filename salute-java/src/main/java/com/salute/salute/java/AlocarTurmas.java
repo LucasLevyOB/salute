@@ -12,6 +12,7 @@ import com.salute.salute.java.enums.TipoHorario;
 import com.salute.salute.java.enums.TipoSala;
 import com.salute.salute.java.recurso.Necessidade;
 import com.salute.salute.java.schemas.AlocacaoSalaTurma;
+import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
 
 /**
  *
@@ -210,17 +211,17 @@ public class AlocarTurmas {
     return result == 1;
   }
 
-  public static boolean desalocarTurma(Sala sala, int horarioIndex) {
-    boolean desalocou = desalocarTurmaBanco(sala.getId(), sala.getTurmas().get(horarioIndex).getId(),
-        sala.getHorarios().get(horarioIndex).getId());
+  public static boolean desalocarTurma(Turma turma, Sala sala, Horario horario) {
+    boolean desalocou = desalocarTurmaBanco(sala.getId(), sala.getId(), horario.getId());
 
     if (!desalocou) {
       return false;
     }
 
-    sala.desalocarTurma(horarioIndex);
+    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
+        turma, horario);
 
-    return true;
+    return AlocacaoSalaTurmaStore.getInstance().removeAlocacao(alocacaoSalaTurma);
   }
 
   private static boolean alocarTurmaBanco(int idSala, int idTurma, int idHorario, boolean recorrente) {
@@ -233,16 +234,17 @@ public class AlocarTurmas {
   }
 
   public static boolean alocarTurma(Turma turma, Sala sala, Horario horario) {
-    boolean alocou = alocarTurmaBanco(sala.getId(), turma.getId(), horario.getId(), horario.isRecorrente());
+    boolean alocou = alocarTurmaBanco(sala.getId(), turma.getId(),
+        horario.getId(), horario.isRecorrente());
 
     if (!alocou) {
       return false;
     }
 
-    int horarioIndex = sala.getHorarios().indexOf(horario);
-    sala.alocarTurma(turma, horarioIndex);
+    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
+        turma, horario);
 
-    return true;
+    return AlocacaoSalaTurmaStore.getInstance().addAlocacao(alocacaoSalaTurma);
   }
 
   public static void limparAlocacao(Map<Integer, Sala> salas) {
