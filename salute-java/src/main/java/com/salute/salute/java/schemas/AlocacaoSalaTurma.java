@@ -64,6 +64,11 @@ public class AlocacaoSalaTurma {
     return ConnectionDB.update(sql);
   }
 
+  public static int deleteAll() {
+    String sql = "DELETE FROM alocacao_sala_turma;";
+    return ConnectionDB.update(sql);
+  }
+
   public static List<com.salute.salute.java.AlocacaoSalaTurma> getAll() {
     String sql = "SELECT * FROM alocacao_sala_turma AS ast LEFT JOIN sala AS s ON ast.ast_sala = s.sal_id LEFT JOIN horario AS h ON ast.ast_horario = h.hor_id LEFT JOIN turma AS t ON ast.ast_turma = t.tur_id;";
 

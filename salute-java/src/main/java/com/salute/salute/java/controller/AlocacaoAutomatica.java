@@ -14,35 +14,42 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import com.salute.salute.java.singleton.TurmaStore;
+import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
 import com.salute.salute.java.singleton.SalaStore;
 
 import com.salute.salute.java.AlocarTurmas;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
-import com.salute.salute.java.Alocacao;
+import com.salute.salute.java.HorarioSala;
 import com.salute.salute.java.Turma;
 
 public class AlocacaoAutomatica extends Main implements Initializable {
   private TurmaStore turmaStore = TurmaStore.getInstance();
   private SalaStore salaStore = SalaStore.getInstance();
-  private ArrayList<Alocacao> alocacoes = new ArrayList<>();
+  private ArrayList<HorarioSala> alocacoes = new ArrayList<>();
+  private AlocacaoSalaTurmaStore alocacaoSalaTurmas = AlocacaoSalaTurmaStore.getInstance();
 
   @FXML
-  private TableView<Alocacao> tabela;
+  private TableView<HorarioSala> tabela;
 
   @FXML
-  private TableColumn<Alocacao, String> colunaSala;
+  private TableColumn<HorarioSala, String> colunaSala;
 
   @FXML
-  private TableColumn<Alocacao, String> colunaHorario;
+  private TableColumn<HorarioSala, String> colunaHorario;
 
   @FXML
-  private TableColumn<Alocacao, String> colunaEstado;
+  private TableColumn<HorarioSala, String> colunaEstado;
 
   @FXML
   public void alocarTurmas() {
     try {
-      AlocarTurmas.limparAlocacao(this.salaStore.getSalas());
+      boolean limpou = AlocarTurmas.limparAlocacao();
+
+      if (!limpou) {
+        throw new Exception("Não foi possível limpar a alocação");
+      }
+
       AlocarTurmas.alocacaoAutomatica(this.turmaStore.getTurmas(), this.salaStore.getSalas());
     } catch (Exception e) {
       System.out.println(e);
@@ -61,8 +68,8 @@ public class AlocacaoAutomatica extends Main implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     criarLista();
 
-    colunaSala.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getSala()));
-    colunaHorario.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getHorario()));
+    colunaSala.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getSalaStr()));
+    colunaHorario.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getHorarioStr()));
     colunaEstado.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getEstado()));
     tabela.setItems(this.getAlocacoes());
   }
@@ -74,12 +81,12 @@ public class AlocacaoAutomatica extends Main implements Initializable {
       Sala sala = salas.get(keySala);
       ArrayList<Horario> horarios = sala.getHorarios();
       for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
-        Turma turma = sala.getTurmaPorKey(iHorario);
-        if (turma == null) {
-          alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(), "Livre"));
+        // Turma turma = sala.getTurmaPorKey(iHorario);
+        Turma turmaAlocada = alocacaoSalaTurmas.getTurmaAlocada(sala.getId(), horarios.get(iHorario).getId());
+        if (turmaAlocada == null) {
+          alocacoes.add(new HorarioSala(sala, horarios.get(iHorario)));
         } else {
-          alocacoes.add(new Alocacao(sala.toString(), horarios.get(iHorario).toString(),
-              turma.toString()));
+          alocacoes.add(new HorarioSala(sala, horarios.get(iHorario), turmaAlocada));
         }
       }
     }
@@ -90,7 +97,7 @@ public class AlocacaoAutomatica extends Main implements Initializable {
     tabela.setItems(this.getAlocacoes());
   }
 
-  private ObservableList<Alocacao> getAlocacoes() {
+  private ObservableList<HorarioSala> getAlocacoes() {
     return FXCollections.observableArrayList(alocacoes);
   }
 }

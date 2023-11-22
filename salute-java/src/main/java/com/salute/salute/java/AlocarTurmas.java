@@ -247,10 +247,15 @@ public class AlocarTurmas {
     return AlocacaoSalaTurmaStore.getInstance().addAlocacao(alocacaoSalaTurma);
   }
 
-  public static void limparAlocacao(Map<Integer, Sala> salas) {
-    for (Map.Entry<Integer, Sala> entry : salas.entrySet()) {
-      Sala sala = entry.getValue();
-      sala.limparAlocacao();
+  public static boolean limparAlocacao() {
+    int result = AlocacaoSalaTurma.deleteAll();
+
+    if (result != 1) {
+      return false;
     }
+
+    AlocacaoSalaTurmaStore.getInstance().getAlocacoes().clear();
+
+    return true;
   }
 }
