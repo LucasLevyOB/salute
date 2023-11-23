@@ -15,6 +15,7 @@ import com.datastax.oss.driver.api.querybuilder.update.Update;
 import com.salute.salute.java.database.ConnectionDB;
 import com.salute.salute.java.database.ResultSetFunction;
 import com.salute.salute.java.enums.DiaSemana;
+import com.salute.salute.java.enums.EstadoRecurso;
 import com.salute.salute.java.enums.HorarioTurno;
 import com.salute.salute.java.enums.Turno;
 
@@ -98,6 +99,7 @@ public class Sala {
                     com.salute.salute.java.recurso.Recurso recurso = new com.salute.salute.java.recurso.Recurso();
                     recurso.setTombamento(rs.getString("rec_tombamento"));
                     recurso.setTipo(tipoRecurso);
+                    recurso.setEstado(EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase()));
                     sala.addRecurso(recurso);
                 }
             }

@@ -148,7 +148,7 @@ public class Sala implements Comparable<Sala> {
     public int qtdeRecursosTipoEstado(TipoRecurso tipo, EstadoRecurso estado) {
         int qtde = 0;
         for (Recurso recurso : this.recursos) {
-            if (recurso.getTipo().equals(tipo) && recurso.getEstado().equals(estado)) {
+            if (recurso.getTipo().getId() == tipo.getId() && recurso.getEstado().equals(estado)) {
                 qtde++;
             }
         }

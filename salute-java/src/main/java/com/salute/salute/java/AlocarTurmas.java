@@ -69,12 +69,16 @@ public class AlocarTurmas {
 
   private static float calculaPontosRecursos(List<Necessidade> necessidades, Sala sala) {
     float pontos = 0;
+    System.out.println("Calculando pontos de recursos");
     for (int iNecessidade = 0; iNecessidade < necessidades.size(); iNecessidade++) {
       Necessidade necessidade = necessidades.get(iNecessidade);
+      System.out.println("Necessidade: " + necessidade.toString());
       int funcionando = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(), EstadoRecurso.FUNCIONANDO);
+      System.out.println("Funcionando: " + funcionando);
       int quantidadeAtendidaFuncionando = Math.min(funcionando, necessidade.getQtde());
       pontos += quantidadeAtendidaFuncionando * .2;
       int quebrado = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(), EstadoRecurso.QUEBRADO);
+      System.out.println("Quebrado: " + quebrado);
       int quantidadeAtendidaQuebrado = Math.min(quebrado, necessidade.getQtde() - quantidadeAtendidaFuncionando);
       pontos += quantidadeAtendidaQuebrado * .1;
     }
@@ -94,7 +98,7 @@ public class AlocarTurmas {
       if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario))
           && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
         float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
-        float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
+        float pontosTipo = calculaPontosTipo(sala.getTipo(), horarioTurma.getTipo());
         pontos[0] = horario.getId();
         pontos[1] = pontosRecursos + pontosTipo;
         pontos[2] = keySala;
@@ -134,6 +138,12 @@ public class AlocarTurmas {
       }
     });
 
+    // mostrar sala, horarios e pontos
+    for (int i = 0; i < salaHorarioCompativel.size(); i++) {
+      float[] pontos = salaHorarioCompativel.get(i);
+      System.out.println("Horario: " + pontos[0] + " Pontos: " + pontos[1] + " Sala: " + salas.get((int) pontos[2]));
+    }
+
     // System.out.println("Horarios e pontos");
     // for (int i = 0; i < salaHorarioCompativel.size(); i++) {
     // int[] pontos = salaHorarioCompativel.get(i);
@@ -142,6 +152,7 @@ public class AlocarTurmas {
     // System.out.println("Fim Horarios e pontos");
 
     float[] pontos = salaHorarioCompativel.get(0);
+    System.out.println("Horario: " + pontos[0] + " Pontos: " + pontos[1] + " Sala: " + salas.get((int) pontos[2]));
     int idHorario = (int) pontos[0];
     int idSala = (int) pontos[2];
     // salas.get(idSala).getTurmas().put(idHorario, turma);
