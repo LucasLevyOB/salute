@@ -38,7 +38,7 @@ public class Sala {
                 .value("sal_numero", literal(sala.getNumero()))
                 .value("sal_andar", literal(sala.getAndar()))
                 .value("sal_bloco", literal(sala.getBloco()));
-        return ConnectionDB.update(query.toString());
+        return ConnectionDB.insert(query.toString());
 
     }
 

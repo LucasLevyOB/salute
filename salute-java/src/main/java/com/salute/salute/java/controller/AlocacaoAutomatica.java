@@ -113,7 +113,7 @@ public class AlocacaoAutomatica extends Controller implements Initializable {
   private void persistirAlocacoes() {
     try {
       btnPersistirAlocacao.setDisable(true);
-      btnPersistirAlocacao.setDisable(false);
+      btnDescartarAlocacao.setDisable(true);
 
       Notification.showNotification(TITLE_MODAIS, "Persistindo alocação...");
 
@@ -124,6 +124,7 @@ public class AlocacaoAutomatica extends Controller implements Initializable {
         throw new Exception(message.getMessage());
       }
       Notification.showNotification(TITLE_MODAIS, message.getMessage());
+      alocacaoSalaTurmas.setRealizouAlocacaoAutomatica(false);
     } catch (Exception e) {
       System.out.println(e);
       alocacaoSalaTurmas.atualizarFromAPI();

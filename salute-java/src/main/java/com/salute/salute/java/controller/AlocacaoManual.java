@@ -81,6 +81,7 @@ public class AlocacaoManual extends Controller implements Initializable {
             for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
                 // Turma turma = sala.getTurmaPorKey(iHorario);
                 Turma turmaAlocada = alocacaoSalaTurmas.getTurmaAlocada(sala.getId(), horarios.get(iHorario).getId());
+                System.out.println("turmaAlocada: " + turmaAlocada);
                 if (turmaAlocada == null) {
                     // horariosSalas.add(new Alocacao(sala.toString(),
                     // horarios.get(iHorario).toString(),

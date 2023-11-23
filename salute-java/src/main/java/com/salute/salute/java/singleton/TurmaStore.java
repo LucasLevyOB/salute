@@ -45,6 +45,7 @@ public class TurmaStore {
   // criar um observer para atualizar o map de turmas quando uma nova turma for
   // cadastrada
   public void atualizarFromAPI() {
+    this.turmas.clear();
     com.salute.salute.java.schemas.Turma.getAll().forEach(turma -> {
       this.turmas.put(turma.getId(), turma);
     });

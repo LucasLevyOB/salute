@@ -35,6 +35,7 @@ public class SalaStore {
   }
 
   public void atualizarFromAPI() {
+    this.salas.clear();
     com.salute.salute.java.schemas.Sala.getAll().forEach((sala) -> {
       this.salas.put(sala.getId(), sala);
     });

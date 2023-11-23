@@ -33,6 +33,7 @@ public class AlocacaoSalaTurmaStore {
   }
 
   public void atualizarFromAPI() {
+    this.alocacoes.clear();
     com.salute.salute.java.schemas.AlocacaoSalaTurma.getAll().forEach((alocacao) -> {
       this.alocacoes.add(alocacao);
     });
@@ -56,6 +57,8 @@ public class AlocacaoSalaTurmaStore {
       }
     }
 
+    System.out.println("Alocacao para remover" + " - " + alocacaoParaRemover);
+    System.out.println("Alocacoes" + " - " + alocacoes.size());
     if (alocacaoParaRemover == null) {
       return false;
     }
@@ -63,7 +66,12 @@ public class AlocacaoSalaTurmaStore {
     alocacaoParaRemover.getTurma().setHorarioDesalocado(alocacaoParaRemover.getHorario());
     alocacaoParaRemover.getSala().setHorarioDesalocado(alocacaoParaRemover.getHorario());
 
-    return this.alocacoes.remove(alocacaoParaRemover);
+    boolean remover = this.alocacoes.remove(alocacaoParaRemover);
+
+    System.out.println("Alocacoes" + " - " + alocacoes.size());
+
+    System.out.println("Remover: " + remover);
+    return remover;
   }
 
   public Turma getTurmaAlocada(int sala, int horario) {

@@ -82,6 +82,10 @@ public class CadastrarRecursos extends Controller implements Initializable, Form
         return;
       }
 
+      Notification.showNotification("Cadastro de Recurso", "Iniciando cadastro de Recurso.");
+
+      btnCadastrarRecurso.setDisable(true);
+
       String tombamento = this.tombamentoRecurso.getText();
       TipoRecurso tipo = this.tipoRecurso.getValue();
       EstadoRecurso estado = EstadoRecurso.valueOf(this.estadoRecurso.getValue());
@@ -98,6 +102,8 @@ public class CadastrarRecursos extends Controller implements Initializable, Form
       Notification.showNotification("Sucesso", "Recurso cadastrado com sucesso!");
     } catch (Exception e) {
       Notification.showNotification("Erro", e.getMessage());
+    } finally {
+      btnCadastrarRecurso.setDisable(false);
     }
   }
 

@@ -1,6 +1,7 @@
 package com.salute.salute.java.schemas;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.deleteFrom;
@@ -40,7 +41,7 @@ public class Recurso {
     return ConnectionDB.update(sql);
   }
 
-  public static ArrayList<com.salute.salute.java.recurso.Recurso> getAll() {
+  public static List<com.salute.salute.java.recurso.Recurso> getAll() {
     ArrayList<com.salute.salute.java.recurso.Recurso> recursos = new ArrayList<>();
 
     ResultSetFunction function = (rs) -> {
@@ -53,6 +54,28 @@ public class Recurso {
     };
 
     String sql = "SELECT * FROM recurso as r INNER JOIN tipo_recurso AS tr on r.rec_tipo = tr.tre_id;";
+
+    ConnectionDB.query(sql, function);
+
+    return recursos;
+  }
+
+  public static List<com.salute.salute.java.recurso.Recurso> getNotAlocated() {
+    ArrayList<com.salute.salute.java.recurso.Recurso> recursos = new ArrayList<>();
+
+    ResultSetFunction function = (rs) -> {
+      while (rs.next()) {
+        com.salute.salute.java.recurso.TipoRecurso tipo = new com.salute.salute.java.recurso.TipoRecurso(
+            rs.getInt("tre_id"), rs.getString("tre_tipo"));
+        recursos.add(new com.salute.salute.java.recurso.Recurso(rs.getString("rec_tombamento"), tipo,
+            com.salute.salute.java.enums.EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase())));
+      }
+    };
+
+    String sql = "SELECT * FROM recurso as r INNER JOIN tipo_recurso AS tr on r.rec_tipo = tr.tre_id WHERE r.rec_tombamento NOT IN (SELECT ars_recurso FROM alocacao_recurso_sala);";
+    // String sql = "SELECT * FROM recurso as r INNER JOIN tipo_recurso AS tr on
+    // r.rec_tipo = tr.tre_id RIGHT JOIN alocacao_recurso_sala AS ars ON
+    // r.rec_tombamento = ars.ars_recurso;";
 
     ConnectionDB.query(sql, function);
 

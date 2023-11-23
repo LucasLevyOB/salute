@@ -51,4 +51,9 @@ public class Recurso {
     public void setEstado(EstadoRecurso estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return tipo + " - " + tombamento;
+    }
 }
