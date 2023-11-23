@@ -1,5 +1,7 @@
 package com.salute.salute.java.controller;
 
-public class CadastrarSalas extends Main {
-    
+import com.salute.salute.java.abstratta.Controller;
+
+public class CadastrarSalas extends Controller {
+
 }

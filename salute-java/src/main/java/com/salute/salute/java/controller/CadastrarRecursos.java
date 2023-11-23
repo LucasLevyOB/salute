@@ -12,12 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
+import com.salute.salute.java.abstratta.Controller;
 import com.salute.salute.java.enums.EstadoRecurso;
 import com.salute.salute.java.interfaces.Formulario;
 import com.salute.salute.java.recurso.Recurso;
 import com.salute.salute.java.recurso.TipoRecurso;
 
-public class CadastrarRecursos extends Main implements Initializable, Formulario {
+public class CadastrarRecursos extends Controller implements Initializable, Formulario {
   ObservableList<TipoRecurso> obsTipoRecurso;
   ObservableList<String> obsEstadoRecurso;
 

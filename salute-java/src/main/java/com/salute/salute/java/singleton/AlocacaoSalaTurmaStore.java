@@ -9,9 +9,11 @@ import com.salute.salute.java.Turma;
 public class AlocacaoSalaTurmaStore {
   private static AlocacaoSalaTurmaStore instance = null;
   private List<AlocacaoSalaTurma> alocacoes;
+  private boolean realizouAlocacaoAutomatica = false;
 
   private AlocacaoSalaTurmaStore() {
     alocacoes = new ArrayList<>();
+    realizouAlocacaoAutomatica = false;
     this.atualizarFromAPI();
   }
 
@@ -38,12 +40,14 @@ public class AlocacaoSalaTurmaStore {
 
   public boolean addAlocacao(AlocacaoSalaTurma alocacao) {
     alocacao.getTurma().setHorarioAlocado(alocacao.getHorario());
+    alocacao.getSala().setHorarioAlocado(alocacao.getHorario());
     return this.alocacoes.add(alocacao);
   }
 
   public boolean removeAlocacao(AlocacaoSalaTurma alocacao) {
     AlocacaoSalaTurma alocacaoParaRemover = null;
 
+    // acho que vai ser aqui, talvez nao esteja achando a alocacao
     for (AlocacaoSalaTurma alocacaoSalaTurma : this.alocacoes) {
       if (alocacaoSalaTurma.getSala().getId() == alocacao.getSala().getId()
           && alocacaoSalaTurma.getHorario().getId() == alocacao.getHorario().getId()
@@ -57,6 +61,7 @@ public class AlocacaoSalaTurmaStore {
     }
 
     alocacaoParaRemover.getTurma().setHorarioDesalocado(alocacaoParaRemover.getHorario());
+    alocacaoParaRemover.getSala().setHorarioDesalocado(alocacaoParaRemover.getHorario());
 
     return this.alocacoes.remove(alocacaoParaRemover);
   }
@@ -77,5 +82,13 @@ public class AlocacaoSalaTurmaStore {
       }
     }
     return false;
+  }
+
+  public boolean getRealizouAlocacaoAutomatica() {
+    return realizouAlocacaoAutomatica;
+  }
+
+  public void setRealizouAlocacaoAutomatica(boolean realizouAlocacaoAutomatica) {
+    this.realizouAlocacaoAutomatica = realizouAlocacaoAutomatica;
   }
 }

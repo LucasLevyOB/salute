@@ -6,6 +6,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Turma;
+import com.salute.salute.java.abstratta.Controller;
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.HorarioTurno;
 import com.salute.salute.java.enums.Semestre;
@@ -28,7 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class CadastrarTurmas extends Main implements Initializable, Formulario {
+public class CadastrarTurmas extends Controller implements Initializable, Formulario {
   @FXML
   ChoiceBox<String> nomeCurso;
 

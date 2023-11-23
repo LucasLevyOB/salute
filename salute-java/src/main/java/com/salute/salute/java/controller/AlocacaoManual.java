@@ -14,6 +14,7 @@ import com.salute.salute.java.Horario;
 import com.salute.salute.java.HorarioSala;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
+import com.salute.salute.java.abstratta.Controller;
 import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
 import com.salute.salute.java.singleton.SalaStore;
 import com.salute.salute.java.singleton.TurmaStore;
@@ -36,7 +37,7 @@ import javafx.util.Callback;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class AlocacaoManual extends Main implements Initializable {
+public class AlocacaoManual extends Controller implements Initializable {
     private SalaStore salaStore = SalaStore.getInstance();
     private TurmaStore turmaStore = TurmaStore.getInstance();
     private AlocacaoSalaTurmaStore alocacaoSalaTurmas = AlocacaoSalaTurmaStore.getInstance();
@@ -142,6 +143,7 @@ public class AlocacaoManual extends Main implements Initializable {
 
                             Notification.showNotification("Alocação Manual", "Turma desalocada com sucesso.");
 
+                            alocacaoSalaTurmas.atualizarFromAPI();
                             atualizarLista();
                         });
                     }

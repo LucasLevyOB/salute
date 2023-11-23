@@ -108,5 +108,17 @@
             <Insets bottom="16.0" left="8.0" right="8.0" />
          </padding>
       </VBox>
+      <HBox alignment="TOP_RIGHT" spacing="12.0">
+         <children>
+            <Button mnemonicParsing="false" text="Descartar Alocacao" fx:id="btnDescartarAlocacao" />
+            <Button mnemonicParsing="false" text="Persistir Alocacao" fx:id="btnPersistirAlocacao" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="8.0" />
+         </padding>
+      </HBox>
   </children>
 </VBox>

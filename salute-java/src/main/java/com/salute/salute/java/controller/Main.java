@@ -2,6 +2,7 @@ package com.salute.salute.java.controller;
 
 import com.salute.salute.java.Alocacao;
 import com.salute.salute.java.Turma;
+import com.salute.salute.java.abstratta.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,27 +13,11 @@ import javafx.scene.Scene;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Controller {
   private Stage stage;
   private Scene scene;
   private Parent root;
   private Popup popup;
-
-  @FXML
-  public void switchScene(ActionEvent event) throws Exception {
-    try {
-      Node node = (Node) event.getSource();
-      String view = (String) node.getUserData();
-      root = FXMLLoader.load(getClass().getResource("../view/" + view + ".fxml"));
-      scene = new Scene(root);
-      scene.getStylesheets().add(getClass().getResource("../styles.css").toExternalForm());
-      stage = (Stage) node.getScene().getWindow();
-      stage.setScene(scene);
-      stage.show();
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-  }
 
   @FXML
   public void openGerarRelatorio() {
@@ -41,7 +26,7 @@ public class Main {
       Node node = loader.load();
       PopupGerarRelatorios controller = loader.getController();
       controller.setCancelar(() -> {
-          closePopup();
+        closePopup();
       });
       openPopup(node);
     } catch (Exception e) {
@@ -59,7 +44,7 @@ public class Main {
     popup.setHideOnEscape(true);
     popup.getContent().add(node);
     popup.setOnHiding((e) -> {
-        popup = null;
+      popup = null;
     });
     popup.getScene().getRoot().getStyleClass().add("z-elevation-4");
     popup.getScene().getRoot().getStyleClass().add("popup");
@@ -68,7 +53,7 @@ public class Main {
 
   private void closePopup() {
     if (popup != null) {
-        popup.hide();
+      popup.hide();
     }
   }
 }

@@ -155,6 +155,22 @@ public class Sala implements Comparable<Sala> {
         return qtde;
     }
 
+    public void setHorarioAlocado(Horario horario) {
+        for (Horario horarioSala : this.horarios) {
+            if (horarioSala.getId() == horario.getId()) {
+                horarioSala.setAlocado(true);
+            }
+        }
+    }
+
+    public void setHorarioDesalocado(Horario horario) {
+        for (Horario horarioSala : this.horarios) {
+            if (horarioSala.getId() == horario.getId()) {
+                horarioSala.setAlocado(false);
+            }
+        }
+    }
+
     public String formatarParaTabela() {
         return this.tipo.toString() + ": " + this.numero + " - " + this.andar + " - " + this.bloco;
     }

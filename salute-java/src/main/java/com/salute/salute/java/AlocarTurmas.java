@@ -15,6 +15,8 @@ import com.salute.salute.java.recurso.Necessidade;
 import com.salute.salute.java.schemas.AlocacaoSalaTurma;
 import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
 
+import javafx.scene.control.Alert.AlertType;
+
 /**
  *
  * @author lucas-levy
@@ -151,6 +153,10 @@ public class AlocarTurmas {
 
     com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(
         sala, turma, sala.getHorariosById(idHorario));
+    // aqui o b.o, tem que ver uma forma de sincronizar o horario da turma com o
+    // horario da sala e o horario da alocacao
+    // TODO: resolver isso daqui para fazer alocacao automatica e alocacao manual
+    // conversarem
 
     alocacaoSalaTurmaStore.addAlocacao(alocacaoSalaTurma);
 
@@ -224,6 +230,34 @@ public class AlocarTurmas {
     }
   }
 
+  public static Message persistirAlocacoes() {
+    try {
+      ArrayList<com.salute.salute.java.AlocacaoSalaTurma> alocacoes = (ArrayList<com.salute.salute.java.AlocacaoSalaTurma>) alocacaoSalaTurmaStore
+          .getAlocacoes();
+
+      AlocacaoSalaTurma.deleteAll();
+
+      int insertedWithSuccess = 0;
+
+      for (com.salute.salute.java.AlocacaoSalaTurma alocacao : alocacoes) {
+        boolean resultInsert = alocarTurmaBanco(alocacao.getSala().getId(), alocacao.getTurma().getId(),
+            alocacao.getHorario().getId(), true);
+
+        if (resultInsert) {
+          insertedWithSuccess++;
+        }
+      }
+
+      if (insertedWithSuccess != alocacoes.size()) {
+        return new Message("Não foi possível persistir as alocações.", AlertType.ERROR);
+      }
+
+      return new Message("Alocações persistidas com sucesso.", AlertType.INFORMATION);
+    } catch (Exception e) {
+      return new Message("Não foi possível persistir as alocações.", AlertType.ERROR);
+    }
+  }
+
   public static boolean desalocarTurmaBanco(int idSala, int idTurma, int idHorario) {
     int result = AlocacaoSalaTurma.delete(idSala, idTurma, idHorario);
 
@@ -267,12 +301,6 @@ public class AlocarTurmas {
   }
 
   public static boolean limparAlocacao() {
-    // int result = AlocacaoSalaTurma.deleteAll();
-
-    // if (result != 1) {
-    // return false;
-    // }
-
     alocacaoSalaTurmaStore.getAlocacoes().clear();
 
     return true;
