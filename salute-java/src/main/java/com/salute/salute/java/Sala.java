@@ -29,7 +29,7 @@ public class Sala implements Comparable<Sala> {
     private int andar;
     private int bloco;
     private ArrayList<Horario> horarios;
-    private Map<Integer, Turma> turmas;
+    // private Map<Integer, Turma> turmas;
     private ArrayList<Recurso> recursos;
 
     public Sala(int id, TipoSala tipo, int capacidade, int numero, int andar, int bloco, ArrayList<Horario> horarios,
@@ -41,7 +41,7 @@ public class Sala implements Comparable<Sala> {
         this.andar = andar;
         this.bloco = bloco;
         this.horarios = horarios;
-        this.turmas = new HashMap<>();
+        // this.turmas = new HashMap<>();
         this.recursos = recursos;
     }
 
@@ -53,7 +53,7 @@ public class Sala implements Comparable<Sala> {
         this.andar = -1;
         this.bloco = -1;
         this.horarios = new ArrayList<>();
-        this.turmas = new HashMap<>();
+        // this.turmas = new HashMap<>();
         this.recursos = new ArrayList<>();
     }
 
@@ -85,21 +85,21 @@ public class Sala implements Comparable<Sala> {
         return horarios;
     }
 
-    public Turma getTurmaPorKey(int key) {
-        return turmas.get(key);
-    }
+    // public Turma getTurmaPorKey(int key) {
+    // return turmas.get(key);
+    // }
 
-    public Map<Integer, Turma> getTurmas() {
-        return turmas;
-    }
+    // public Map<Integer, Turma> getTurmas() {
+    // return turmas;
+    // }
 
     public ArrayList<Recurso> getRecursos() {
         return recursos;
     }
 
-    public void setTurmaById(int key, Turma turma) {
-        this.turmas.put(key, turma);
-    }
+    // public void setTurmaById(int key, Turma turma) {
+    // this.turmas.put(key, turma);
+    // }
 
     public void setRecursos(ArrayList<Recurso> recursos) {
         this.recursos = recursos;
@@ -133,9 +133,9 @@ public class Sala implements Comparable<Sala> {
         this.id = id;
     }
 
-    public void setTurmas(Map<Integer, Turma> turmas) {
-        this.turmas = turmas;
-    }
+    // public void setTurmas(Map<Integer, Turma> turmas) {
+    // this.turmas = turmas;
+    // }
 
     public void addHorario(Horario horario) {
         this.horarios.add(horario);
@@ -159,44 +159,53 @@ public class Sala implements Comparable<Sala> {
         return this.tipo.toString() + ": " + this.numero + " - " + this.andar + " - " + this.bloco;
     }
 
-    public Boolean desalocarTurma(int index) {
-        if (this.turmas.get(index) != null) {
-            Turma turma = this.turmas.get(index);
-            turma.setHorarioDesalocado(this.horarios.get(index));
-            this.turmas.remove(index);
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public Boolean desalocarTurma(int index) {
+    // if (this.turmas.get(index) != null) {
+    // Turma turma = this.turmas.get(index);
+    // turma.setHorarioDesalocado(this.horarios.get(index));
+    // this.turmas.remove(index);
+    // return true;
+    // } else {
+    // return false;
+    // }
+    // }
 
-    public Boolean alocarTurma(Turma turma, int index) {
-        if (this.turmas.get(index) == null) {
-            this.turmas.put(index, turma);
-            turma.setHorarioAlocado(this.horarios.get(index));
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // public Boolean alocarTurma(Turma turma, int index) {
+    // if (this.turmas.get(index) == null) {
+    // this.turmas.put(index, turma);
+    // turma.setHorarioAlocado(this.horarios.get(index));
+    // return true;
+    // } else {
+    // return false;
+    // }
+    // }
 
-    public void limparAlocacao() {
-        for (int i = 0; i < this.horarios.size(); i++) {
-            if (this.turmas.get(i) != null) {
-                this.turmas.get(i).setHorarioDesalocado(this.horarios.get(i));
-            }
-        }
-        this.turmas.clear();
-    }
+    // public void limparAlocacao() {
+    // for (int i = 0; i < this.horarios.size(); i++) {
+    // if (this.turmas.get(i) != null) {
+    // this.turmas.get(i).setHorarioDesalocado(this.horarios.get(i));
+    // }
+    // }
+    // this.turmas.clear();
+    // }
 
-    public int getHorariosByAtributos(Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
+    public Horario getHorariosByAtributos(Turno turno, HorarioTurno horario, DiaSemana diaSemana) {
         for (int i = 0; i < this.horarios.size(); i++) {
             if (this.horarios.get(i).isTurno(turno) && this.horarios.get(i).isHorario(horario)
                     && this.horarios.get(i).isDiaSemana(diaSemana)) {
-                return i;
+                return this.horarios.get(i);
             }
         }
-        return -1;
+        return null;
+    }
+
+    public Horario getHorariosById(int id) {
+        for (Horario horario : horarios) {
+            if (horario.getId() == id) {
+                return horario;
+            }
+        }
+        return null;
     }
 
     @Override

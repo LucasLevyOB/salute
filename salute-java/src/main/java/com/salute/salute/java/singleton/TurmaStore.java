@@ -34,6 +34,14 @@ public class TurmaStore {
     return this.turmas;
   }
 
+  public Turma getTurma(int id) {
+    return this.turmas.get(id);
+  }
+
+  public void addTurma(Turma turma) {
+    this.turmas.put(turma.getId(), turma);
+  }
+
   // criar um observer para atualizar o map de turmas quando uma nova turma for
   // cadastrada
   public void atualizarFromAPI() {

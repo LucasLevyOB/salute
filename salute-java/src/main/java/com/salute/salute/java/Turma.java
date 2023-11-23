@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.salute.salute.java.enums.Semestre;
 import com.salute.salute.java.enums.TipoHorario;
@@ -29,11 +30,11 @@ public class Turma implements Comparable<Turma> {
     private String curso;
     private String nome;
     private Semestre semestreCurso;
-    private ArrayList<Horario> horarios;
-    private ArrayList<Necessidade> necessidades;
+    private List<Horario> horarios;
+    private List<Necessidade> necessidades;
 
     public Turma(int id, String nome, String professor, int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano,
-            Semestre semestre, ArrayList<Horario> horarios, ArrayList<Necessidade> necessidades, String curso,
+            Semestre semestre, List<Horario> horarios, List<Necessidade> necessidades, String curso,
             Semestre semestreCurso) {
         this.id = id;
         this.nome = nome;
@@ -87,11 +88,20 @@ public class Turma implements Comparable<Turma> {
         return semestre;
     }
 
-    public ArrayList<Horario> getHorarios() {
+    public List<Horario> getHorarios() {
         return horarios;
     }
 
-    public ArrayList<Necessidade> getNecessidades() {
+    public Horario getHorariosById(int id) {
+        for (Horario horario : horarios) {
+            if (horario.getId() == id) {
+                return horario;
+            }
+        }
+        return null;
+    }
+
+    public List<Necessidade> getNecessidades() {
         return necessidades;
     }
 
@@ -139,11 +149,11 @@ public class Turma implements Comparable<Turma> {
         this.semestre = semestre;
     }
 
-    public void setHorarios(ArrayList<Horario> horarios) {
+    public void setHorarios(List<Horario> horarios) {
         this.horarios = horarios;
     }
 
-    public void setNecessidades(ArrayList<Necessidade> necessidades) {
+    public void setNecessidades(List<Necessidade> necessidades) {
         this.necessidades = necessidades;
     }
 

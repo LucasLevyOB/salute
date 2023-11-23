@@ -114,6 +114,7 @@ public class Turma {
           horario
               .setHorario(com.salute.salute.java.enums.HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase()));
           horario.setTurno(com.salute.salute.java.enums.Turno.valueOf(rs.getString("hor_turno").toUpperCase()));
+          horario.setTipo(com.salute.salute.java.enums.TipoHorario.valueOf(rs.getString("htu_tipo").toUpperCase()));
           turma.addHorario(horario);
         }
       }

@@ -69,4 +69,13 @@ public class AlocacaoSalaTurmaStore {
     }
     return null;
   }
+
+  public boolean isOcupado(int sala, int horario) {
+    for (AlocacaoSalaTurma alocacao : this.alocacoes) {
+      if (alocacao.getSala().getId() == sala && alocacao.getHorario().getId() == horario) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

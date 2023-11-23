@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.salute.salute.java.enums.EstadoRecurso;
@@ -19,11 +20,13 @@ import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
  * @author lucas-levy
  */
 public class AlocarTurmas {
+  private static AlocacaoSalaTurmaStore alocacaoSalaTurmaStore = AlocacaoSalaTurmaStore.getInstance();
+
   private AlocarTurmas() {
   }
 
   private static void setarTiposHorarios(Turma turma) {
-    ArrayList<Horario> horariosTurma = turma.getHorarios();
+    ArrayList<Horario> horariosTurma = (ArrayList<Horario>) turma.getHorarios();
     int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
     int horasAula = horasTotais / turma.getHorarios().size();
 
@@ -62,7 +65,7 @@ public class AlocarTurmas {
     return 0;
   }
 
-  private static float calculaPontosRecursos(ArrayList<Necessidade> necessidades, Sala sala) {
+  private static float calculaPontosRecursos(List<Necessidade> necessidades, Sala sala) {
     float pontos = 0;
     for (int iNecessidade = 0; iNecessidade < necessidades.size(); iNecessidade++) {
       Necessidade necessidade = necessidades.get(iNecessidade);
@@ -83,12 +86,14 @@ public class AlocarTurmas {
     float[] pontos = { 0, 0, 0 };
     for (int iHorario = 0; iHorario < horariosSala.size(); iHorario++) {
       Horario horario = horariosSala.get(iHorario);
-      boolean isOcupado = sala.getTurmas().containsKey(iHorario);
+      // boolean isOcupado = sala.getTurmas().containsKey(iHorario);
+      boolean isOcupado = alocacaoSalaTurmaStore.isOcupado(sala.getId(), horario.getId());
+      System.out.println("Horario: " + horario.toString() + " - Ocupado: " + isOcupado);
       if (Boolean.TRUE.equals(horario.equals(horarioTurma) && !isOcupado && turma.hasHorario(horario))
           && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
         float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
         float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
-        pontos[0] = iHorario;
+        pontos[0] = horario.getId();
         pontos[1] = pontosRecursos + pontosTipo;
         pontos[2] = keySala;
         salaHorario.add(pontos);
@@ -100,6 +105,8 @@ public class AlocarTurmas {
   private static boolean iteraSobreSalas(Horario horario, Map<Integer, Sala> salas, Turma turma) {
     ArrayList<float[]> salaHorarioCompativel = new ArrayList<>();
 
+    System.out.println("Iterando sobre salas: " + turma.getNome() + " " + horario.toString());
+
     for (Map.Entry<Integer, Sala> entry : salas.entrySet()) {
       Sala sala = entry.getValue();
       if (turma.getQtdeAlunos() > sala.getCapacidade()) {
@@ -108,6 +115,8 @@ public class AlocarTurmas {
 
       iteraSobreHorariosSala(salaHorarioCompativel, sala, entry.getKey(), horario, turma);
     }
+
+    System.out.println("Salas compativeis: " + salaHorarioCompativel.size());
 
     if (salaHorarioCompativel.isEmpty()) {
       return false;
@@ -134,7 +143,17 @@ public class AlocarTurmas {
     int idHorario = (int) pontos[0];
     int idSala = (int) pontos[2];
     // salas.get(idSala).getTurmas().put(idHorario, turma);
-    salas.get(idSala).alocarTurma(turma, idHorario);
+    // salas.get(idSala).alocarTurma(turma, idHorario);
+
+    System.out.println("Alocou turma " + turma.getId() + " na sala " + idSala + " no horario " + idHorario);
+
+    Sala sala = salas.get(idSala);
+
+    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(
+        sala, turma, sala.getHorariosById(idHorario));
+
+    alocacaoSalaTurmaStore.addAlocacao(alocacaoSalaTurma);
+
     // turma.setHorarioAlocado(horario);
 
     // if (salaHorarioCompativel.size() > 0) {
@@ -159,7 +178,7 @@ public class AlocarTurmas {
   }
 
   private static void iteraSobreHorariosTurma(Turma turma, Map<Integer, Sala> salas) {
-    ArrayList<Horario> horariosTurma = turma.getHorarios();
+    ArrayList<Horario> horariosTurma = (ArrayList<Horario>) turma.getHorarios();
     // Arrays.sort(horariosTurma);
     // ordena os horarios da turma
     // buscar as salas com horarios disponiveis, primeiro horario da turma
@@ -197,7 +216,7 @@ public class AlocarTurmas {
   }
 
   public static void alocacaoAutomatica(Map<Integer, Turma> turmas, Map<Integer, Sala> salas) {
-    setarTiposHorariosTurmas(turmas);
+    // setarTiposHorariosTurmas(turmas);
 
     for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
       Turma turma = entry.getValue();
@@ -221,7 +240,7 @@ public class AlocarTurmas {
     com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
         turma, horario);
 
-    return AlocacaoSalaTurmaStore.getInstance().removeAlocacao(alocacaoSalaTurma);
+    return alocacaoSalaTurmaStore.removeAlocacao(alocacaoSalaTurma);
   }
 
   private static boolean alocarTurmaBanco(int idSala, int idTurma, int idHorario, boolean recorrente) {
@@ -244,17 +263,17 @@ public class AlocarTurmas {
     com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
         turma, horario);
 
-    return AlocacaoSalaTurmaStore.getInstance().addAlocacao(alocacaoSalaTurma);
+    return alocacaoSalaTurmaStore.addAlocacao(alocacaoSalaTurma);
   }
 
   public static boolean limparAlocacao() {
-    int result = AlocacaoSalaTurma.deleteAll();
+    // int result = AlocacaoSalaTurma.deleteAll();
 
-    if (result != 1) {
-      return false;
-    }
+    // if (result != 1) {
+    // return false;
+    // }
 
-    AlocacaoSalaTurmaStore.getInstance().getAlocacoes().clear();
+    alocacaoSalaTurmaStore.getAlocacoes().clear();
 
     return true;
   }

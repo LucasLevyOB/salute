@@ -305,7 +305,6 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
 
   private HorarioTurno getHorarioTurno() {
     String selected = horarioHorario.getValue();
-    System.out.println(selected);
     int indexSelected = -1;
     for (int i = 0; i < horas.length; i++) {
       if (horas[i].equals(selected)) {
@@ -313,7 +312,6 @@ public class CadastrarTurmas extends Main implements Initializable, Formulario {
         break;
       }
     }
-    System.out.println(indexSelected);
 
     if (indexSelected % 2 == 0) {
       return HorarioTurno.PRIMEIRO_HORARIO;
