@@ -63,9 +63,6 @@ public class Sala {
         String query = "SELECT * FROM sala AS s " +
                 "LEFT JOIN horario_sala AS hs on s.sal_id = hs.hsa_sala " +
                 "LEFT JOIN horario AS h on hs.hsa_horario = h.hor_id " +
-                "LEFT JOIN alocacao_recurso_sala AS ars on s.sal_id = ars.ars_sala " +
-                "LEFT JOIN recurso AS r on ars.ars_recurso = r.rec_tombamento " +
-                "LEFT JOIN tipo_recurso AS tr on r.rec_tipo = tr.tre_id " +
                 "GROUP BY s.sal_id, h.hor_id;";
         ResultSetFunction function = (ResultSet rs) -> {
             int salaAtual = 0;
@@ -90,17 +87,6 @@ public class Sala {
                     horario.setHorario(HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase()));
                     horario.setTurno(Turno.valueOf(rs.getString("hor_turno").toUpperCase()));
                     sala.addHorario(horario);
-                }
-
-                if (rs.getString("rec_tombamento") != null) {
-                    com.salute.salute.java.recurso.TipoRecurso tipoRecurso = new com.salute.salute.java.recurso.TipoRecurso();
-                    tipoRecurso.setId(rs.getInt("tre_id"));
-                    tipoRecurso.setTipo(rs.getString("tre_tipo"));
-                    com.salute.salute.java.recurso.Recurso recurso = new com.salute.salute.java.recurso.Recurso();
-                    recurso.setTombamento(rs.getString("rec_tombamento"));
-                    recurso.setTipo(tipoRecurso);
-                    recurso.setEstado(EstadoRecurso.valueOf(rs.getString("rec_estado").toUpperCase()));
-                    sala.addRecurso(recurso);
                 }
             }
         };

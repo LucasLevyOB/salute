@@ -30,7 +30,7 @@ public class Sala implements Comparable<Sala> {
     private int bloco;
     private ArrayList<Horario> horarios;
     // private Map<Integer, Turma> turmas;
-    private ArrayList<Recurso> recursos;
+    // private ArrayList<Recurso> recursos;
 
     public Sala(int id, TipoSala tipo, int capacidade, int numero, int andar, int bloco, ArrayList<Horario> horarios,
             ArrayList<Recurso> recursos) {
@@ -42,7 +42,7 @@ public class Sala implements Comparable<Sala> {
         this.bloco = bloco;
         this.horarios = horarios;
         // this.turmas = new HashMap<>();
-        this.recursos = recursos;
+        // this.recursos = recursos;
     }
 
     public Sala() {
@@ -54,7 +54,7 @@ public class Sala implements Comparable<Sala> {
         this.bloco = -1;
         this.horarios = new ArrayList<>();
         // this.turmas = new HashMap<>();
-        this.recursos = new ArrayList<>();
+        // this.recursos = new ArrayList<>();
     }
 
     public int getId() {
@@ -93,17 +93,17 @@ public class Sala implements Comparable<Sala> {
     // return turmas;
     // }
 
-    public ArrayList<Recurso> getRecursos() {
-        return recursos;
-    }
+    // public ArrayList<Recurso> getRecursos() {
+    // return recursos;
+    // }
 
     // public void setTurmaById(int key, Turma turma) {
     // this.turmas.put(key, turma);
     // }
 
-    public void setRecursos(ArrayList<Recurso> recursos) {
-        this.recursos = recursos;
-    }
+    // public void setRecursos(ArrayList<Recurso> recursos) {
+    // this.recursos = recursos;
+    // }
 
     public void setHorarios(ArrayList<Horario> horarios) {
         this.horarios = horarios;
@@ -141,19 +141,20 @@ public class Sala implements Comparable<Sala> {
         this.horarios.add(horario);
     }
 
-    public void addRecurso(Recurso recurso) {
-        this.recursos.add(recurso);
-    }
+    // public void addRecurso(Recurso recurso) {
+    // this.recursos.add(recurso);
+    // }
 
-    public int qtdeRecursosTipoEstado(TipoRecurso tipo, EstadoRecurso estado) {
-        int qtde = 0;
-        for (Recurso recurso : this.recursos) {
-            if (recurso.getTipo().getId() == tipo.getId() && recurso.getEstado().equals(estado)) {
-                qtde++;
-            }
-        }
-        return qtde;
-    }
+    // public int qtdeRecursosTipoEstado(TipoRecurso tipo, EstadoRecurso estado) {
+    // int qtde = 0;
+    // for (Recurso recurso : this.recursos) {
+    // if (recurso.getTipo().getId() == tipo.getId() &&
+    // recurso.getEstado().equals(estado)) {
+    // qtde++;
+    // }
+    // }
+    // return qtde;
+    // }
 
     public void setHorarioAlocado(Horario horario) {
         for (Horario horarioSala : this.horarios) {

@@ -14,6 +14,7 @@ import com.salute.salute.java.enums.TipoSala;
 import com.salute.salute.java.recurso.Necessidade;
 import com.salute.salute.java.schemas.AlocacaoSalaTurma;
 import com.salute.salute.java.singleton.AlocacaoSalaTurmaStore;
+import com.salute.salute.java.singleton.SalaStore;
 
 import javafx.scene.control.Alert.AlertType;
 
@@ -23,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class AlocarTurmas {
   private static AlocacaoSalaTurmaStore alocacaoSalaTurmaStore = AlocacaoSalaTurmaStore.getInstance();
+  private static SalaStore salaStore = SalaStore.getInstance();
 
   private AlocarTurmas() {
   }
@@ -73,11 +75,14 @@ public class AlocarTurmas {
     for (int iNecessidade = 0; iNecessidade < necessidades.size(); iNecessidade++) {
       Necessidade necessidade = necessidades.get(iNecessidade);
       System.out.println("Necessidade: " + necessidade.toString());
-      int funcionando = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(), EstadoRecurso.FUNCIONANDO);
+      // int funcionando = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(),
+      // EstadoRecurso.FUNCIONANDO);
+      int funcionando = salaStore.qtdeRecursosTipoEstado(sala.getId(), necessidade.getRecurso(),
+          EstadoRecurso.FUNCIONANDO);
       System.out.println("Funcionando: " + funcionando);
       int quantidadeAtendidaFuncionando = Math.min(funcionando, necessidade.getQtde());
       pontos += quantidadeAtendidaFuncionando * .2;
-      int quebrado = sala.qtdeRecursosTipoEstado(necessidade.getRecurso(), EstadoRecurso.QUEBRADO);
+      int quebrado = salaStore.qtdeRecursosTipoEstado(sala.getId(), necessidade.getRecurso(), EstadoRecurso.QUEBRADO);
       System.out.println("Quebrado: " + quebrado);
       int quantidadeAtendidaQuebrado = Math.min(quebrado, necessidade.getQtde() - quantidadeAtendidaFuncionando);
       pontos += quantidadeAtendidaQuebrado * .1;

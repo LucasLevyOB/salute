@@ -132,7 +132,7 @@ public class CadastrarSalas extends Controller implements Initializable, Formula
     sala.setBloco(bloco);
     sala.setCapacidade(capacidade);
     sala.setTipo(tipo);
-    sala.setRecursos((ArrayList<Recurso>) recursosAdicionados);
+    // sala.setRecursos((ArrayList<Recurso>) recursosAdicionados);
 
     try {
       Notification.showNotification("Cadastrar Sala", "Iniciando cadastro da sala");

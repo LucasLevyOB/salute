@@ -2,8 +2,10 @@ package com.salute.salute.java.singleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.salute.salute.java.AlocacaoRecursoSala;
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.enums.DiaSemana;
@@ -17,9 +19,11 @@ import com.salute.salute.java.recurso.TipoRecurso;
 public class SalaStore {
   private static SalaStore instance;
   private Map<Integer, Sala> salas;
+  private List<AlocacaoRecursoSala> recursosAlocados;
 
   private SalaStore() {
     this.salas = new HashMap<>();
+    this.recursosAlocados = new ArrayList<>();
     this.atualizarFromAPI();
   }
 
@@ -39,6 +43,35 @@ public class SalaStore {
     com.salute.salute.java.schemas.Sala.getAll().forEach((sala) -> {
       this.salas.put(sala.getId(), sala);
     });
+
+    recursosAlocados.clear();
+    com.salute.salute.java.schemas.AlocacaoRecursoSala.getAll().forEach((alocacao) -> {
+      recursosAlocados.add(alocacao);
+    });
+  }
+
+  public int qtdeRecursosTipoEstado(int salaId, TipoRecurso tipoRecurso, EstadoRecurso estado) {
+    int qtde = 0;
+    for (AlocacaoRecursoSala alocacao : recursosAlocados) {
+      if (alocacao.getSalaId() == salaId) {
+        for (Recurso r : alocacao.getRecursos()) {
+          if (r.getTipo().getId() == tipoRecurso.getId() && r.getEstado() == estado) {
+            qtde++;
+          }
+        }
+      }
+    }
+    return qtde;
+  }
+
+  public List<Recurso> getRecursosBySalaId(int salaId) {
+    List<Recurso> recursos = new ArrayList<>();
+    for (AlocacaoRecursoSala alocacao : recursosAlocados) {
+      if (alocacao.getSalaId() == salaId) {
+        recursos.addAll(alocacao.getRecursos());
+      }
+    }
+    return recursos;
   }
 
   private static Map<Integer, Sala> povoaSalas() {
