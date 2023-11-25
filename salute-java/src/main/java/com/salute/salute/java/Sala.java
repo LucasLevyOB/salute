@@ -6,6 +6,7 @@ package com.salute.salute.java;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.salute.salute.java.enums.DiaSemana;
@@ -84,7 +85,8 @@ public class Sala implements Comparable<Sala> {
     public ArrayList<Horario> getHorarios() {
         return horarios;
     }
-
+    
+    
     // public Turma getTurmaPorKey(int key) {
     // return turmas.get(key);
     // }
