@@ -18,6 +18,7 @@ import com.salute.salute.java.interfaces.Formulario;
 import com.salute.salute.java.recurso.Recurso;
 import com.salute.salute.java.schemas.AlocacaoRecursoSala;
 import com.salute.salute.java.schemas.Sala;
+import com.salute.salute.java.singleton.SalaStore;
 import com.salute.salute.java.validations.Inteiro;
 
 import javafx.collections.FXCollections;
@@ -35,10 +36,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;;
 
 public class ExibirSalas extends Controller {
-       // Aqui você pode chamar o método getAll() da classe Sala
     List<com.salute.salute.java.Sala> salas = Sala.getAll();    
 
     public void exbirListaDeSalas() {
+
+        com.salute.salute.java.singleton.SalaStore salaStore = SalaStore.getInstance();
+
         System.out.println("------ EXIBINDO LISTA DE SALAS ------");
         for(com.salute.salute.java.Sala sala : salas) {
             System.out.println("Tipo de sala: " + sala.getTipo());
@@ -47,7 +50,7 @@ public class ExibirSalas extends Controller {
             System.out.println("Andar: " + sala.getAndar());
             System.out.println("Bloco: " + sala.getBloco());
             System.out.println("Horarios: " + sala.getHorarios());
-            System.out.println("Recursos: " + sala.getRecursos());
+            System.out.println("Recursos: " + salaStore.getRecursosBySalaId(sala.getId()));
             System.out.println("----------------------------------------");
         }
     }
