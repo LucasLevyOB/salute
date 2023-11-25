@@ -1,49 +1,49 @@
 package com.salute.salute.java;
 
 public class AlocacaoSalaTurma {
-  private Sala sala;
-  private Turma turma;
-  private Horario horario;
+  private int sala;
+  private int turma;
+  private int horario;
 
-  public AlocacaoSalaTurma(Sala sala, Turma turma, Horario horario) {
+  public AlocacaoSalaTurma(int sala, int turma, int horario) {
     this.sala = sala;
     this.turma = turma;
     this.horario = horario;
   }
 
-  public AlocacaoSalaTurma(Sala sala, Horario horario) {
+  public AlocacaoSalaTurma(int sala, int horario) {
     this.sala = sala;
-    this.turma = null;
+    this.turma = -1;
     this.horario = horario;
   }
 
   public AlocacaoSalaTurma() {
-    this.sala = null;
-    this.turma = null;
-    this.horario = null;
+    this.sala = -1;
+    this.turma = -1;
+    this.horario = -1;
   }
 
-  public Sala getSala() {
+  public int getSala() {
     return sala;
   }
 
-  public void setSala(Sala sala) {
+  public void setSala(int sala) {
     this.sala = sala;
   }
 
-  public Turma getTurma() {
+  public int getTurma() {
     return turma;
   }
 
-  public void setTurma(Turma turma) {
+  public void setTurma(int turma) {
     this.turma = turma;
   }
 
-  public Horario getHorario() {
+  public int getHorario() {
     return horario;
   }
 
-  public void setHorario(Horario horario) {
+  public void setHorario(int horario) {
     this.horario = horario;
   }
 

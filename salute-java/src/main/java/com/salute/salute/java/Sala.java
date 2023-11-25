@@ -174,6 +174,14 @@ public class Sala implements Comparable<Sala> {
         }
     }
 
+    public void setHorarioDesalocado(int horario) {
+        for (Horario horarioSala : this.horarios) {
+            if (horarioSala.getId() == horario) {
+                horarioSala.setAlocado(false);
+            }
+        }
+    }
+
     public String formatarParaTabela() {
         return this.tipo.toString() + ": " + this.numero + " - " + this.andar + " - " + this.bloco;
     }

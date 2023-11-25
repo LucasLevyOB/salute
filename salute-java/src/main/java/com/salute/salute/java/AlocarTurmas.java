@@ -167,14 +167,12 @@ public class AlocarTurmas {
 
     Sala sala = salas.get(idSala);
 
-    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(
-        sala, turma, sala.getHorariosById(idHorario));
     // aqui o b.o, tem que ver uma forma de sincronizar o horario da turma com o
     // horario da sala e o horario da alocacao
     // TODO: resolver isso daqui para fazer alocacao automatica e alocacao manual
     // conversarem
 
-    alocacaoSalaTurmaStore.addAlocacao(alocacaoSalaTurma);
+    alocacaoSalaTurmaStore.addAlocacao(sala, turma, sala.getHorariosById(idHorario));
 
     // turma.setHorarioAlocado(horario);
 
@@ -256,8 +254,7 @@ public class AlocarTurmas {
       int insertedWithSuccess = 0;
 
       for (com.salute.salute.java.AlocacaoSalaTurma alocacao : alocacoes) {
-        boolean resultInsert = alocarTurmaBanco(alocacao.getSala().getId(), alocacao.getTurma().getId(),
-            alocacao.getHorario().getId(), true);
+        boolean resultInsert = alocarTurmaBanco(alocacao.getSala(), alocacao.getTurma(), alocacao.getHorario(), true);
 
         if (resultInsert) {
           insertedWithSuccess++;
@@ -275,22 +272,20 @@ public class AlocarTurmas {
   }
 
   public static boolean desalocarTurmaBanco(int idSala, int idTurma, int idHorario) {
+    System.out.println("Desalocando turma " + idTurma + " da sala " + idSala + " no horario " + idHorario);
     int result = AlocacaoSalaTurma.delete(idSala, idTurma, idHorario);
 
     return result == 1;
   }
 
   public static boolean desalocarTurma(Turma turma, Sala sala, Horario horario) {
-    boolean desalocou = desalocarTurmaBanco(sala.getId(), sala.getId(), horario.getId());
-
+    boolean desalocou = desalocarTurmaBanco(sala.getId(), turma.getId(), horario.getId());
+    System.out.println("Desalocou: " + desalocou);
     if (!desalocou) {
       return false;
     }
 
-    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
-        turma, horario);
-
-    return alocacaoSalaTurmaStore.removeAlocacao(alocacaoSalaTurma);
+    return alocacaoSalaTurmaStore.removeAlocacao(sala, turma, horario);
   }
 
   private static boolean alocarTurmaBanco(int idSala, int idTurma, int idHorario, boolean recorrente) {
@@ -310,14 +305,11 @@ public class AlocarTurmas {
       return false;
     }
 
-    com.salute.salute.java.AlocacaoSalaTurma alocacaoSalaTurma = new com.salute.salute.java.AlocacaoSalaTurma(sala,
-        turma, horario);
-
-    return alocacaoSalaTurmaStore.addAlocacao(alocacaoSalaTurma);
+    return alocacaoSalaTurmaStore.addAlocacao(sala, turma, horario);
   }
 
   public static boolean limparAlocacao() {
-    alocacaoSalaTurmaStore.getAlocacoes().clear();
+    alocacaoSalaTurmaStore.limparAlocacoes();
 
     return true;
   }

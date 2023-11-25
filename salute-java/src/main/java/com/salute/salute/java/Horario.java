@@ -99,6 +99,10 @@ public class Horario implements Comparable<Horario> {
         return alocado;
     }
 
+    public String getAlocado() {
+        return alocado ? "Alocado" : "Livre";
+    }
+
     public boolean isTurno(Turno turno) {
         return this.turno == turno;
     }

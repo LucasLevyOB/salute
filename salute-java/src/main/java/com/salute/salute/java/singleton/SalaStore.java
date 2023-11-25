@@ -74,6 +74,10 @@ public class SalaStore {
     return recursos;
   }
 
+  public Sala getSalaById(int salaId) {
+    return this.salas.get(salaId);
+  }
+
   private static Map<Integer, Sala> povoaSalas() {
     TipoRecurso[] tipoRecurso = new TipoRecurso[7];
     tipoRecurso[0] = new TipoRecurso(1, "Projetor");

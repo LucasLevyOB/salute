@@ -1,7 +1,11 @@
 package com.salute.salute.java.controller;
 
+import java.util.Optional;
+
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Window;
 
 public class AlertDialog {

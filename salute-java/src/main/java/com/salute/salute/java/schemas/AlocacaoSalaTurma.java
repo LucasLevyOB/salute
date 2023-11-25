@@ -70,47 +70,54 @@ public class AlocacaoSalaTurma {
   }
 
   public static List<com.salute.salute.java.AlocacaoSalaTurma> getAll() {
-    String sql = "SELECT * FROM alocacao_sala_turma AS ast LEFT JOIN sala AS s ON ast.ast_sala = s.sal_id LEFT JOIN horario AS h ON ast.ast_horario = h.hor_id LEFT JOIN turma AS t ON ast.ast_turma = t.tur_id;";
+    String sql = "SELECT sal_id, tur_id, hor_id FROM alocacao_sala_turma AS ast LEFT JOIN sala AS s ON ast.ast_sala = s.sal_id LEFT JOIN horario AS h ON ast.ast_horario = h.hor_id LEFT JOIN turma AS t ON ast.ast_turma = t.tur_id;";
 
     List<com.salute.salute.java.AlocacaoSalaTurma> alocacoes = new ArrayList<>();
 
     ResultSetFunction rsf = (rs) -> {
       while (rs.next()) {
-        com.salute.salute.java.Turma turma = null;
-        com.salute.salute.java.Sala sala = new com.salute.salute.java.Sala();
+        // com.salute.salute.java.Turma turma = null;
+        // com.salute.salute.java.Sala sala = new com.salute.salute.java.Sala();
         com.salute.salute.java.AlocacaoSalaTurma alocacao = new com.salute.salute.java.AlocacaoSalaTurma();
 
-        sala.setId(rs.getInt("sal_id"));
-        sala.setCapacidade(rs.getInt("sal_capacidade"));
-        sala.setNumero(rs.getInt("sal_numero"));
-        sala.setAndar(rs.getInt("sal_andar"));
-        sala.setBloco(rs.getInt("sal_bloco"));
-        sala.setTipo(com.salute.salute.java.enums.TipoSala.valueOf(rs.getString("sal_tipo").toUpperCase()));
+        // sala.setId(rs.getInt("sal_id"));
+        // sala.setCapacidade(rs.getInt("sal_capacidade"));
+        // sala.setNumero(rs.getInt("sal_numero"));
+        // sala.setAndar(rs.getInt("sal_andar"));
+        // sala.setBloco(rs.getInt("sal_bloco"));
+        // sala.setTipo(com.salute.salute.java.enums.TipoSala.valueOf(rs.getString("sal_tipo").toUpperCase()));
 
-        Turno turno = Turno.valueOf(rs.getString("hor_turno").toUpperCase());
-        HorarioTurno horarioTurno = HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase());
-        DiaSemana diaSemana = DiaSemana.valueOf(rs.getString("hor_dia_semana").toUpperCase());
+        // Turno turno = Turno.valueOf(rs.getString("hor_turno").toUpperCase());
+        // HorarioTurno horarioTurno =
+        // HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase());
+        // DiaSemana diaSemana =
+        // DiaSemana.valueOf(rs.getString("hor_dia_semana").toUpperCase());
 
-        com.salute.salute.java.Horario horario = new com.salute.salute.java.Horario(rs.getInt("hor_id"), turno,
-            horarioTurno, diaSemana);
+        // com.salute.salute.java.Horario horario = new
+        // com.salute.salute.java.Horario(rs.getInt("hor_id"), turno,
+        // horarioTurno, diaSemana);
 
+        // if (rs.getInt("tur_id") != 0) {
+        // turma = new com.salute.salute.java.Turma();
+        // turma.setId(rs.getInt("tur_id"));
+        // turma.setQtdeAlunos(rs.getInt("tur_qtde_alunos"));
+        // turma.setCargaTeorica(rs.getInt("tur_carga_teorica"));
+        // turma.setCargaPratica(rs.getInt("tur_carga_pratica"));
+        // turma.setAno(rs.getInt("tur_ano"));
+        // turma.setProfessor(rs.getString("tur_professor"));
+        // turma.setNome(rs.getString("tur_nome"));
+        // turma.setCurso(rs.getString("tur_curso"));
+        // turma.setSemestre(Semestre.valueOf(rs.getString("tur_semestre").toUpperCase()));
+        // turma.setSemestreCurso(Semestre.valueOf(rs.getString("tur_semestre_curso").toUpperCase()));
+        // }
+
+        alocacao.setSala(rs.getInt("sal_id"));
+        // alocacao.setTurma(turma);
         if (rs.getInt("tur_id") != 0) {
-          turma = new com.salute.salute.java.Turma();
-          turma.setId(rs.getInt("tur_id"));
-          turma.setQtdeAlunos(rs.getInt("tur_qtde_alunos"));
-          turma.setCargaTeorica(rs.getInt("tur_carga_teorica"));
-          turma.setCargaPratica(rs.getInt("tur_carga_pratica"));
-          turma.setAno(rs.getInt("tur_ano"));
-          turma.setProfessor(rs.getString("tur_professor"));
-          turma.setNome(rs.getString("tur_nome"));
-          turma.setCurso(rs.getString("tur_curso"));
-          turma.setSemestre(Semestre.valueOf(rs.getString("tur_semestre").toUpperCase()));
-          turma.setSemestreCurso(Semestre.valueOf(rs.getString("tur_semestre_curso").toUpperCase()));
+          alocacao.setTurma(rs.getInt("tur_id"));
         }
-
-        alocacao.setSala(sala);
-        alocacao.setTurma(turma);
-        alocacao.setHorario(horario);
+        // alocacao.setHorario(horario);
+        alocacao.setHorario(rs.getInt("hor_id"));
 
         alocacoes.add(alocacao);
       }

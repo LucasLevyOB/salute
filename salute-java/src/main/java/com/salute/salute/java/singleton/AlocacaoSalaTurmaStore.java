@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.salute.salute.java.AlocacaoSalaTurma;
+import com.salute.salute.java.Horario;
+import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
 
 public class AlocacaoSalaTurmaStore {
@@ -39,45 +41,43 @@ public class AlocacaoSalaTurmaStore {
     });
   }
 
-  public boolean addAlocacao(AlocacaoSalaTurma alocacao) {
-    alocacao.getTurma().setHorarioAlocado(alocacao.getHorario());
-    alocacao.getSala().setHorarioAlocado(alocacao.getHorario());
+  public boolean addAlocacao(Sala sala, Turma turma, Horario horario) {
+    turma.setHorarioAlocado(horario);
+    sala.setHorarioAlocado(horario);
+
+    AlocacaoSalaTurma alocacao = new AlocacaoSalaTurma(sala.getId(), turma.getId(), horario.getId());
+
     return this.alocacoes.add(alocacao);
   }
 
-  public boolean removeAlocacao(AlocacaoSalaTurma alocacao) {
+  public boolean removeAlocacao(Sala sala, Turma turma, Horario horario) {
     AlocacaoSalaTurma alocacaoParaRemover = null;
 
-    // acho que vai ser aqui, talvez nao esteja achando a alocacao
+    System.out.println("Desalocando");
+
     for (AlocacaoSalaTurma alocacaoSalaTurma : this.alocacoes) {
-      if (alocacaoSalaTurma.getSala().getId() == alocacao.getSala().getId()
-          && alocacaoSalaTurma.getHorario().getId() == alocacao.getHorario().getId()
-          && alocacaoSalaTurma.getTurma().getId() == alocacao.getTurma().getId()) {
+      if (alocacaoSalaTurma.getSala() == sala.getId()
+          && alocacaoSalaTurma.getHorario() == horario.getId()
+          && alocacaoSalaTurma.getTurma() == turma.getId()) {
         alocacaoParaRemover = alocacaoSalaTurma;
       }
     }
 
-    System.out.println("Alocacao para remover" + " - " + alocacaoParaRemover);
-    System.out.println("Alocacoes" + " - " + alocacoes.size());
     if (alocacaoParaRemover == null) {
       return false;
     }
 
-    alocacaoParaRemover.getTurma().setHorarioDesalocado(alocacaoParaRemover.getHorario());
-    alocacaoParaRemover.getSala().setHorarioDesalocado(alocacaoParaRemover.getHorario());
+    System.out.println(alocacaoParaRemover.getHorario());
+    turma.setHorarioDesalocado(horario);
+    sala.setHorarioDesalocado(horario);
 
-    boolean remover = this.alocacoes.remove(alocacaoParaRemover);
-
-    System.out.println("Alocacoes" + " - " + alocacoes.size());
-
-    System.out.println("Remover: " + remover);
-    return remover;
+    return this.alocacoes.remove(alocacaoParaRemover);
   }
 
   public Turma getTurmaAlocada(int sala, int horario) {
     for (AlocacaoSalaTurma alocacao : this.alocacoes) {
-      if (alocacao.getSala().getId() == sala && alocacao.getHorario().getId() == horario) {
-        return alocacao.getTurma();
+      if (alocacao.getSala() == sala && alocacao.getHorario() == horario) {
+        return TurmaStore.getInstance().getTurma(alocacao.getTurma());
       }
     }
     return null;
@@ -85,11 +85,22 @@ public class AlocacaoSalaTurmaStore {
 
   public boolean isOcupado(int sala, int horario) {
     for (AlocacaoSalaTurma alocacao : this.alocacoes) {
-      if (alocacao.getSala().getId() == sala && alocacao.getHorario().getId() == horario) {
+      if (alocacao.getSala() == sala && alocacao.getHorario() == horario) {
         return true;
       }
     }
     return false;
+  }
+
+  public void limparAlocacoes() {
+    for (AlocacaoSalaTurma alocacao : this.alocacoes) {
+      Turma turma = TurmaStore.getInstance().getTurma(alocacao.getTurma());
+      Sala sala = SalaStore.getInstance().getSalaById(alocacao.getSala());
+
+      turma.setHorarioDesalocado(alocacao.getHorario());
+      sala.setHorarioDesalocado(alocacao.getHorario());
+    }
+    this.alocacoes.clear();
   }
 
   public boolean getRealizouAlocacaoAutomatica() {

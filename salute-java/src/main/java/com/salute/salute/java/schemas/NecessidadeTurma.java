@@ -14,8 +14,15 @@ import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
 import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.literal;
 //import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.selectFrom;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 //import com.datastax.oss.driver.api.querybuilder.delete.Delete;
 import com.datastax.oss.driver.api.querybuilder.insert.RegularInsert;
+import com.salute.salute.java.NecessidadesTurma;
 //import com.datastax.oss.driver.api.querybuilder.select.Select;
 //import com.datastax.oss.driver.api.querybuilder.select.Selector;
 //import com.datastax.oss.driver.api.querybuilder.select.Select;
@@ -23,6 +30,8 @@ import com.datastax.oss.driver.api.querybuilder.insert.RegularInsert;
 //import com.salute.salute.java.Horario;
 //import com.datastax.oss.driver.api.querybuilder.update.UpdateStart;
 import com.salute.salute.java.database.ConnectionDB;
+import com.salute.salute.java.database.ResultSetFunction;
+import com.salute.salute.java.enums.EstadoRecurso;
 //import com.salute.salute.java.database.ResultSetFunction;
 //import com.salute.salute.java.database.ResultSetFunction;
 //import com.salute.salute.java.enums.Semestre;
@@ -46,5 +55,28 @@ public class NecessidadeTurma {
                 .value("ntu_necessidade", literal(necessidade))
                 .value("ntu_qtde", literal(qtde));
         return ConnectionDB.insert(query.toString());
+    }
+
+    public static Map<Integer, NecessidadesTurma> getAll() {
+        Map<Integer, NecessidadesTurma> necessidades = new HashMap<>();
+        String query = "SELECT * FROM necessidade_turma AS nt " +
+                "LEFT JOIN tipo_recurso AS tr on nt.ntu_necessidade = tr.tre_id;";
+
+        ResultSetFunction function = (ResultSet rs) -> {
+            while (rs.next()) {
+                NecessidadesTurma necessidadesTurma = new NecessidadesTurma();
+                com.salute.salute.java.recurso.TipoRecurso tipoRecurso = new com.salute.salute.java.recurso.TipoRecurso();
+                tipoRecurso.setId(rs.getInt("tre_id"));
+                tipoRecurso.setTipo(rs.getString("tre_tipo"));
+                Necessidade necessidade = new Necessidade();
+                necessidade.setRecurso(tipoRecurso);
+                necessidade.setQtde(rs.getInt("ntu_qtde"));
+                necessidadesTurma.setIdTurma(rs.getInt("ntu_turma"));
+                necessidadesTurma.addNecessidade(necessidade);
+                necessidades.put(necessidadesTurma.getIdTurma(), necessidadesTurma);
+            }
+        };
+        ConnectionDB.query(query, function);
+        return necessidades;
     }
 }

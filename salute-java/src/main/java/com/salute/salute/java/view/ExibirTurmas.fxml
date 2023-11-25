@@ -32,130 +32,56 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.ExibirTurmas">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#02305e" height="116.0" stroke="BLACK" strokeType="INSIDE" width="640.0" />
-            <Text fill="WHITE" layoutX="256.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TURMAS">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TURMAS" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial Bold" size="30.0" />
                </font>
             </Text>
-            <Button layoutX="27.0" layoutY="46.0" mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
+            <Button mnemonicParsing="false" onAction="#switchScene" text="Voltar" userData="main" />
          </children>
-    </AnchorPane>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="260.0" prefWidth="640.0">
+         <padding>
+            <Insets bottom="16.0" left="12.0" right="12.0" top="16.0" />
+         </padding>
+      </GridPane>
+      <VBox>
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="59.0" layoutY="28.0" stroke="WHITE" strokeType="INSIDE" width="259.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Rectangle>
-            <Text fill="#544f4f" layoutX="72.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROJETO DETALHADO DE SOFTWARE" textAlignment="CENTER" wrappingWidth="232.009765625">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="72.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horário:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="121.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" QUINTA - TARDE- SEGUNDO HORÁRIO">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <Text layoutX="72.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="135.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paulyne">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
-            <Text layoutX="72.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade de alunos:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="205.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
-            <Text layoutX="72.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Necessidades:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="160.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projetor, Ar condicionado, Computadores" wrappingWidth="158.0126953125">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="339.0" layoutY="27.0" stroke="WHITE" strokeType="INSIDE" width="259.0">
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Rectangle>
-            <Text fill="#544f4f" layoutX="352.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROJETO DETALHADO DE SOFTWARE" textAlignment="CENTER" wrappingWidth="232.009765625">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Text>
-            <Text layoutX="352.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Horário:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="401.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" QUINTA - TARDE- SEGUNDO HORÁRIO">
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <Text layoutX="352.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="415.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paulyne">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
-            <Text layoutX="352.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade de alunos:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="485.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
-            <Text layoutX="352.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Necessidades:">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Text>
-            <Text layoutX="440.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Projetor, Ar condicionado, Computadores" wrappingWidth="158.0126953125">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Text>
+            <TableView fx:id="tabelaTurmas" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="nomeTurma" prefWidth="127.0" text="Nome" />
+                <TableColumn fx:id="professorTurma" prefWidth="127.0" text="Professor" />
+                <TableColumn fx:id="cursoTurma" prefWidth="127.0" text="Curso" />
+                <TableColumn fx:id="qtdeAlunos" prefWidth="127.0" text="Qtde de Alunos" />
+                <TableColumn fx:id="colHorariosTurma" prefWidth="127.0" text="Horarios" />
+                <TableColumn fx:id="colNecessidadesTurma" prefWidth="127.0" text="Necessidades" />
+              </columns>
+            </TableView>
          </children>
-      </AnchorPane>
+         <padding>
+            <Insets bottom="16.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+      </VBox>
   </children>
 </VBox>

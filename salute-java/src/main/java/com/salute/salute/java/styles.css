@@ -12,6 +12,11 @@
   -fx-text-fill: #FFFFFF;
 }
 
+.font-sub-title-2 {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+}
+
 .btn {
   -fx-font-size: 14px;
   -fx-font-weight: bold;
@@ -82,6 +87,14 @@
 
 .z-elevation-4 {
   -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 14, 0, 0, 0);
+}
+
+.z-elevation-5 {
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 19, 0, 0, 0);
+}
+
+.p-2 {
+  -fx-padding: 16px;
 }
 
 .popup {

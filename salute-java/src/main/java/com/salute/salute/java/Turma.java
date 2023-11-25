@@ -5,7 +5,6 @@
 package com.salute.salute.java;
 
 import java.time.LocalDate;
-import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -209,8 +208,22 @@ public class Turma implements Comparable<Turma> {
     }
 
     public void setHorarioDesalocado(Horario horario) {
+        System.out.println("desalocando horario " + horario.toString());
+        System.out.println("Horários " + horarios.toString());
         for (Horario h : horarios) {
-            if (h.equals(horario)) {
+            System.out.println(h.getId() + " - " + horario.getId());
+            if (h.getId() == horario.getId()) {
+                h.setAlocado(false);
+            }
+        }
+    }
+
+    public void setHorarioDesalocado(int horario) {
+        System.out.println("desalocando horario " + horario);
+        System.out.println("Horários " + horarios.toString());
+        for (Horario h : horarios) {
+            System.out.println(h.getId() + " - " + horario);
+            if (h.getId() == horario) {
                 h.setAlocado(false);
             }
         }

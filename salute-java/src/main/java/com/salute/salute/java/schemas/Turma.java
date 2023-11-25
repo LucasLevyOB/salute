@@ -49,6 +49,7 @@ public class Turma {
         .value("tur_semestre_curso", literal(turma.getSemestreCurso().toString().toLowerCase()))
         .value("tur_nome", literal(turma.getNome()))
         .value("tur_professor", literal(turma.getProfessor()))
+        .value("tur_curso", literal(turma.getCurso()))
         .value("tur_semestre", literal(turma.getSemestre().toString().toLowerCase()));
 
     return ConnectionDB.insert(query.toString());
@@ -73,9 +74,16 @@ public class Turma {
 
   public static List<com.salute.salute.java.Turma> getAll() {
     ArrayList<com.salute.salute.java.Turma> turmas = new ArrayList<>();
-    // join necessidade_turma(tur_id = ntu_sala) join tipo_recurso(tre_id =
-    // ntu_necessidade)
-    String query = "SELECT * FROM turma AS t LEFT JOIN necessidade_turma AS nt ON t.tur_id = nt.ntu_turma LEFT JOIN tipo_recurso AS tr ON nt.ntu_necessidade = tr.tre_id LEFT JOIN horario_turma AS ht ON t.tur_id = ht.htu_turma LEFT JOIN horario as h ON ht.htu_horario = h.hor_id;";
+    String query = "SELECT *, " +
+        "(" +
+        "SELECT ast_sala FROM alocacao_sala_turma " +
+        "WHERE ast_turma = t.tur_id AND ast_horario = h.hor_id" +
+        ") " +
+        "as ast_sala " +
+        "FROM turma AS t " +
+        "LEFT JOIN horario_turma AS ht ON t.tur_id = ht.htu_turma " +
+        "LEFT JOIN horario AS h ON ht.htu_horario = h.hor_id " +
+        "GROUP BY t.tur_id, h.hor_id;";
     ResultSetFunction function = (ResultSet rs) -> {
       int turmaAtual = 0;
       com.salute.salute.java.Turma turma = new com.salute.salute.java.Turma();
@@ -98,13 +106,6 @@ public class Turma {
           turmas.add(turma);
         }
 
-        int necessidadeId = rs.getInt("tre_id");
-        if (necessidadeId != 0) {
-          TipoRecurso tipoRecurso = new TipoRecurso(rs.getInt("tre_id"), rs.getString("tre_tipo"));
-          Necessidade necessidade = new Necessidade(tipoRecurso, rs.getInt("ntu_qtde"));
-          turma.addNecessidade(necessidade);
-        }
-
         int horarioId = rs.getInt("hor_id");
         if (horarioId != 0) {
           Horario horario = new Horario();
@@ -115,6 +116,7 @@ public class Turma {
               .setHorario(com.salute.salute.java.enums.HorarioTurno.valueOf(rs.getString("hor_horario").toUpperCase()));
           horario.setTurno(com.salute.salute.java.enums.Turno.valueOf(rs.getString("hor_turno").toUpperCase()));
           horario.setTipo(com.salute.salute.java.enums.TipoHorario.valueOf(rs.getString("htu_tipo").toUpperCase()));
+          horario.setAlocado(rs.getInt("ast_sala") != 0);
           turma.addHorario(horario);
         }
       }

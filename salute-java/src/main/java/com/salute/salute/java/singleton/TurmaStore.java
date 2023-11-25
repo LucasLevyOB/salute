@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.salute.salute.java.DadosMockados;
 import com.salute.salute.java.Horario;
+import com.salute.salute.java.NecessidadesTurma;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.HorarioTurno;
@@ -17,9 +18,11 @@ import com.salute.salute.java.recurso.TipoRecurso;
 public class TurmaStore {
   private static TurmaStore instance;
   private Map<Integer, Turma> turmas;
+  private Map<Integer, NecessidadesTurma> necessidadesTurmas;
 
   private TurmaStore() {
     this.turmas = new HashMap<>();
+    this.necessidadesTurmas = new HashMap<>();
     atualizarFromAPI();
   }
 
@@ -42,6 +45,14 @@ public class TurmaStore {
     this.turmas.put(turma.getId(), turma);
   }
 
+  public Map<Integer, NecessidadesTurma> getNecessidadesTurmas() {
+    return this.necessidadesTurmas;
+  }
+
+  public NecessidadesTurma getNecessidadesTurma(int id) {
+    return this.necessidadesTurmas.get(id);
+  }
+
   // criar um observer para atualizar o map de turmas quando uma nova turma for
   // cadastrada
   public void atualizarFromAPI() {
@@ -49,6 +60,9 @@ public class TurmaStore {
     com.salute.salute.java.schemas.Turma.getAll().forEach(turma -> {
       this.turmas.put(turma.getId(), turma);
     });
+
+    this.necessidadesTurmas.clear();
+    necessidadesTurmas = com.salute.salute.java.schemas.NecessidadeTurma.getAll();
   }
 
   // private static Map<Integer, Turma> povoaTurmas() {
