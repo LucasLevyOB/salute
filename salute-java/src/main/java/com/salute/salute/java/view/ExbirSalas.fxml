@@ -25,12 +25,3 @@
         </AnchorPane>
     </children>
 </VBox>
-
-            System.out.println("Tipo de sala: " + sala.getTipo());
-            System.out.println("Capacidade: " + sala.getCapacidade());
-            System.out.println("Numero: " + sala.getNumero());
-            System.out.println("Andar: " + sala.getAndar());
-            System.out.println("Bloco: " + sala.getBloco());
-            System.out.println("Horarios: " + sala.getHorarios());
-            System.out.println("Recursos: " + salaStore.getRecursosBySalaId(sala.getId()));
-            System.out.println("----------------------------------------");

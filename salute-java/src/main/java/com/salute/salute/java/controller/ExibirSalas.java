@@ -21,6 +21,7 @@ import java.net.URL;
 
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.Turma;
+import com.salute.salute.java.Sala;
 //import com.salute.salute.java.HorarioSala;
 import com.salute.salute.java.abstratta.Controller;
 import com.salute.salute.java.enums.TipoSala;
@@ -28,7 +29,6 @@ import com.salute.salute.java.interfaces.CallbackTableButton;
 import com.salute.salute.java.interfaces.Formulario;
 import com.salute.salute.java.recurso.Recurso;
 import com.salute.salute.java.schemas.AlocacaoRecursoSala;
-import com.salute.salute.java.schemas.Sala;
 import com.salute.salute.java.singleton.SalaStore;
 import com.salute.salute.java.validations.Inteiro;
 
@@ -55,7 +55,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class ExibirSalas extends Controller {
+public class ExibirSalas extends Controller implements Initializable {
 
     @FXML
     private TableView<Sala> tabelaSalas;
@@ -82,42 +82,52 @@ public class ExibirSalas extends Controller {
     private TableColumn<Sala, Integer> numeroColumn;
 
     private SalaStore salaStore = SalaStore.getInstance();
-    
-    public void initialize(URL location, ResourceBundle resources) {
 
-        //tipoSalaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipoSala().toString()));
-        //capacidadeColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getCapacidade()));
-        //horariosColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHorarios().toString()));
-       // recursosColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRecursos().toString()));
-        //blocoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBloco()));
-        //andarColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAndar()));
-        //numeroColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
-    
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        tipoSalaColumn
+                .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo().toString()));
+        capacidadeColumn.setCellValueFactory(
+                cellData -> Bindings.createObjectBinding(() -> cellData.getValue().getCapacidade()));
+        horariosColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getHorarios().toString()));
+        recursosColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                salaStore.getRecursosBySalaId(cellData.getValue().getId()).toString()));
+        blocoColumn.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().getBloco()));
+        andarColumn.setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().getAndar()));
+        numeroColumn
+                .setCellValueFactory(cellData -> Bindings.createObjectBinding(() -> cellData.getValue().getNumero()));
+
+        tabelaSalas.setItems(getSalas());
     }
+
     private ObservableList<com.salute.salute.java.Sala> getSalas() {
         ObservableList<com.salute.salute.java.Sala> salas = FXCollections.observableArrayList();
-        
-        for(Map.Entry<Integer, com.salute.salute.java.Sala> entry : salaStore.getSalas().entrySet()) {
+
+        for (Map.Entry<Integer, com.salute.salute.java.Sala> entry : salaStore.getSalas().entrySet()) {
             salas.add(entry.getValue());
         }
 
         return FXCollections.observableArrayList(salas);
     }
-    private void adicionaColuna(TableColumn<com.salute.salute.java.Sala, Void> coluna, CallbackTableButton<com.salute.salute.java.Sala> callback) {
+
+    private void adicionaColuna(TableColumn<com.salute.salute.java.Sala, Void> coluna,
+            CallbackTableButton<com.salute.salute.java.Sala> callback) {
         Callback<TableColumn<com.salute.salute.java.Sala, Void>, TableCell<com.salute.salute.java.Sala, Void>> cellFactory = new Callback<TableColumn<com.salute.salute.java.Sala, Void>, TableCell<com.salute.salute.java.Sala, Void>>() {
             @Override
-            public TableCell<com.salute.salute.java.Sala, Void> call(final TableColumn<com.salute.salute.java.Sala, Void> param) {
+            public TableCell<com.salute.salute.java.Sala, Void> call(
+                    final TableColumn<com.salute.salute.java.Sala, Void> param) {
                 return new TableCell<com.salute.salute.java.Sala, Void>() {
-    
+
                     private final Button btn = new Button();
-    
+
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             com.salute.salute.java.Sala sala = getTableView().getItems().get(getIndex());
                             callback.callback(sala);
                         });
                     }
-    
+
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
@@ -131,11 +141,10 @@ public class ExibirSalas extends Controller {
                 };
             }
         };
-    
+
         coluna.setCellFactory(cellFactory);
     }
 
-    
     private void styleButton(Button btn) {
         btn.getStyleClass().add("btn");
         btn.getStyleClass().add("secondary");

@@ -85,7 +85,7 @@
       <Button layoutX="41.0" layoutY="43.0" mnemonicParsing="false" onAction="#switchScene" styleClass="btn, primary" text="ALOCAÇAO AUTOMATICA" userData="AlocacaoAutomatica" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Button layoutX="41.0" layoutY="43.0" mnemonicParsing="false" styleClass="btn, primary" text="GERAR RELATORIO" onAction="#openGerarRelatorio" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Button layoutX="472.0" layoutY="43.0" mnemonicParsing="false" onAction="#switchScene" styleClass="btn, primary" userData="ExibirTurmas" text="EXIBIR TURMAS" GridPane.rowIndex="2" />
-      <Button layoutX="472.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchScene" styleClass="btn, primary" userData="ExibirSalas" text="EXIBIR SALAS" GridPane.columnIndex="3" />
+      <Button layoutX="472.0" layoutY="13.0" mnemonicParsing="false" onAction="#switchScene" styleClass="btn, primary" userData="ExibirSalas" text="EXIBIR SALAS" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       </children>
       <padding>
         <Insets bottom="24.0" left="8.0" right="8.0" top="16.0" />
