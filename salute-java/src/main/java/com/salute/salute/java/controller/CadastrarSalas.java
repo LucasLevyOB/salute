@@ -27,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class CadastrarSalas extends Controller implements Initializable, Formulario {
   @FXML
@@ -165,6 +166,9 @@ public class CadastrarSalas extends Controller implements Initializable, Formula
   private ChoiceBox<Recurso> selectRecursoSala;
 
   @FXML
+  private Text mensagemEmptyRecursos;
+
+  @FXML
   private VBox wrapperRecursosSala;
 
   @FXML
@@ -185,7 +189,9 @@ public class CadastrarSalas extends Controller implements Initializable, Formula
   private void setRecursosSelect() {
     selectRecursoSala.getItems().clear();
     selectRecursoSala.setTooltip(null);
+    mensagemEmptyRecursos.setVisible(false);
     if (recursosDisponiveis.isEmpty()) {
+      mensagemEmptyRecursos.setVisible(true);
       selectRecursoSala.setTooltip(new Tooltip("Nenhum recurso disponível"));
     } else {
       selectRecursoSala.getItems().addAll(getObsRecursos());

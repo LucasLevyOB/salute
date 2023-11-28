@@ -1,6 +1,7 @@
 package com.salute.salute.java.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -169,9 +170,9 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
 
   private void cadastrarTurma() {
     try {
-      // if (!validateFields()) {
-      // return;
-      // }
+      if (!validateFields()) {
+        return;
+      }
 
       Turma turma = new Turma();
       turma.setSemestreCurso(Semestre.valueOf(semestreCurso.getValue()));
@@ -352,11 +353,72 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
     }
   }
 
+  private int calculaCargaHorariaTipo(List<Horario> horarios, TipoHorario tipo) {
+    int cargaHoraria = 0;
+    for (Horario horario : horarios) {
+      if (horario.getTipo().equals(tipo)) {
+        cargaHoraria += 32;
+      }
+    }
+    return cargaHoraria;
+  }
+
+  private boolean combinacaoHorarioCargaIsValid() {
+    if (cargaPratica.getText().isEmpty() && horarioTipo.getValue().equals("PRATICO")) {
+      return false;
+    }
+
+    if (cargaTeorica.getText().isEmpty() && horarioTipo.getValue().equals("TEORICO")) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private boolean podeAdicionarHorario() {
+    if (!Inteiro.isInteger(cargaPratica.getText()) && !Inteiro.isInteger(cargaTeorica.getText())) {
+      AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
+          "Por favor, preencha com valores númericos os campos Carga Prática e/ou Carga Teórica!");
+      return false;
+    }
+
+    if (!combinacaoHorarioCargaIsValid()) {
+      AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Combinação Inválida",
+          "Você está tentando inserir um tipo de aula que não possui horas!");
+      return false;
+    }
+
+    System.out.println(Inteiro.isInteger(cargaPratica.getText()));
+
+    int valueCargaPratica = Inteiro.parseInt(this.cargaPratica.getText());
+    int valueCargaTeorica = Inteiro.parseInt(this.cargaTeorica.getText());
+
+    int cargaHorariaPraticaAdicionada = calculaCargaHorariaTipo(listaHorarios, TipoHorario.PRATICO);
+    int cargaHorariaTeoricaAdicionada = calculaCargaHorariaTipo(listaHorarios, TipoHorario.TEORICO);
+
+    int acressimoCargaPratica = valueCargaPratica > 0 ? 32 : 0;
+    int acressimoCargaTeorica = valueCargaTeorica > 0 ? 32 : 0;
+    boolean cargaPraticaInvalida = cargaHorariaPraticaAdicionada + acressimoCargaPratica > valueCargaPratica;
+    boolean cargaTeoricaInvalida = cargaHorariaTeoricaAdicionada + acressimoCargaTeorica > valueCargaTeorica;
+    if (cargaPraticaInvalida || cargaTeoricaInvalida) {
+      AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
+          "A carga horária adicionada é maior que a carga horária da turma!");
+      return false;
+
+    }
+
+    return true;
+  }
+
   private void adicionarHorario() {
     if (horarioDiaSemana.getValue() == null || horarioTurno.getValue() == null || horarioHorario.getValue() == null
         || horarioTipo.getValue() == null) {
       AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
           "Por favor, preencha todos os campos ao Adicionar um Horário!");
+      return;
+    }
+
+    if (!podeAdicionarHorario()) {
       return;
     }
 
@@ -374,8 +436,6 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
 
     Horario horarioInList = listaHorarios.stream()
         .filter(h -> {
-          System.out.println(horarioTurnoValue);
-          System.out.println(h.getHorario());
           return h.getDiaSemana().equals(diaSemana) && h.getTurno().equals(turno)
               && h.getHorario().equals(horarioTurnoValue);
         })

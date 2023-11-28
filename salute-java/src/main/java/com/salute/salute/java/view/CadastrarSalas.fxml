@@ -105,12 +105,17 @@
                   </VBox>
                   <VBox alignment="CENTER" spacing="16.0">
                      <children>
-                        <HBox alignment="CENTER">
+                        <VBox spacing="4.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recursos da sala:" />
-                              <ChoiceBox fx:id="selectRecursoSala" prefHeight="25.0" prefWidth="429.0" />
+                              <HBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recursos da sala:" />
+                                    <ChoiceBox fx:id="selectRecursoSala" prefHeight="25.0" prefWidth="429.0" />
+                                 </children>
+                              </HBox>
+                              <Text fx:id="mensagemEmptyRecursos" strokeType="OUTSIDE" strokeWidth="0.0" text="Nao ha recursos disponiveis, tente cadastrar novos recursos" visible="false" />
                            </children>
-                        </HBox>
+                        </VBox>
                         <HBox alignment="CENTER">
                            <children>
                               <Button fx:id="btnAdicionarRecurso" mnemonicParsing="false" text="Adicionar Recurso" />

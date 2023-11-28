@@ -62,44 +62,18 @@ public class ExibirTurmas extends Controller implements Initializable {
     cursoTurma.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCurso()));
     tabelaTurmas.setItems(getTurmas());
 
-    adicionaColuna(colHorariosTurma, this::openModalHorarios);
-    adicionaColuna(colNecessidadesTurma, this::openModalNecessidades);
-  }
+    TableButton<Turma> tableButton = new TableButton<>();
 
-  private Node contentModalHorarios(Turma turma) {
-    VBox root = new VBox();
-
-    TableView<Horario> tabelaHorarios = new TableView<>();
-    TableColumn<Horario, String> colDia = new TableColumn<>("Dia");
-    TableColumn<Horario, String> colTurno = new TableColumn<>("Turno");
-    TableColumn<Horario, String> colHorario = new TableColumn<>("Horário");
-    TableColumn<Horario, String> colAlocado = new TableColumn<>("Situação");
-    TableColumn<Horario, String> colTipo = new TableColumn<>("Tipo");
-
-    colDia.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDiaSemana().toString()));
-    colTurno.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTurno().toString()));
-    colTurno.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTurno().toString()));
-    colHorario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHorario().toString()));
-    colAlocado.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAlocado()));
-    colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo().toString()));
-
-    tabelaHorarios.getColumns().setAll(List.of(colDia, colTurno, colHorario, colAlocado, colTipo));
-
-    tabelaHorarios.setItems(FXCollections.observableArrayList(turma.getHorarios()));
-
-    root.getChildren().add(tabelaHorarios);
-
-    return root;
+    tableButton.adicionaColuna(colHorariosTurma, "mdi-eye", this::openModalHorarios);
+    tableButton.adicionaColuna(colNecessidadesTurma, "mdi-eye", this::openModalNecessidades);
   }
 
   private void openModalHorarios(Turma turma) {
-    Node root = contentModalHorarios(turma);
+    ObservableList<Horario> horarios = FXCollections.observableArrayList();
+    turma.getHorarios().forEach(horarios::add);
+    ModalHorarios modalHorarios = new ModalHorarios(horarios);
 
-    Modal modal = new Modal(tabelaTurmas);
-
-    modal.setTitle("Horários");
-    modal.setContent(root);
-    modal.show();
+    modalHorarios.openModalHorarios(tabelaTurmas);
   }
 
   private Node contentModalNecessidades(Turma turma) {
@@ -139,47 +113,5 @@ public class ExibirTurmas extends Controller implements Initializable {
       turmas.add(entry.getValue());
     }
     return FXCollections.observableArrayList(turmas);
-  }
-
-  private void adicionaColuna(TableColumn<Turma, Void> coluna, CallbackTableButton<Turma> callback) {
-    Callback<TableColumn<Turma, Void>, TableCell<Turma, Void>> cellFactory = new Callback<TableColumn<Turma, Void>, TableCell<Turma, Void>>() {
-      @Override
-      public TableCell<Turma, Void> call(final TableColumn<Turma, Void> param) {
-        return new TableCell<Turma, Void>() {
-
-          private final Button btn = new Button();
-
-          {
-            btn.setOnAction((ActionEvent event) -> {
-              Turma turma = getTableView().getItems().get(getIndex());
-              callback.callback(turma);
-            });
-          }
-
-          @Override
-          public void updateItem(Void item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-              setGraphic(null);
-            } else {
-              styleButton(btn);
-              setGraphic(btn);
-            }
-          }
-        };
-      }
-    };
-
-    coluna.setCellFactory(cellFactory);
-  }
-
-  private void styleButton(Button btn) {
-    btn.getStyleClass().add("btn");
-    btn.getStyleClass().add("secondary");
-    btn.getStyleClass().add("small");
-    btn.getStyleClass().add("outline");
-    FontIcon icon = new FontIcon();
-    icon.setIconLiteral("mdi-eye");
-    btn.setGraphic(icon);
   }
 }
