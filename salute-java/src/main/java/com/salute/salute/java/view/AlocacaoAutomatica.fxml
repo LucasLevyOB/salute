@@ -80,7 +80,7 @@
       <HBox alignment="TOP_CENTER" spacing="24.0">
          <children>
         <Button mnemonicParsing="false" onAction="#alocarTurmas" prefHeight="30.0" prefWidth="225.0" styleClass="btn, primary" text="ALOCAR AUTOMÁTICO" />
-        <Button mnemonicParsing="false" onAction="#switchScene" prefHeight="30.0" prefWidth="225.0" styleClass="btn, outline, secondary" text="ALOCAR MANUAL" userData="AlocacaoManual">
+        <Button mnemonicParsing="false" onAction="#switchScene" prefHeight="30.0" prefWidth="225.0" styleClass="btn, outline, secondary" text="ALOCAR MANUAL" userData="AlocacaoManualSalas">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

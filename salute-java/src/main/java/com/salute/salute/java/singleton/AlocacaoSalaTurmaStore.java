@@ -83,6 +83,15 @@ public class AlocacaoSalaTurmaStore {
     return null;
   }
 
+  public Sala getSalaAlocada(int turma, int horario) {
+    for (AlocacaoSalaTurma alocacao : this.alocacoes) {
+      if (alocacao.getTurma() == turma && alocacao.getHorario() == horario) {
+        return SalaStore.getInstance().getSalaById(alocacao.getSala());
+      }
+    }
+    return null;
+  }
+
   public boolean isOcupado(int sala, int horario) {
     for (AlocacaoSalaTurma alocacao : this.alocacoes) {
       if (alocacao.getSala() == sala && alocacao.getHorario() == horario) {

@@ -7,11 +7,9 @@ import java.util.ResourceBundle;
 
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import com.salute.salute.java.Alocacao;
-import com.salute.salute.java.AlocacaoSalaTurma;
 import com.salute.salute.java.AlocarTurmas;
 import com.salute.salute.java.Horario;
-import com.salute.salute.java.HorarioSala;
+import com.salute.salute.java.HorarioTurma;
 import com.salute.salute.java.Sala;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.abstratta.Controller;
@@ -31,68 +29,80 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.util.Callback;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class AlocacaoManual extends Controller implements Initializable {
+public class AlocacaoManualTurmas extends Controller implements Initializable {
     private SalaStore salaStore = SalaStore.getInstance();
     private TurmaStore turmaStore = TurmaStore.getInstance();
     private AlocacaoSalaTurmaStore alocacaoSalaTurmas = AlocacaoSalaTurmaStore.getInstance();
-    // private ArrayList<Alocacao> horariosSalas = new ArrayList<>();
-    private ArrayList<HorarioSala> horariosSalas = new ArrayList<>();
+    // private ArrayList<Alocacao> horariosTurmas = new ArrayList<>();
+    private ArrayList<HorarioTurma> horariosTurmas = new ArrayList<>();
     private Popup popup;
 
     @FXML
-    private TableView<HorarioSala> tabela;
+    private TableView<HorarioTurma> tabela;
 
     @FXML
-    private TableColumn<HorarioSala, String> colunaSala;
+    private TableColumn<HorarioTurma, String> colunaTurma;
 
     @FXML
-    private TableColumn<HorarioSala, String> colunaHorario;
+    private TableColumn<HorarioTurma, String> colunaHorario;
 
     @FXML
-    private TableColumn<HorarioSala, String> colunaEstado;
+    private TableColumn<HorarioTurma, String> colunaTipo;
 
     @FXML
-    private TableColumn<HorarioSala, Void> colunaAcoes;
+    private TableColumn<HorarioTurma, String> colunaEstado;
+
+    @FXML
+    private TableColumn<HorarioTurma, Void> colunaAcoes;
+
+    @FXML
+    private ToggleButton toggleVisao;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         criarLista();
 
-        colunaSala.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getSalaStr()));
-        colunaHorario.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getHorarioStr()));
+        colunaTurma.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getTurma().toString()));
+        colunaHorario
+                .setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getHorario().toString()));
+        colunaTipo.setCellValueFactory(
+                (value) -> new SimpleStringProperty(value.getValue().getHorario().getTipo().toString()));
         colunaEstado.setCellValueFactory((value) -> new SimpleStringProperty(value.getValue().getEstado()));
         tabela.setItems(this.getAlocacoes());
 
         adicionaBotaoDesalocar();
+
+        toggleVisao.setSelected(true);
+
+        toggleVisao.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == true) {
+                return;
+            }
+
+            switchScene("AlocacaoManualSalas", tabela);
+        });
     }
 
     private void criarLista() {
-        horariosSalas.clear();
-        Map<Integer, Sala> salas = this.salaStore.getSalas();
-        for (Integer keySala : salas.keySet()) {
-            Sala sala = salas.get(keySala);
-            ArrayList<Horario> horarios = sala.getHorarios();
-            for (int iHorario = 0; iHorario < horarios.size(); iHorario++) {
-                // Turma turma = sala.getTurmaPorKey(iHorario);
-                Turma turmaAlocada = alocacaoSalaTurmas.getTurmaAlocada(sala.getId(), horarios.get(iHorario).getId());
-                System.out.println("turmaAlocada: " + turmaAlocada);
-                if (turmaAlocada == null) {
-                    // horariosSalas.add(new Alocacao(sala.toString(),
-                    // horarios.get(iHorario).toString(),
-                    // "Livre", sala, iHorario));
-                    horariosSalas.add(new HorarioSala(sala, horarios.get(iHorario)));
-                } else {
-                    // horariosSalas.add(new Alocacao(sala.toString(),
-                    // horarios.get(iHorario).toString(),
-                    // turmaAlocada.toString(), sala, iHorario));
-                    horariosSalas.add(new HorarioSala(sala, horarios.get(iHorario), turmaAlocada));
+        horariosTurmas.clear();
+        Map<Integer, Turma> turmas = this.turmaStore.getTurmas();
+        System.out.println("Quantidade de turmas: " + turmas.size());
+        for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
+            Turma turma = entry.getValue();
+            for (Horario horario : turma.getHorarios()) {
+                if (Boolean.TRUE.equals(turma.horarioIsAlocado(horario))) {
+                    Sala salaAlocada = alocacaoSalaTurmas.getSalaAlocada(turma.getId(), horario.getId());
+                    horariosTurmas.add(new HorarioTurma(turma, horario, salaAlocada));
+                    continue;
                 }
+                horariosTurmas.add(new HorarioTurma(turma, horario));
             }
         }
     }
@@ -102,38 +112,35 @@ public class AlocacaoManual extends Controller implements Initializable {
         tabela.setItems(this.getAlocacoes());
     }
 
-    private ObservableList<HorarioSala> getAlocacoes() {
-        return FXCollections.observableArrayList(horariosSalas);
+    private ObservableList<HorarioTurma> getAlocacoes() {
+        return FXCollections.observableArrayList(horariosTurmas);
     }
 
-    private ArrayList<Turma> getTurmas(Horario horario) {
-        Map<Integer, Turma> turmas = this.turmaStore.getTurmas();
-        ArrayList<Turma> turmasList = new ArrayList<>();
-        for (Integer keyTurma : turmas.keySet()) {
-            turmasList.add(turmas.get(keyTurma));
-        }
-        ArrayList<Turma> turmasHorario = new ArrayList<>();
-        for (Turma turma : turmasList) {
-            if (Boolean.TRUE.equals(turma.hasHorario(horario))
-                    && Boolean.TRUE.equals(!turma.horarioIsAlocado(horario))) {
-                turmasHorario.add(turma);
+    private ArrayList<Sala> getSalas(Horario horario) {
+        Map<Integer, Sala> salas = this.salaStore.getSalas();
+        ArrayList<Sala> salasList = new ArrayList<>();
+        for (Map.Entry<Integer, Sala> entry : salas.entrySet()) {
+            Sala sala = entry.getValue();
+            if (!sala.hasHorario(horario.getId()) || alocacaoSalaTurmas.isOcupado(sala.getId(), horario.getId())) {
+                continue;
             }
+            salasList.add(sala);
         }
-        return turmasHorario;
+        return salasList;
     }
 
     private void adicionaBotaoDesalocar() {
-        Callback<TableColumn<HorarioSala, Void>, TableCell<HorarioSala, Void>> cellFactory = new Callback<TableColumn<HorarioSala, Void>, TableCell<HorarioSala, Void>>() {
+        Callback<TableColumn<HorarioTurma, Void>, TableCell<HorarioTurma, Void>> cellFactory = new Callback<TableColumn<HorarioTurma, Void>, TableCell<HorarioTurma, Void>>() {
             @Override
-            public TableCell<HorarioSala, Void> call(final TableColumn<HorarioSala, Void> param) {
-                return new TableCell<HorarioSala, Void>() {
+            public TableCell<HorarioTurma, Void> call(final TableColumn<HorarioTurma, Void> param) {
+                return new TableCell<HorarioTurma, Void>() {
 
                     private final Button btn = new Button();
                     private final Button btn2 = new Button();
 
                     {
                         btn.setOnAction((ActionEvent event) -> {
-                            HorarioSala alocacao = getTableView().getItems().get(getIndex());
+                            HorarioTurma alocacao = getTableView().getItems().get(getIndex());
                             boolean desalocou = AlocarTurmas.desalocarTurma(alocacao.getTurma(), alocacao.getSala(),
                                     alocacao.getHorario());
 
@@ -151,21 +158,26 @@ public class AlocacaoManual extends Controller implements Initializable {
 
                     {
                         btn2.setOnAction((ActionEvent event) -> {
-                            HorarioSala alocacao = getTableView().getItems().get(getIndex());
+                            HorarioTurma alocacao = getTableView().getItems().get(getIndex());
                             // Node node = createPopup();
                             FXMLLoader loader = new FXMLLoader(
-                                    getClass().getResource("../view/PopupAlocacaoManual.fxml"));
+                                    getClass().getResource("../view/PopupAlocacaoManualTurmas.fxml"));
                             try {
                                 Node node = loader.load();
-                                PopupAlocacaoManual controller = loader.getController();
-                                controller.setSelectSala(alocacao.getSala());
+                                PopupAlocacaoManualTurmas controller = loader.getController();
+                                controller.setSelectTurmas(alocacao.getTurma());
                                 controller.setSelectHorario(alocacao.getHorario());
                                 // Turma selectedTurma =
                                 // alocacao.getSalaObj().getTurmaPorKey(alocacao.getHorarioIndex());
                                 Turma selectedTurma = alocacao.getTurma();
                                 // controller.setSelectTurmas(getTurmas(alocacao.getSalaObj().getHorarios()
                                 // .get(alocacao.getHorarioIndex())), selectedTurma);
-                                controller.setSelectTurmas(getTurmas(alocacao.getHorario()), selectedTurma);
+                                ArrayList<Sala> salas = new ArrayList<>();
+                                if (alocacao.getSala() != null) {
+                                    salas.add(alocacao.getSala());
+                                }
+                                salas.addAll(getSalas(alocacao.getHorario()));
+                                controller.setSelectSala(salas, alocacao.getSala());
                                 controller.setCancelar(() -> {
                                     closePopup();
                                     atualizarLista();

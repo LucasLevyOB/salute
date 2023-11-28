@@ -85,8 +85,7 @@ public class Sala implements Comparable<Sala> {
     public ArrayList<Horario> getHorarios() {
         return horarios;
     }
-    
-    
+
     // public Turma getTurmaPorKey(int key) {
     // return turmas.get(key);
     // }
@@ -180,6 +179,15 @@ public class Sala implements Comparable<Sala> {
                 horarioSala.setAlocado(false);
             }
         }
+    }
+
+    public boolean hasHorario(int idHorario) {
+        for (Horario horario : this.horarios) {
+            if (horario.getId() == idHorario) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String formatarParaTabela() {

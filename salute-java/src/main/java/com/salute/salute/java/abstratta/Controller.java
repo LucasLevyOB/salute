@@ -29,7 +29,7 @@ public abstract class Controller {
   }
 
   @FXML
-  public void switchScene(ActionEvent event) throws Exception {
+  public void switchScene(ActionEvent event) {
     try {
       if (!onChangeStage()) {
         return;
@@ -37,6 +37,27 @@ public abstract class Controller {
 
       Node node = (Node) event.getSource();
       String view = (String) node.getUserData();
+
+      if (!appStore.isLogged() && !view.equals("Login")) {
+        return;
+      }
+
+      root = FXMLLoader.load(getClass().getResource("../view/" + view + ".fxml"));
+      scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("../styles.css").toExternalForm());
+      stage = (Stage) node.getScene().getWindow();
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  public void switchScene(String view, Node node) {
+    try {
+      if (!onChangeStage()) {
+        return;
+      }
 
       if (!appStore.isLogged() && !view.equals("Login")) {
         return;

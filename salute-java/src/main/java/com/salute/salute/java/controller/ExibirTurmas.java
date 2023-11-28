@@ -4,29 +4,22 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.kordamp.ikonli.javafx.FontIcon;
-
 import com.salute.salute.java.Horario;
 import com.salute.salute.java.NecessidadesTurma;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.abstratta.Controller;
-import com.salute.salute.java.interfaces.CallbackTableButton;
 import com.salute.salute.java.recurso.Necessidade;
 import com.salute.salute.java.singleton.TurmaStore;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.util.Callback;
 import javafx.beans.binding.Bindings;
 import java.util.List;
 
