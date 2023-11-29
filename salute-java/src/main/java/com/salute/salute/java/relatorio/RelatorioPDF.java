@@ -66,6 +66,10 @@ public class RelatorioPDF {
       Horario horario = sala.getHorariosByAtributos(turno, horarioTurno, diasSemana[i]);
       if (horario != null) {
         Turma turmaAlocada = alocacaoSalaTurmaStore.getTurmaAlocada(sala.getId(), horario.getId());
+        if (turmaAlocada == null) {
+          table.addCell("Livre");
+          continue;
+        }
         table.addCell(turmaAlocada.toString());
       } else {
         table.addCell("Livre");
