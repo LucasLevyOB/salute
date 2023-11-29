@@ -113,12 +113,13 @@ public class RelatorioPDF {
     }
   }
 
-  public boolean exportPdf(File selectedDirectory) {
+  public boolean exportPdf(File selectedDirectory, String nomeArquivo) {
     Document document = new Document();
     boolean success = false;
 
     try {
-      PdfWriter.getInstance(document, new FileOutputStream(selectedDirectory.getAbsolutePath() + "/openpdf.pdf"));
+      PdfWriter.getInstance(document,
+          new FileOutputStream(selectedDirectory.getAbsolutePath() + "/" + nomeArquivo + ".pdf"));
       document.open();
 
       mountPdf(document);

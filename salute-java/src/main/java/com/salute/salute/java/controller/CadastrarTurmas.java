@@ -274,8 +274,10 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
 
   private ArrayList<Horario> listaHorarios = new ArrayList<>();
 
-  private String[] horas = { "8:00 - 10:00", "10:00 - 12:00", "13:30 - 15:30", "15:30 - 17:30", "18:00 - 20:00",
-      "20:00 - 22:00" };
+  // private String[] horas = { "8:00 - 10:00", "10:00 - 12:00", "13:30 - 15:30",
+  // "15:30 - 17:30", "18:00 - 20:00",
+  // "20:00 - 22:00" };
+  private String[] horas = { "8:00 - 10:00", "10:00 - 12:00" };
 
   private void setDiasSemana() {
     for (String diaSemana : com.salute.salute.java.schemas.Horario.selectColumn("hor_dia_semana")) {
@@ -390,17 +392,15 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
 
     System.out.println(Inteiro.isInteger(cargaPratica.getText()));
 
-    int valueCargaPratica = Inteiro.parseInt(this.cargaPratica.getText());
-    int valueCargaTeorica = Inteiro.parseInt(this.cargaTeorica.getText());
+    TipoHorario tipoHorario = TipoHorario.valueOf(horarioTipo.getValue().toUpperCase());
 
-    int cargaHorariaPraticaAdicionada = calculaCargaHorariaTipo(listaHorarios, TipoHorario.PRATICO);
-    int cargaHorariaTeoricaAdicionada = calculaCargaHorariaTipo(listaHorarios, TipoHorario.TEORICO);
+    int valueCargaHoraria = tipoHorario.equals(TipoHorario.PRATICO) ? Inteiro.parseInt(this.cargaPratica.getText())
+        : Inteiro.parseInt(this.cargaTeorica.getText());
 
-    int acressimoCargaPratica = valueCargaPratica > 0 ? 32 : 0;
-    int acressimoCargaTeorica = valueCargaTeorica > 0 ? 32 : 0;
-    boolean cargaPraticaInvalida = cargaHorariaPraticaAdicionada + acressimoCargaPratica > valueCargaPratica;
-    boolean cargaTeoricaInvalida = cargaHorariaTeoricaAdicionada + acressimoCargaTeorica > valueCargaTeorica;
-    if (cargaPraticaInvalida || cargaTeoricaInvalida) {
+    int cargaHorariaAdicionada = calculaCargaHorariaTipo(listaHorarios, tipoHorario);
+
+    boolean cargaInvalida = cargaHorariaAdicionada >= valueCargaHoraria - 1;
+    if (cargaInvalida) {
       AlertDialog.show(Alert.AlertType.ERROR, btnAdicionaHorario.getScene().getWindow(), "Formulário Inválido",
           "A carga horária adicionada é maior que a carga horária da turma!");
       return false;

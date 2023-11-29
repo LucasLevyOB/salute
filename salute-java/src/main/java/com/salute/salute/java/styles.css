@@ -16,6 +16,13 @@
   -fx-text-fill: #FFFFFF;
 }
 
+.folder-input {
+  -fx-background-color: #FFFFFF;
+  -fx-background-radius: 8px;
+  -fx-padding: 8px;
+  -fx-border-color: #E0E0E0;
+}
+
 .font-title-2 {
   -fx-font-size: 40px;
   -fx-font-weight: bold;

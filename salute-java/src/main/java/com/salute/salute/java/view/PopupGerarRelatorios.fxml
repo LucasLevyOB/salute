@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<!-- <?import org.kordamp.ikonli.javafx.FontIcon?> -->
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="24.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.salute.salute.java.controller.PopupGerarRelatorios">
    <children>
@@ -25,9 +26,9 @@
         </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gerar Relatorio" />
-            <Button mnemonicParsing="false" styleClass="btn, icon" onAction="#onCancelar" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#onCancelar" styleClass="btn, icon" GridPane.columnIndex="1">
                <graphic>
-                  <FontIcon iconLiteral="mdi-close" iconColor="#1E1E1E" iconSize="24" />
+                  <!-- <FontIcon iconLiteral="mdi-close" iconColor="#1E1E1E" iconSize="24" /> -->
                </graphic>
             </Button>
          </children>
@@ -43,13 +44,13 @@
             <HBox prefHeight="24.0" prefWidth="375.0" spacing="68.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Destino" />
-                  <Label fx:id="destinoArquivoLabel" text="Escolha o destino do relatório" />
+                  <Label fx:id="destinoArquivoLabel" prefHeight="16.0" prefWidth="257.0" styleClass="folder-input" text="Escolha o destino do relatório" />
                </children>
             </HBox>
             <HBox prefHeight="24.0" prefWidth="375.0" spacing="68.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao" />
-                  <TextField prefHeight="24.0" prefWidth="244.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nome do Arquivo" />
+                  <TextField fx:id="nomeArquivo" prefHeight="24.0" prefWidth="244.0" />
                </children>
             </HBox>
          </children>
@@ -57,8 +58,8 @@
       <HBox alignment="TOP_RIGHT" layoutX="10.0" layoutY="58.0" prefHeight="24.0" prefWidth="375.0" spacing="24.0">
          <children>
             <Button mnemonicParsing="false" styleClass="btn, small, secondary" text="Agendar" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn, small, outline, danger" text="Cancelar" />
-            <Button layoutX="140.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn, small, primary" text="Gerar" onAction="#exportarRelatorio" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn, small, outline, danger" text="Cancelar" fx:id="bntCancelar" />
+            <Button layoutX="140.0" layoutY="10.0" mnemonicParsing="false" onAction="#exportarRelatorio" styleClass="btn, small, primary" text="Gerar" />
          </children>
       </HBox>
    </children>

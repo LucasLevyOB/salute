@@ -26,38 +26,9 @@ import javafx.scene.control.Alert.AlertType;
 public class AlocarTurmas {
   private static AlocacaoSalaTurmaStore alocacaoSalaTurmaStore = AlocacaoSalaTurmaStore.getInstance();
   private static SalaStore salaStore = SalaStore.getInstance();
+  private static TurmaStore turmaStore = TurmaStore.getInstance();
 
   private AlocarTurmas() {
-  }
-
-  private static void setarTiposHorarios(Turma turma) {
-    ArrayList<Horario> horariosTurma = (ArrayList<Horario>) turma.getHorarios();
-    int horasTotais = turma.getCargaPratica() + turma.getCargaTeorica();
-    int horasAula = horasTotais / turma.getHorarios().size();
-
-    // TODO: previnir divisoes por 0
-    int qtdeAulasTeoricas = turma.getCargaTeorica() / horasAula;
-    int qtdeAulasPraticas = turma.getCargaPratica() / horasAula;
-
-    for (int iHorario = 0; iHorario < horariosTurma.size(); iHorario++) {
-      Horario horario = horariosTurma.get(iHorario);
-      if (qtdeAulasTeoricas > 0) {
-        horario.setTipo(TipoHorario.TEORICO);
-        qtdeAulasTeoricas--;
-      } else {
-        horario.setTipo(TipoHorario.PRATICO);
-        qtdeAulasPraticas--;
-      }
-    }
-
-    turma.ordenarHorariosByTipo();
-  }
-
-  private static void setarTiposHorariosTurmas(Map<Integer, Turma> turmas) {
-    for (Map.Entry<Integer, Turma> entry : turmas.entrySet()) {
-      Turma turma = entry.getValue();
-      setarTiposHorarios(turma);
-    }
   }
 
   private static float calculaPontosTipo(TipoSala tipoSala, TipoHorario tipoHorario) {
@@ -127,7 +98,8 @@ public class AlocarTurmas {
         continue;
       }
 
-      float pontosRecursos = calculaPontosRecursos(turma.getNecessidades(), sala);
+      NecessidadesTurma necessidadesTurma = turmaStore.getNecessidadesTurma(turma.getId());
+      float pontosRecursos = calculaPontosRecursos(necessidadesTurma.getNecessidades(), sala);
 
       float pontosTipo = calculaPontosTipo(sala.getTipo(), horario.getTipo());
 
@@ -137,7 +109,7 @@ public class AlocarTurmas {
       PossivelAlocacao possivelAlocacao = iteraSobreHorariosSala(sala, entry.getKey(), horario, turma);
 
       if (possivelAlocacao != null) {
-        possivelAlocacao.setPontos(possivelAlocacao.getPontos() + pontosRecursos + pontosTipo);
+        possivelAlocacao.setPontos(pontosRecursos + pontosTipo);
         salaHorarioCompativel.add(possivelAlocacao);
       }
     }

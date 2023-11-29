@@ -12,6 +12,7 @@ import com.salute.salute.java.interfaces.Formulario;
 import com.salute.salute.java.recurso.Recurso;
 import com.salute.salute.java.schemas.AlocacaoRecursoSala;
 import com.salute.salute.java.schemas.Sala;
+import com.salute.salute.java.singleton.SalaStore;
 import com.salute.salute.java.validations.Inteiro;
 
 import javafx.collections.FXCollections;
@@ -30,6 +31,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class CadastrarSalas extends Controller implements Initializable, Formulario {
+  private SalaStore salaStore = SalaStore.getInstance();
+
   @FXML
   private ChoiceBox<String> selectTipoSala;
 
@@ -142,6 +145,8 @@ public class CadastrarSalas extends Controller implements Initializable, Formula
       insertRecursosSala(idSala);
       insertHorariosSala(idSala);
       Notification.showNotification("Cadastrar Sala", "Sala cadastrada com sucesso");
+      limparCampos();
+      salaStore.atualizarFromAPI();
     } catch (Exception e) {
       AlertDialog.show(AlertType.ERROR, btnCadastrarSala.getScene().getWindow(), "Erro ao cadastrar sala",
           "Ocorreu um erro ao cadastrar a sala");

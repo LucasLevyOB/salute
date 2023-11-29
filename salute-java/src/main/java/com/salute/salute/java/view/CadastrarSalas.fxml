@@ -107,7 +107,7 @@
                      <children>
                         <VBox spacing="4.0">
                            <children>
-                              <HBox>
+                              <HBox alignment="CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recursos da sala:" />
                                     <ChoiceBox fx:id="selectRecursoSala" prefHeight="25.0" prefWidth="429.0" />

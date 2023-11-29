@@ -30,10 +30,9 @@ public class Turma implements Comparable<Turma> {
     private String nome;
     private Semestre semestreCurso;
     private List<Horario> horarios;
-    private List<Necessidade> necessidades;
 
     public Turma(int id, String nome, String professor, int qtdeAlunos, int cargaTeorica, int cargaPratica, int ano,
-            Semestre semestre, List<Horario> horarios, List<Necessidade> necessidades, String curso,
+            Semestre semestre, List<Horario> horarios, String curso,
             Semestre semestreCurso) {
         this.id = id;
         this.nome = nome;
@@ -44,7 +43,6 @@ public class Turma implements Comparable<Turma> {
         this.ano = ano;
         this.semestre = semestre;
         this.horarios = horarios;
-        this.necessidades = necessidades;
         this.curso = curso;
         this.semestreCurso = semestreCurso;
     }
@@ -58,7 +56,6 @@ public class Turma implements Comparable<Turma> {
         this.ano = 0;
         this.semestre = Semestre.PRIMEIRO;
         this.horarios = new ArrayList<>();
-        this.necessidades = new ArrayList<>();
         this.curso = "";
         this.semestreCurso = Semestre.PRIMEIRO;
     }
@@ -98,10 +95,6 @@ public class Turma implements Comparable<Turma> {
             }
         }
         return null;
-    }
-
-    public List<Necessidade> getNecessidades() {
-        return necessidades;
     }
 
     public String getNome() {
@@ -152,10 +145,6 @@ public class Turma implements Comparable<Turma> {
         this.horarios = horarios;
     }
 
-    public void setNecessidades(List<Necessidade> necessidades) {
-        this.necessidades = necessidades;
-    }
-
     public void setProfessor(String professor) {
         this.professor = professor;
     }
@@ -170,10 +159,6 @@ public class Turma implements Comparable<Turma> {
 
     public void addHorario(Horario horario) {
         this.horarios.add(horario);
-    }
-
-    public void addNecessidade(Necessidade necessidade) {
-        this.necessidades.add(necessidade);
     }
 
     public void ordenarHorariosByTipo() {

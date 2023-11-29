@@ -10,8 +10,9 @@ import com.salute.salute.java.enums.Turno;
 
 public class GerarHorarios {
   private ArrayList<Horario> horarios;
-  private DiaSemana[] diasSemana = DiaSemana.values();
-  private Turno[] turnos = Turno.values();
+  // private DiaSemana[] diasSemana = DiaSemana.values();
+  private DiaSemana[] diasSemana = { DiaSemana.SEGUNDA };
+  private Turno[] turnos = { Turno.MANHA };
   private HorarioTurno[] horariosTurno = HorarioTurno.values();
 
   public GerarHorarios() {
