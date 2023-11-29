@@ -6,8 +6,24 @@
   -fx-background-color: #02305E;
 }
 
+.view-login {
+  -fx-background-color: linear-gradient(#02305E 50%, #FFFFFF 50%, #FFFFFF 100%);
+}
+
 .font-title {
   -fx-font-size: 50px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #FFFFFF;
+}
+
+.font-title-2 {
+  -fx-font-size: 40px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #FFFFFF;
+}
+
+.font-title-3 {
+  -fx-font-size: 38px;
   -fx-font-weight: bold;
   -fx-text-fill: #FFFFFF;
 }

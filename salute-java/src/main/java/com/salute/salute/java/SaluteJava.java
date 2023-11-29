@@ -25,7 +25,7 @@ public class SaluteJava extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Database.createSchemas();
-        Parent startView = FXMLLoader.load(getClass().getResource("view/main.fxml"));
+        Parent startView = FXMLLoader.load(getClass().getResource("view/Login.fxml"));
         Scene scene = new Scene(startView);
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());

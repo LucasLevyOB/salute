@@ -107,6 +107,7 @@ public class AlocacaoAutomatica extends Controller implements Initializable {
 
     btnDescartarAlocacao.setOnAction(event -> {
       this.descartarAlocacao();
+      this.atualizarLista();
     });
   }
 
@@ -136,11 +137,14 @@ public class AlocacaoAutomatica extends Controller implements Initializable {
   }
 
   private void descartarAlocacao() {
+    if (!alocacaoSalaTurmas.getRealizouAlocacaoAutomatica()) {
+      return;
+    }
     alocacaoSalaTurmas.setRealizouAlocacaoAutomatica(false);
     btnPersistirAlocacao.setDisable(true);
     btnDescartarAlocacao.setDisable(true);
+    alocacaoSalaTurmas.limparAlocacoes();
     alocacaoSalaTurmas.atualizarFromAPI();
-    this.atualizarLista();
   }
 
   private void criarLista() {
@@ -172,9 +176,9 @@ public class AlocacaoAutomatica extends Controller implements Initializable {
 
   @Override
   public boolean onChangeStage() {
-    alocacaoSalaTurmas.atualizarFromAPI();
-    alocacaoSalaTurmas.setRealizouAlocacaoAutomatica(false);
-    this.atualizarLista();
+    System.out.println("\n\n\nonChangeStage\n\n\n");
+
+    descartarAlocacao();
 
     return true;
   }

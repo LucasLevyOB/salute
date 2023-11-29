@@ -3,6 +3,7 @@ package com.salute.salute.java.controller;
 import com.salute.salute.java.Alocacao;
 import com.salute.salute.java.Turma;
 import com.salute.salute.java.abstratta.Controller;
+import com.salute.salute.java.singleton.AppStore;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +11,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class Main extends Controller {
+  private AppStore appStore = AppStore.getInstance();
+
   private Stage stage;
   private Scene scene;
   private Parent root;
   private Popup popup;
+
+  @FXML
+  private Button btnSair;
+
+  @FXML
+  private void initialize() {
+    btnSair.setOnAction((ActionEvent event) -> {
+      sair();
+    });
+  }
 
   @FXML
   public void openGerarRelatorio() {
@@ -55,5 +69,10 @@ public class Main extends Controller {
     if (popup != null) {
       popup.hide();
     }
+  }
+
+  private void sair() {
+    appStore.setLogged(false);
+    this.switchScene("Login", btnSair);
   }
 }

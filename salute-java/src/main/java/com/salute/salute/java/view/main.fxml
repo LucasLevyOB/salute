@@ -54,7 +54,7 @@
         <RowConstraints prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Button mnemonicParsing="false" styleClass="btn, secondary" text="SAIR" GridPane.columnIndex="2" />
+        <Button mnemonicParsing="false" styleClass="btn, secondary" text="SAIR" GridPane.columnIndex="2" fx:id="btnSair" />
         <Label styleClass="font-title" text="SALUTE" GridPane.columnIndex="1" />
         <ImageView fitHeight="103.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
           <image>

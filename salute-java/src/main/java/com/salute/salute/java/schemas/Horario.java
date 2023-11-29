@@ -62,7 +62,6 @@ public class Horario {
   }
 
   public static int insert(com.salute.salute.java.Horario horario) {
-    System.out.println(horario.getTurno().toString().toLowerCase());
     RegularInsert insert = insertInto("horario")
         .value("hor_turno", literal(horario.getTurno().toString().toLowerCase()))
         .value("hor_horario", literal(horario.getHorario().toString().toLowerCase()))

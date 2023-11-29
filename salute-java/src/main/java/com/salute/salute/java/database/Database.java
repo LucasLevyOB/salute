@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.salute.salute.java.dados_base.GerarHorarios;
+import com.salute.salute.java.dados_base.GerarTiposRecurso;
 import com.salute.salute.java.enums.DiaSemana;
 import com.salute.salute.java.enums.HorarioTurno;
 import com.salute.salute.java.enums.Turno;
@@ -51,60 +53,26 @@ public class Database {
             NecessidadeTurma.createTable();
             HorarioTurma.createTable();
             AlocacaoSalaTurma.createTable();
+            Usuario.createTable();
 
             if (Horario.selectAll().isEmpty()) {
-                System.out.println("Adicionando dados de teste");
+                // Adicionar os tipos de recurso
 
-                // Adicionar os tipos de recurso(Ar Condicionado e Projetor)
-                com.salute.salute.java.recurso.TipoRecurso tipoRecurso1 = new com.salute.salute.java.recurso.TipoRecurso(
-                        1,
-                        "Ar Condicionado");
-                com.salute.salute.java.recurso.TipoRecurso tipoRecurso2 = new com.salute.salute.java.recurso.TipoRecurso(
-                        2,
-                        "Projetor");
-                TipoRecurso.insert(tipoRecurso1);
-                TipoRecurso.insert(tipoRecurso2);
+                GerarTiposRecurso gerarTiposRecurso = new GerarTiposRecurso();
 
-                // Adicionar os recursos
-                com.salute.salute.java.recurso.Recurso recurso1 = new com.salute.salute.java.recurso.Recurso("123",
-                        tipoRecurso1, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
-                com.salute.salute.java.recurso.Recurso recurso2 = new com.salute.salute.java.recurso.Recurso("456",
-                        tipoRecurso2, com.salute.salute.java.enums.EstadoRecurso.FUNCIONANDO);
-                Recurso.insert(recurso1);
-                Recurso.insert(recurso2);
+                for (com.salute.salute.java.recurso.TipoRecurso tipoRecurso : gerarTiposRecurso.getTiposRecurso()) {
+                    TipoRecurso.insert(tipoRecurso);
+                }
 
                 // Adicionar horarios
-                com.salute.salute.java.Horario horario1 = new com.salute.salute.java.Horario();
-                horario1.setDiaSemana(com.salute.salute.java.enums.DiaSemana.SEGUNDA);
-                horario1.setHorario(com.salute.salute.java.enums.HorarioTurno.PRIMEIRO_HORARIO);
-                horario1.setTurno(com.salute.salute.java.enums.Turno.MANHA);
-                horario1.setRecorrente(true);
-                horario1.setId(1);
-                com.salute.salute.java.Horario horario2 = new com.salute.salute.java.Horario();
-                horario2.setDiaSemana(com.salute.salute.java.enums.DiaSemana.SEGUNDA);
-                horario2.setHorario(com.salute.salute.java.enums.HorarioTurno.SEGUNDO_HORARIO);
-                horario2.setTurno(com.salute.salute.java.enums.Turno.MANHA);
-                horario2.setRecorrente(true);
-                horario2.setId(2);
+                GerarHorarios gerarHorarios = new GerarHorarios();
 
-                Horario.insert(horario1);
-                Horario.insert(horario2);
+                for (com.salute.salute.java.Horario horario : gerarHorarios.getHorarios()) {
+                    Horario.insert(horario);
+                }
 
-                com.salute.salute.java.Sala sala1 = new com.salute.salute.java.Sala();
-                sala1.setAndar(1);
-                sala1.setBloco(1);
-                sala1.setCapacidade(30);
-                sala1.setNumero(1);
-                sala1.setTipo(com.salute.salute.java.enums.TipoSala.LABORATORIO);
-                sala1.setId(1);
-
-                Sala.insert(sala1);
-
-                HorarioSala.insert(sala1.getId(), horario1.getId());
-                HorarioSala.insert(sala1.getId(), horario2.getId());
-
-                AlocacaoRecursoSala.insert(sala1.getId(), recurso1.getTombamento());
-                AlocacaoRecursoSala.insert(sala1.getId(), recurso2.getTombamento());
+                // adiciona usuario
+                Usuario.insert("admin", "admin");
             }
 
             // Recurso.getAll().forEach((recurso) -> {

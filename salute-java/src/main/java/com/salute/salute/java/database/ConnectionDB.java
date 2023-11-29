@@ -30,7 +30,6 @@ public class ConnectionDB {
       }
       ResultSet rs = statement.executeQuery("SELECT last_insert_rowid() AS id");
       int id = rs.getInt("id");
-      System.out.println("Passou aqui 4 - " + id);
       return id;
     } catch (SQLException e) {
       System.err.println(e.getMessage());
