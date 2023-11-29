@@ -110,7 +110,7 @@ public class CadastrarTurmas extends Controller implements Initializable, Formul
 
   public boolean validateFields() {
     if (semestreCurso.getValue() == null || nomeCurso.getValue() == null || semestreTurma.getValue() == null
-        || nomeProfessor.getValue() == null || cargaPratica.getText().isEmpty() || cargaTeorica.getText().isEmpty()
+        || nomeProfessor.getValue() == null || (cargaPratica.getText().isEmpty() && cargaTeorica.getText().isEmpty())
         || qtdeAlunos.getText().isEmpty() || disciplinaTurma.getText().isEmpty()) {
       AlertDialog.show(Alert.AlertType.ERROR, btnCadastrarTurma.getScene().getWindow(), "Formulário Inválido",
           "Por favor, preencha todos os campos ao Cadastrar uma Turma!");
